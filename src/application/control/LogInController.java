@@ -69,6 +69,8 @@ public class LogInController {
 	@FXML
 	public void ventanaRegistro(ActionEvent event)  {
         try {
+        	Stage currentSt = (Stage) view.getScene().getWindow();
+			currentSt.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/Signup.fxml"));
             ventanaRegistro = loader.load();
             Stage st = new Stage();

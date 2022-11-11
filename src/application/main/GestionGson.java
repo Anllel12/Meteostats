@@ -17,6 +17,7 @@ public class GestionGson {
 	public final static int ROL_TECNICO = 3;
 	
 	public boolean registrarUsuario(Usuario u) {
+		//TODO: SE REGISTRA PERO NO CORRECTAMENTE EN JSON
 		GestionGson gg = new GestionGson();
 		return gg.serializarArrayAJson(u);
 		
