@@ -2,6 +2,7 @@ package application.control;
 
 import application.main.GestionGson;
 import application.main.Usuario;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -35,8 +36,16 @@ public class SignUpController {
 		seleccionRol.getItems().addAll("Usuario", "Administrador", "Tecnico");
     }
 	
+	void errorAlertCreator(String header, String context) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("ERROR");
+		alert.setHeaderText(header);
+		alert.setContentText(context);
+		alert.showAndWait();
+	}
+	
 	@FXML
-	void registrarse() {
+	void registrarse(ActionEvent event) {
 		GestionGson gg = new GestionGson();
 		String u = usuario.getText().trim();
 		String e = email.getText().trim();
@@ -46,18 +55,14 @@ public class SignUpController {
 		String ap = apellido.getText().trim();
 		String selected = seleccionRol.getSelectionModel().getSelectedItem();
 		if (!c.equals(c2)) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("ERROR");
-			alert.setHeaderText("Error en el registro");
-			alert.setContentText("Las contraseñas introducidas no coinciden");
-			alert.showAndWait();
+			
+			errorAlertCreator("Error en el registro", "Las contraseñas introducidas no coinciden");
+			
 		} else if (u.isEmpty() || e.isEmpty() || n.isEmpty() || c.isEmpty() || c2.isEmpty()
 				|| ap.isEmpty() || selected.isEmpty()) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("ERROR");
-			alert.setHeaderText("Error en el registro");
-			alert.setContentText("Existen campos obligatorios vacíos");
-			alert.showAndWait();
+			
+			errorAlertCreator("Error en el registro", "Existen campos obligatorios vacíos");
+			
 		} else {
 			int rol = 0;
 			switch (selected) {
