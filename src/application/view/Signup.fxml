@@ -14,7 +14,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField id="usuario" layoutX="67.0" layoutY="210.0" />
+      <TextField fx:id="usuario" layoutX="67.0" layoutY="210.0" />
       <Button id="btnRegistro" layoutX="348.0" layoutY="452.0" mnemonicParsing="false" onAction="#registrarse" text="Registrarse">
          <font>
             <Font size="20.0" />
@@ -25,36 +25,36 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField id="email" layoutX="67.0" layoutY="348.0" />
+      <TextField fx:id="email" layoutX="67.0" layoutY="348.0" />
       <Label layoutX="139.0" layoutY="300.0" text="Email">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField id="nombre" layoutX="315.0" layoutY="210.0" />
+      <TextField fx:id="nombre" layoutX="315.0" layoutY="210.0" />
       <Label layoutX="378.0" layoutY="162.0" text="Nombre">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField id="contrasena" layoutX="315.0" layoutY="348.0" />
+      <TextField fx:id="contrasena" layoutX="315.0" layoutY="348.0" />
       <Label layoutX="363.0" layoutY="300.0" text="Contraseña">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField id="apellido" layoutX="562.0" layoutY="210.0" />
+      <TextField fx:id="apellido" layoutX="562.0" layoutY="210.0" />
       <Label layoutX="625.0" layoutY="162.0" text="Apellido">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField id="contrasena2" layoutX="562.0" layoutY="348.0" />
+      <TextField fx:id="contrasena2" layoutX="562.0" layoutY="348.0" />
       <Label layoutX="583.0" layoutY="300.0" text="Repetir contraseña">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox id="seleccionRol" layoutX="85.0" layoutY="443.0" prefWidth="150.0" promptText="Seleccione rol" />
+      <ComboBox fx:id="seleccionRol" layoutX="85.0" layoutY="443.0" prefWidth="150.0" promptText="Seleccione rol" />
    </children>
 </Pane>

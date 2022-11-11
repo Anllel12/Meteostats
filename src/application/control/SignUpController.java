@@ -1,14 +1,10 @@
 package application.control;
 
-import java.io.IOException;
-
 import application.main.GestionGson;
 import application.main.Usuario;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 
 public class SignUpController {
@@ -32,11 +28,11 @@ public class SignUpController {
 	private TextField apellido;
 	
 	@FXML
-	private ComboBox<Int> seleccionRol;
+	private ComboBox<String> seleccionRol;
 	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-		seleccionRol.
+		seleccionRol.getItems().addAll("Usuario", "Administrador", "Tecnico");
     }
 	
 	@FXML
@@ -48,8 +44,41 @@ public class SignUpController {
 		String c = contrasena.getText().trim();
 		String c2 = contrasena2.getText().trim();
 		String ap = apellido.getText().trim();
+		String selected = seleccionRol.getSelectionModel().getSelectedItem();
+		if (!c.equals(c2)) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("Error en el registro");
+			alert.setContentText("Las contraseñas introducidas no coinciden");
+			alert.showAndWait();
+		} else if (u.isEmpty() || e.isEmpty() || n.isEmpty() || c.isEmpty() || c2.isEmpty()
+				|| ap.isEmpty() || selected.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("Error en el registro");
+			alert.setContentText("Existen campos obligatorios vacíos");
+			alert.showAndWait();
+		} else {
+			int rol = 0;
+			switch (selected) {
+			case "Usuario":
+				rol = GestionGson.ROL_USUARIO;
+				break;
+			case "Administrador":
+				rol = GestionGson.ROL_ADMIN;
+				break;
+			case "Tecnico":
+				rol = GestionGson.ROL_TECNICO;
+				break;
+
+			default:
+				break;
+			}
+			
+			gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol));
+		}
 		
-		gg.registrarUsuario(new Usuario(null, null, null, null, null, 0))
+		
 		
 	}
 }
