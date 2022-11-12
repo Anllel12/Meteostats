@@ -86,9 +86,13 @@ public class SignUpController {
 			default:
 				break;
 			}
-			boolean isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol));
-			if (!isOk) {
+			int isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol));
+			if (isOk == GestionGson.REG_ERROR_ESCRITURA) {
 				errorAlertCreator("Error en el registro", "Error registrando usuario en JSON");
+			} else if (isOk == GestionGson.REG_ERROR_MISMO_USUARIO) {
+				errorAlertCreator("Error en el registro", "El usuario introducido ya existe en la BBDD");
+				// Pone el texto del textfield de color rojo, puede ser util
+				usuario.setStyle("-fx-text-fill: red");
 			} else {
 				Stage st = (Stage) usuario.getScene().getWindow();
 				st.close();

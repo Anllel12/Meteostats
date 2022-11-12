@@ -1,15 +1,34 @@
-{
-  "usuario": "kaakka",
-  "nombre": "jajajaj",
-  "apellido": "jahaj",
-  "contrasena": "aa",
-  "email": "jajja",
-  "rol": 2
-}{
-  "usuario": "asd",
-  "nombre": "asdasd",
-  "apellido": "asdasd",
-  "contrasena": "asd",
-  "email": "asd",
-  "rol": 3
-}
+[
+  {
+    "usuario": "kk",
+    "nombre": "llk",
+    "apellido": "k",
+    "contrasena": "k",
+    "email": "k",
+    "rol": 2
+  },
+  {
+    "usuario": "AA",
+    "nombre": "AA",
+    "apellido": "A",
+    "contrasena": "A",
+    "email": "A",
+    "rol": 2
+  },
+  {
+    "usuario": "AAA",
+    "nombre": "AAA",
+    "apellido": "AA",
+    "contrasena": "AA",
+    "email": "AA",
+    "rol": 3
+  },
+  {
+    "usuario": "AA",
+    "nombre": "AA",
+    "apellido": "AA",
+    "contrasena": "AA",
+    "email": "AA",
+    "rol": 2
+  }
+]
