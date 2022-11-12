@@ -1,4 +1,6 @@
 # .gitignore del proyecto, para evitar archivos innecesarios en version control
 bin/
 .settings/
+.classpath
+.project
 
