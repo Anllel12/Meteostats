@@ -19,11 +19,44 @@ public class GestionGson {
 	public final static int REG_ERROR_MISMO_USUARIO = 1;
 	public final static int REG_ERROR_ESCRITURA = 2;
 	public final static int REG_OK = 0;
+	public final static int LOG_USUARIO_NO_ENCONTRADO = 1;
+	public final static int LOG_CONTRA_INCORRECTA = 2;
+	public final static int LOG_OK = 0;
+	private Usuario UsuarioActual = null;
+	
 	
 	public int registrarUsuario(Usuario u) {
 		GestionGson gg = new GestionGson();
 		return gg.serializarArrayAJson(u);
 		
+	}
+	
+	public int loginUsuario(String usuario, String contra) {
+		Usuario us;
+		if ((us = getUserByUsername(usuario)) == null) {
+			return LOG_USUARIO_NO_ENCONTRADO;
+		} else {
+			if (us.getContrasena().equals(contra)) {
+				UsuarioActual = us;
+				return LOG_OK;
+			} else {
+				return LOG_CONTRA_INCORRECTA;
+			}
+		}
+	}
+	
+	public Usuario getUsuarioActual() {
+		return UsuarioActual;
+	}
+	
+	public Usuario getUserByUsername(String username) {
+		Vector<Usuario> usuarios = deserializarJsonArray();
+		for (Usuario us : usuarios) {
+			if (us.getUsuario().equals(username)) {
+				return us;
+			}
+		}
+		return null;
 	}
 	
 	private int serializarArrayAJson(Usuario u) {

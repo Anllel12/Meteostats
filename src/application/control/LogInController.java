@@ -2,6 +2,8 @@ package application.control;
 
 import java.io.IOException;
 
+import application.main.GestionGson;
+import application.main.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +54,22 @@ public class LogInController {
         	if (usuario.isEmpty() || contra.isEmpty()) {
 				errorAlertCreator("Error de inicio de sesión", "Existen campos vacíos");
         	} else {
-        		//TODO CHECK USUARIO JSON
+        		GestionGson gg = new GestionGson();
+        		switch (gg.loginUsuario(usuario, contra)) {
+					case GestionGson.LOG_CONTRA_INCORRECTA:
+						errorAlertCreator("Error de inicio de sesión", "Contraseña incorrecta");
+						break;
+					case GestionGson.LOG_USUARIO_NO_ENCONTRADO:
+						errorAlertCreator("Error de inicio de sesión", "El nombre de usuario no corresponde a ninguna cuenta");
+						break;
+					case GestionGson.LOG_OK:
+						Usuario us = gg.getUsuarioActual();
+						errorAlertCreator("LOGGING OK", us.getUsuario());
+						break;
+				}
+        		
+        		
+        		//TODO cargar ventana principal
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("ventanaPrincipal.fxml"));
 	            view = loader.load();
 	            Stage st = new Stage();

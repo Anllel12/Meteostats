@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SignUpController {
@@ -94,6 +93,7 @@ public class SignUpController {
 				// Pone el texto del textfield de color rojo, puede ser util
 				usuario.setStyle("-fx-text-fill: red");
 			} else {
+				//Las siguientes dos lineas para cerrar la anterior ventana
 				Stage st = (Stage) usuario.getScene().getWindow();
 				st.close();
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/Login.fxml"));
