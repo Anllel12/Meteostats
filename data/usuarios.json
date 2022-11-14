@@ -30,5 +30,21 @@
     "contrasena": "AA",
     "email": "AA",
     "rol": 2
+  },
+  {
+    "usuario": "zz",
+    "nombre": "zz",
+    "apellido": "zz",
+    "contrasena": "z",
+    "email": "zz",
+    "rol": 1
+  },
+  {
+    "usuario": "kkk",
+    "nombre": "kk",
+    "apellido": "k",
+    "contrasena": "k",
+    "email": "kk",
+    "rol": 3
   }
 ]

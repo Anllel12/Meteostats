@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="view" minHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LogInController">
+<AnchorPane fx:id="view" minHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LogInController">
    <children>
-      <AnchorPane onMouseClicked="#loguear" prefHeight="500.0" prefWidth="800.0">
+      <AnchorPane onMouseClicked="#loguear" prefHeight="500.0" prefWidth="700.0">
          <children>
-            <Label layoutX="264.0" layoutY="64.0" prefHeight="56.0" prefWidth="273.0" text="Inicio de sesión" textAlignment="CENTER">
+            <Hyperlink fx:id="hyperlinkRegistro" layoutX="432.0" layoutY="368.0" onAction="#ventanaRegistro" text="¿Desea registrarse?" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3ac48d" height="500.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="273.0" />
+            <ImageView fitHeight="117.0" fitWidth="280.0" layoutX="-7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../data/resources/logo_nobg.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="51.0" layoutY="141.0" prefHeight="31.0" prefWidth="165.0" text="Inicio de sesión" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="39.0" />
+                  <Font name="Calibri Light Italic" size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUser" layoutX="307.0" layoutY="199.0" />
-            <TextField fx:id="txtPass" layoutX="307.0" layoutY="292.0" />
-            <Label layoutX="359.0" layoutY="167.0" prefHeight="21.0" prefWidth="84.0" text="Usuario">
+            <JFXTextField fx:id="txtUser" focusColor="#3ac48d" layoutX="398.0" layoutY="157.0" prefHeight="31.0" prefWidth="206.0" promptText="Usuario" />
+            <JFXTextField fx:id="txtPass" focusColor="#3ac48d" layoutX="398.0" layoutY="235.0" prefHeight="31.0" prefWidth="206.0" promptText="Contraseña" />
+            <JFXButton fx:id="btnEntrar" layoutX="460.0" layoutY="318.0" onAction="#loguear" prefHeight="34.0" prefWidth="82.0" ripplerFill="#3ac48d" text="Entrar">
                <font>
-                  <Font size="22.0" />
+                  <Font name="Calibri Light" size="18.0" />
                </font>
-            </Label>
-            <Label layoutX="340.0" layoutY="260.0" prefHeight="32.0" prefWidth="120.0" text="Contraseña">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnEntrar" layoutX="351.0" layoutY="372.0" mnemonicParsing="false" onAction="#loguear" prefHeight="40.0" prefWidth="100.0" text="Entrar" />
-            <Hyperlink fx:id="hyperlinkRegistro" layoutX="626.0" layoutY="378.0" onAction="#ventanaRegistro" text="¿Desea registrarse?" />
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

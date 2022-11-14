@@ -2,6 +2,9 @@ package application.control;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
+
 import application.main.GestionGson;
 import application.main.Usuario;
 import javafx.event.ActionEvent;
@@ -10,32 +13,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class SignUpController {
 
 	@FXML
-	private TextField usuario;
+	private JFXTextField usuario;
 	
 	@FXML
-	private TextField email;
+	private JFXTextField email;
 	
 	@FXML
-	private TextField nombre;
+	private JFXTextField nombre;
 	
 	@FXML
-	private TextField contrasena;
+	private JFXTextField contrasena;
 	
 	@FXML
-	private TextField contrasena2;
+	private JFXTextField contrasena2;
 	
 	@FXML
-	private TextField apellido;
+	private JFXTextField apellido;
 	
 	@FXML
-	private ComboBox<String> seleccionRol;
+	private JFXComboBox<String> seleccionRol;
 	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -48,6 +50,28 @@ public class SignUpController {
 		alert.setHeaderText(header);
 		alert.setContentText(context);
 		alert.showAndWait();
+	}
+	
+	@FXML
+	void loadLogin(MouseEvent event) {
+		//Las siguientes dos lineas para cerrar la anterior ventana
+		Stage st = (Stage) usuario.getScene().getWindow();
+		st.close();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/Login.fxml"));
+        
+		Stage stage = new Stage();
+        // No hacer clickeables resto de ventanas abiertas
+        stage.setTitle("Login");
+        Parent root1;
+		try {
+			root1 = (Parent) loader.load();
+			stage.setScene(new Scene(root1));
+            stage.centerOnScreen();
+            stage.show();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -93,25 +117,7 @@ public class SignUpController {
 				// Pone el texto del textfield de color rojo, puede ser util
 				usuario.setStyle("-fx-text-fill: red");
 			} else {
-				//Las siguientes dos lineas para cerrar la anterior ventana
-				Stage st = (Stage) usuario.getScene().getWindow();
-				st.close();
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/Login.fxml"));
-	            
-				Stage stage = new Stage();
-	            // No hacer clickeables resto de ventanas abiertas
-	            stage.setTitle("Login");
-	            Parent root1;
-				try {
-					root1 = (Parent) loader.load();
-					stage.setScene(new Scene(root1));
-		            stage.centerOnScreen();
-		            stage.show();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	            
+				loadLogin(null);
 			}
 			
 		}

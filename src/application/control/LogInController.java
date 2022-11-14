@@ -2,6 +2,9 @@ package application.control;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+
 import application.main.GestionGson;
 import application.main.Usuario;
 import javafx.event.ActionEvent;
@@ -9,9 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -20,13 +21,13 @@ import javafx.stage.Stage;
 public class LogInController {
 	
 	@FXML
-    private Button btnEntrar;
+    private JFXButton btnEntrar;
 	
 	@FXML
-	private TextField txtUser;
+	private JFXTextField txtUser;
 	
 	@FXML
-	private TextField txtPass;
+	private JFXTextField txtPass;
 	
 	@FXML
 	private Hyperlink hyperlinkRegistro;
@@ -94,6 +95,7 @@ public class LogInController {
             // No hacer clickeables resto de ventanas abiertas
             st.initModality(Modality.APPLICATION_MODAL);
             st.setScene(new Scene(ventanaRegistro));
+            st.setTitle("Registro de usuario");
             st.centerOnScreen();
             st.show();
 
