@@ -43,9 +43,14 @@ public class SignUpController {
 	@FXML
 	private JFXComboBox<String> seleccionRol;
 	
+	private static final String ROL_TECNICO_ST = "Técnico";
+	private static final String ROL_ADMINISTRADOR_ST = "Administrador";
+	private static final String ROL_USUARIO_ST = "Usuario";
+	
+	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-		seleccionRol.getItems().addAll("Usuario", "Administrador", "Tecnico");
+		seleccionRol.getItems().addAll(ROL_USUARIO_ST, ROL_TECNICO_ST, ROL_ADMINISTRADOR_ST);
 		
 		// Para validar que los campos no estan vacios
 		RequiredFieldValidator rfv = new RequiredFieldValidator();
@@ -168,35 +173,28 @@ public class SignUpController {
 		
 		if (!contrasena2.validate()) {
 			
-			errorAlertCreator("Error en el registro", "Las contraseñas introducidas no coinciden");
-			
 		} else if (!usuario.validate() || !email.validate() || !nombre.validate() || !contrasena.validate()
 				|| !apellido.validate() || !seleccionRol.validate()) {
 			
-			errorAlertCreator("Error en el registro", "Existen campos obligatorios vacíos");
 			
 		} else {
 			int rol = 0;
 			switch (selected) {
-			case "Usuario":
-				rol = GestionGson.ROL_USUARIO;
-				break;
-			case "Administrador":
-				rol = GestionGson.ROL_ADMIN;
-				break;
-			case "Tecnico":
-				rol = GestionGson.ROL_TECNICO;
-				break;
-
-			default:
-				break;
+				case ROL_USUARIO_ST:
+					rol = GestionGson.ROL_USUARIO;
+					break;
+				case ROL_ADMINISTRADOR_ST:
+					rol = GestionGson.ROL_ADMIN;
+					break;
+				case ROL_TECNICO_ST:
+					rol = GestionGson.ROL_TECNICO;
+					break;
 			}
 			int isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol));
 			if (isOk == GestionGson.REG_ERROR_ESCRITURA) {
 				errorAlertCreator("Error en el registro", "Error registrando usuario en JSON");
 			} else if (isOk == GestionGson.REG_ERROR_MISMO_USUARIO) {
 				errorAlertCreator("Error en el registro", "El usuario introducido ya existe en la BBDD");
-				// Pone el texto del textfield de color rojo, puede ser util
 			} else {
 				loadLogin(null);
 			}
