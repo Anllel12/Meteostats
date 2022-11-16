@@ -1,1 +1,33 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.button {
+    -fx-background-color: #3ac48d;
+    -fx-text-fill: white;
+}
+/* PARA REDONDEAR TEXT-FIELDS
+.jfx-text-field,
+.jfx-combo-box {
+    -fx-border-radius: 20px;
+    -fx-border-color: #3ac48d;
+}
+
+.jfx-text-field {
+    -fx-padding: 0.333333em 1em 0.333333em 1em;
+}
+
+.jfx-combo-box {
+    -fx-padding: 0em 1em 0em 1em;
+}
+
+.jfx-text-field > .input-line,
+.jfx-combo-box > .input-line {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0px;
+    -fx-translate-y: 0px;
+}
+
+.jfx-text-field > .input-focused-line,
+.jfx-combo-box > .input-focused-line {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0px;
+}
+*/

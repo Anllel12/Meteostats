@@ -62,7 +62,7 @@ public class LogInController {
             }
         });
 		 */
-		
+		// btnEntrar.setStyle(" -fx-background-color: #3ac48d;-fx-text-fill: white");
         
 		cv = new crearValidacionUsuario();
         txtUser.getValidators().add(cv);
