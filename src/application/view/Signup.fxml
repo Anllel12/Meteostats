@@ -3,38 +3,121 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="ventanaRegistro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.SignUpController" stylesheets="@../view/application.css">
+<AnchorPane fx:id="ventanaRegistro" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="@../view/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.SignUpController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3ac48d" height="541.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="273.0" />
-      <ImageView fitHeight="117.0" fitWidth="280.0" layoutX="-7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../data/resources/logo_nobg.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="29.0" layoutY="141.0" prefHeight="31.0" prefWidth="216.0" text="Registro de usuario" textFill="WHITE">
-         <font>
-            <Font name="Calibri Light Italic" size="27.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="usuario" focusColor="#3ac48d" layoutX="325.0" layoutY="67.0" prefWidth="181.0" promptText="Usuario" />
-      <JFXTextField fx:id="nombre" focusColor="#3ac48d" layoutX="325.0" layoutY="125.0" prefHeight="31.0" prefWidth="181.0" promptText="Nombre" />
-      <JFXTextField fx:id="email" focusColor="#3ac48d" layoutX="325.0" layoutY="189.0" prefHeight="31.0" prefWidth="181.0" promptText="Email" />
-      <JFXTextField fx:id="contrasena" focusColor="#3ac48d" layoutX="325.0" layoutY="253.0" prefHeight="31.0" prefWidth="181.0" promptText="Contraseña" />
-      <JFXTextField fx:id="contrasena2" focusColor="#3ac48d" layoutX="522.0" layoutY="253.0" prefHeight="31.0" prefWidth="181.0" promptText="Repetir contraseña" />
-      <JFXTextField fx:id="apellido" focusColor="#3ac48d" layoutX="325.0" layoutY="318.0" prefHeight="31.0" prefWidth="181.0" promptText="Apellido" />
-      <JFXComboBox fx:id="seleccionRol" focusColor="#3ac48d" layoutX="343.0" layoutY="404.0" promptText="Seleccione rol" unFocusColor="BLACK" />
-      <JFXButton layoutX="368.0" layoutY="466.0" onAction="#registrarse" ripplerFill="#3ac48d" text="Registrarse" />
-      <ImageView fitHeight="45.0" fitWidth="44.0" layoutX="37.0" layoutY="444.0" onMouseClicked="#loadLogin" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../data/resources/arrow_left.png" />
-         </image>
-      </ImageView>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="357.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="460.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="sidebar">
+                           <children>
+                              <ImageView fitHeight="117.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../data/resources/logo_nobg.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="31.0" prefWidth="216.0" text="Registro de usuario" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Light Italic" size="27.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="sidebar" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fitHeight="45.0" fitWidth="44.0" onMouseClicked="#loadLogin" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../data/resources/arrow_left.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <center>
+                  <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="187.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextField fx:id="contrasena" focusColor="#3ac48d" prefHeight="31.0" prefWidth="181.0" promptText="Contraseña" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="apellido" focusColor="#3ac48d" prefHeight="31.0" prefWidth="181.0" promptText="Apellido" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets bottom="40.0" left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="nombre" focusColor="#3ac48d" prefHeight="31.0" prefWidth="181.0" promptText="Nombre" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" top="40.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="email" focusColor="#3ac48d" prefHeight="31.0" prefWidth="181.0" promptText="Email" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets bottom="40.0" left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="usuario" focusColor="#3ac48d" prefWidth="181.0" promptText="Usuario" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" top="40.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="contrasena2" focusColor="#3ac48d" prefHeight="31.0" prefWidth="181.0" promptText="Repetir contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXComboBox fx:id="seleccionRol" focusColor="#3ac48d" promptText="Seleccione rol" unFocusColor="BLACK" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXButton onAction="#registrarse" ripplerFill="#3ac48d" text="Registrarse" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets bottom="20.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
+               </center>
+            </BorderPane>
+         </children>
+      </GridPane>
    </children>
-</Pane>
+</AnchorPane>

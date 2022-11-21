@@ -3,6 +3,9 @@
     -fx-background-color: #3ac48d;
     -fx-text-fill: white;
 }
+.sidebar{
+    -fx-background-color: #3ac48d;
+}
 /* PARA REDONDEAR TEXT-FIELDS
 .jfx-text-field,
 .jfx-combo-box {
