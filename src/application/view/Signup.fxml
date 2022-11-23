@@ -37,9 +37,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="sidebar">
+                        <VBox alignment="CENTER" prefHeight="460.0" prefWidth="228.0" styleClass="sidebar">
                            <children>
-                              <ImageView fitHeight="117.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="117.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../data/resources/logo_nobg.png" />
                                  </image>
@@ -64,7 +64,7 @@
                   </GridPane>
                </center>
             </BorderPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <BorderPane prefHeight="500.0" prefWidth="427.0" GridPane.columnIndex="1">
                <center>
                   <GridPane BorderPane.alignment="CENTER">
                     <columnConstraints>
@@ -116,6 +116,9 @@
                      </children>
                   </GridPane>
                </center>
+               <GridPane.margin>
+                  <Insets left="48.0" />
+               </GridPane.margin>
             </BorderPane>
          </children>
       </GridPane>
