@@ -142,13 +142,22 @@ public class LogInController {
 						Usuario us = gg.getUsuarioActual();
 						errorAlertCreator("LOGGING OK", us.getUsuario());
 						
-						//TODO cargar ventana principal
-						FXMLLoader loader = new FXMLLoader(getClass().getResource("ventanaPrincipal.fxml"));
-			            view = loader.load();
-			            Stage st = new Stage();
-			            st.setScene(new Scene(view));
-			            st.centerOnScreen();
-			            st.show();
+						if (us.getRol() == GestionGson.ROL_ADMIN) {
+							//Abrir parte admin
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("VENTANA_ADMIN.fxml"));
+				            view = loader.load();
+				            Stage st = new Stage();
+				            st.setScene(new Scene(view));
+				            st.centerOnScreen();
+				            st.show();
+						} else if (us.getRol() == GestionGson.ROL_USUARIO) {
+							//Abrir parte usuario
+						} else if (us.getRol() == GestionGson.ROL_TECNICO) {
+							//Abrir parte tecnico
+						} else {
+							errorAlertCreator("ROL " + us.getRol(), "ROL NO ENCONTRADO");
+						}
+						
 						break;
 				}
         		
