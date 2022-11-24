@@ -1,0 +1,12 @@
+[
+    {
+      "ubicacion": "Torrejón de Ardoz",
+      "temperatura": 24,
+      "presion": 1205,
+      "humedad": 40,
+      "amanacer": 8,
+      "atardecer":19,
+      "hora": 2,
+      "tiempoFuncionando": 15
+    }
+  ]
