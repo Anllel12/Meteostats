@@ -140,11 +140,10 @@ public class LogInController {
 						break;
 					case GestionGson.LOG_OK:
 						Usuario us = gg.getUsuarioActual();
-						errorAlertCreator("LOGGING OK", us.getUsuario());
 						
 						if (us.getRol() == GestionGson.ROL_ADMIN) {
 							//Abrir parte admin
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("VENTANA_ADMIN.fxml"));
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/administrador.fxml"));
 				            view = loader.load();
 				            Stage st = new Stage();
 				            st.setScene(new Scene(view));
