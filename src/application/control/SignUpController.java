@@ -8,6 +8,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
 
 import application.main.GestionGson;
+import application.main.Main;
 import application.main.Usuario;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -153,6 +154,7 @@ public class SignUpController {
 		try {
 			root1 = (Parent) loader.load();
 			stage.setScene(new Scene(root1));
+			stage.getIcons().add(Main.ICONO_APP);
             stage.centerOnScreen();
             stage.show();
 		} catch (IOException e1) {
