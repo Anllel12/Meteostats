@@ -70,5 +70,13 @@
     "contrasena": "aa",
     "email": "aa",
     "rol": 3
+  },
+  {
+    "usuario": "admin",
+    "nombre": "admin",
+    "apellido": "admin",
+    "contrasena": "admin",
+    "email": "admin",
+    "rol": 2
   }
 ]

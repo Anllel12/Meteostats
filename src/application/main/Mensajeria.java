@@ -22,6 +22,7 @@ public class Mensajeria {
 	public static final int MENS_MODIFICADO = 0;
 	public static final int STATUS_INICIAL = 0;
 	public static final int STATUS_PENDIENTE = 1;
+	public static final int USER_ADMIN = 2;
 	
 	public int writeNewMessage(String msg, int from, int to) {
 		return serializarArrayAJson(new MensajeObj(msg, from, to, 0, generateDate()));
@@ -36,6 +37,17 @@ public class Mensajeria {
 			return MENS_NO_EXISTE;
 		}
 		
+	}
+	
+	public Vector<MensajeObj> getMessages(int to) {
+		Vector<MensajeObj> mensajes = deserializarJsonArray();
+		Vector<MensajeObj> msgNew = new Vector<MensajeObj>();
+		for (MensajeObj mensajeObj : mensajes) {
+			if (mensajeObj.getTo() == to) {
+				msgNew.add(mensajeObj);
+			}
+		}
+		return msgNew;
 	}
 	
 	public int modifyMessage(MensajeObj msg) {

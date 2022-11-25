@@ -141,15 +141,19 @@ public class LogInController {
 						break;
 					case GestionGson.LOG_OK:
 						Usuario us = gg.getUsuarioActual();
-						errorAlertCreator("LOGGING OK", us.getUsuario());
 						
 						if (us.getRol() == GestionGson.ROL_ADMIN) {
 							//Abrir parte admin
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("VENTANA_ADMIN.fxml"));
-				            view = loader.load();
+							Stage currentSt = (Stage) view.getScene().getWindow();
+							currentSt.close();
+				            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/administrador.fxml"));
+				            ventanaRegistro = loader.load();
 				            Stage st = new Stage();
-				            st.setScene(new Scene(view));
+				            // No hacer clickeables resto de ventanas abiertas
+				            st.initModality(Modality.APPLICATION_MODAL);
+				            st.setScene(new Scene(ventanaRegistro));
 				            st.getIcons().add(Main.ICONO_APP);
+				            st.setTitle("Registro de usuario");
 				            st.centerOnScreen();
 				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_USUARIO) {
