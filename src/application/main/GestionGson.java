@@ -16,7 +16,6 @@ public class GestionGson {
 	public final static int ROL_ADMIN = 2;
 	public final static int ROL_TECNICO = 3;
 	private final static String RUTA_JSON = "data/usuarios.json";
-	private final static String RUTA_JSON_TIEMPO = "data/tiempo.json";
 	public final static int REG_ERROR_MISMO_USUARIO = 1;
 	public final static int REG_ERROR_ESCRITURA = 2;
 	public final static int REG_OK = 0;
@@ -91,19 +90,4 @@ public class GestionGson {
 		
 		return Usuarios;
 	}
-	
-	private Vector<Tiempo> deserializarJsonArrayTiempo() {
-		Vector<Tiempo> Tiempo = new Vector<Tiempo>();
-		
-		try (Reader reader = new FileReader(RUTA_JSON_TIEMPO)) {
-			Gson gson = new Gson();
-			Type tipoListaTiempo = new TypeToken<Vector<Usuario>>(){}.getType();
-			Tiempo = gson.fromJson(reader, tipoListaTiempo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		
-		return Tiempo;
-	}
-
 }
