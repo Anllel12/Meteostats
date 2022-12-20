@@ -72,11 +72,11 @@
     "rol": 3
   },
   {
-    "usuario": "admin",
-    "nombre": "admin",
-    "apellido": "admin",
-    "contrasena": "admin",
-    "email": "admin",
+    "usuario": "p",
+    "nombre": "p",
+    "apellido": "p",
+    "contrasena": "p",
+    "email": "p",
     "rol": 2
   }
 ]

@@ -74,8 +74,7 @@ public class GestionGson {
         } catch (IOException e) {
             e.printStackTrace();
             return REG_ERROR_ESCRITURA;
-        }
-		
+        }		
 	}
 	
 	private Vector<Usuario> deserializarJsonArray() {
@@ -91,7 +90,4 @@ public class GestionGson {
 		
 		return Usuarios;
 	}
-	
-	
-
 }
