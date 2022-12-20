@@ -17,35 +17,34 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="application.control.AdministradorController">
+<AnchorPane prefHeight="400.0" prefWidth="640.0" stylesheets="@../../../../pri22-meteostats/src/application/view/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.AdministradorController">
    <children>
       <TabPane fx:id="adminTabPane" prefHeight="405.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Comunicaciones">
+          <Tab styleClass="tabs" text="Comunicaciones">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
                      <children>
+                        <MenuBar maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="640.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <menus>
+                            <Menu mnemonicParsing="false" text="Acciones">
+                              <items>
+                                <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Eliminar entrada" />
+                                    <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Establecer como pendiente" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
                         <TableView fx:id="tbMsg" layoutY="32.0" prefHeight="330.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
                           <columns>
-                            <TableColumn prefWidth="70.0" text="FECHA" fx:id="fecha"/>
-                              <TableColumn prefWidth="405.0" text="DESCRIPCIÓN" fx:id="desc"/>
-                              <TableColumn prefWidth="102.0" text="ESTADO" fx:id="status"/>
+                            <TableColumn fx:id="fecha" prefWidth="70.0" styleClass="column" text="FECHA" />
+                              <TableColumn fx:id="desc" prefWidth="405.0" styleClass="column" text="DESCRIPCIÓN" />
+                              <TableColumn fx:id="status" prefWidth="102.0" styleClass="column" text="ESTADO" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <MenuBar maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <menus>
-                            <Menu mnemonicParsing="false" text="Acciones">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Eliminar entrada" />
-                                    <MenuItem mnemonicParsing="false" text="Establecer como pendiente" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
                      </children>
                      <padding>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
@@ -53,7 +52,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Estado del Servicio">
+            <Tab styleClass="tabs" text="Estado del Servicio">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -185,7 +184,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Comunicar a Técnico">
+            <Tab styleClass="tabs" text="Comunicar a Técnico">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

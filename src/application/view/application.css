@@ -6,6 +6,21 @@
 .sidebar{
     -fx-background-color: #3ac48d;
 }
+.tabs{
+    -fx-background-color: #3ac48d;
+    -fx-text-base-color:white;
+}
+.buttonItem{
+    -fx-background-color: #3ac48d;
+    -fx-text-base-color:white;
+}
+.column{
+    -fx-background-color: #3ac48db3;
+}
+.menuBar{
+    -fx-background-color: #3ac48db3;
+    -fx-text-base-color:white;
+}
 /* PARA REDONDEAR TEXT-FIELDS
 .jfx-text-field,
 .jfx-combo-box {
