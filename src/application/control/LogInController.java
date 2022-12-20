@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.base.ValidatorBase;
 
 import application.main.GestionGson;
+import application.main.Main;
 import application.main.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -143,10 +144,16 @@ public class LogInController {
 						
 						if (us.getRol() == GestionGson.ROL_ADMIN) {
 							//Abrir parte admin
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/administrador.fxml"));
-				            view = loader.load();
+							Stage currentSt = (Stage) view.getScene().getWindow();
+							currentSt.close();
+				            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/administrador.fxml"));
+				            ventanaRegistro = loader.load();
 				            Stage st = new Stage();
-				            st.setScene(new Scene(view));
+				            // No hacer clickeables resto de ventanas abiertas
+				            st.initModality(Modality.APPLICATION_MODAL);
+				            st.setScene(new Scene(ventanaRegistro));
+				            st.getIcons().add(Main.ICONO_APP);
+				            st.setTitle("Registro de usuario");
 				            st.centerOnScreen();
 				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_USUARIO) {
@@ -180,6 +187,7 @@ public class LogInController {
             // No hacer clickeables resto de ventanas abiertas
             st.initModality(Modality.APPLICATION_MODAL);
             st.setScene(new Scene(ventanaRegistro));
+            st.getIcons().add(Main.ICONO_APP);
             st.setTitle("Registro de usuario");
             st.centerOnScreen();
             st.show();
