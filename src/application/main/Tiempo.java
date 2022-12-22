@@ -13,14 +13,14 @@ public class Tiempo {
 	
 	private final static String JSON_TIEMPO = "data/tiempo.json";
 
-	public Vector<TiempoObj> getMessages(int to) {
+	public Vector<TiempoObj> getWeather() {
 		Vector<TiempoObj> tiempo = deserializarJsonArray();
 		Vector<TiempoObj> msgNew = new Vector<TiempoObj>();
-		for (TiempoObj tiempoObj : tiempo) {
-			if (tiempoObj.getTo() == to) {
-				msgNew.add(tiempoObj);
-			}
-		}
+//		for (TiempoObj tiempoObj : tiempo) {
+//			if (tiempoObj.getTo() == to) {
+//				msgNew.add(tiempoObj);
+//			}
+//		}
 		return msgNew;
 	}
 	

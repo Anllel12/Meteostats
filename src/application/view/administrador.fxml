@@ -75,6 +75,11 @@
                                     <Insets bottom="40.0" />
                                  </GridPane.margin>
                               </Label>
+                              <Label fx:id="humedad" text="43 %" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
                               <Label text="Ubicación" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                  <font>
                                     <Font name="System Italic" size="17.0" />
@@ -83,7 +88,7 @@
                                     <Insets bottom="40.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Torrejón de Ardoz" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                              <Label fx:id="ubicacion" text="Torrejón de Ardoz" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
@@ -99,15 +104,15 @@
                                     <Insets bottom="60.0" top="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER" prefHeight="47.0" prefWidth="78.0" text="27 ºC" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                              <Label fx:id="temperatura" alignment="CENTER" prefHeight="47.0" prefWidth="78.0" text="27 ºC" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="29.0" />
+                                    <Font size="23.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets bottom="15.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Mayormente nublado" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                              <Label fx:id="tiempo" text="Mayormente nublado" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>
@@ -120,18 +125,13 @@
                                     <Insets bottom="50.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="1020 hPa" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                              <Label fx:id="presion" text="1020 hPa" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="25.0" />
+                                    <Font size="23.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets bottom="10.0" />
                                  </GridPane.margin>
-                              </Label>
-                              <Label text="43 %" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
                               </Label>
                               <Label text="Duración del día" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <font>
@@ -141,9 +141,9 @@
                                     <Insets bottom="50.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="8:40 - 19:19" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                              <Label fx:id="duracDia" text="8:40 - 19:19" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="25.0" />
+                                    <Font size="23.0" />
                                  </font>
                                  <padding>
                                     <Insets bottom="10.0" />
@@ -154,9 +154,9 @@
                                     <Font name="System Italic" size="17.0" />
                                  </font>
                               </Label>
-                              <Label text="18:43" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                              <Label fx:id="horaSist" text="18:43" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <font>
-                                    <Font size="25.0" />
+                                    <Font size="23.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets top="20.0" />
@@ -170,9 +170,9 @@
                                     <Insets bottom="35.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="192:54:02" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                              <Label fx:id="funcionamiento" text="192:54:02" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="25.0" />
+                                    <Font size="23.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" />

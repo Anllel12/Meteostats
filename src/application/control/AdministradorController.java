@@ -9,10 +9,13 @@ import com.jfoenix.controls.JFXTextArea;
 
 import application.main.MensajeObj;
 import application.main.Mensajeria;
+import application.main.TiempoObj;
+import application.main.Tiempo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,6 +43,30 @@ public class AdministradorController {
     
     @FXML
     private JFXTextArea txtMensaje;
+    
+    @FXML
+    private Label humedad;
+    
+    @FXML
+    private Label ubicacion;
+    
+    @FXML
+    private Label temperatura;
+    
+    @FXML
+    private Label tiempo;
+    
+    @FXML
+    private Label presion;
+    
+    @FXML
+    private Label duracDia;
+    
+    @FXML
+    private Label horaSist;
+    
+    @FXML
+    private Label funcionamiento;
 
     void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,7 +109,7 @@ public class AdministradorController {
 			break;
 			
 		case "Estado del Servicio":
-			comunicacionesTab();
+			estadoTab();
 			
 			break;
 			
@@ -104,6 +131,12 @@ public class AdministradorController {
 		Vector<MensajeObj> mensajes = mensajeria.getMessages(Mensajeria.USER_ADMIN);
 		
 		tbMsg.getItems().setAll(mensajes);
+		
+	}
+	
+	private void estadoTab() {
+		Tiempo tiempo = new Tiempo();
+		Vector<TiempoObj> mensajes = tiempo.getWeather();
 		
 	}
 	
