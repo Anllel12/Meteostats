@@ -135,8 +135,15 @@ public class AdministradorController {
 	}
 	
 	private void estadoTab() {
-		Tiempo tiempo = new Tiempo();
-		Vector<TiempoObj> mensajes = tiempo.getWeather();
+		Tiempo tiempo_ = new Tiempo();
+		Vector<TiempoObj> tiempos = tiempo_.getWeather();
+		ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
+		temperatura.setText(Integer.toString(tiempos.lastElement().getTemperatura()));
+		presion.setText(Integer.toString(tiempos.lastElement().getPresion()));
+		humedad.setText(Integer.toString(tiempos.lastElement().getHumedad()));
+		duracDia.setText(Integer.toString(tiempos.lastElement().getAmanacer()) + " - " + Integer.toString(tiempos.lastElement().getAtardecer()));
+		horaSist.setText(Integer.toString(tiempos.lastElement().getHora()));
+		funcionamiento.setText(Integer.toString(tiempos.lastElement().getTiempoFuncionando()));
 		
 	}
 	
