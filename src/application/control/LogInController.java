@@ -157,7 +157,18 @@ public class LogInController {
 				            st.centerOnScreen();
 				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_USUARIO) {
-							//Abrir parte usuario
+							Stage currentSt = (Stage) view.getScene().getWindow();
+							currentSt.close();
+				            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/cliente.fxml"));
+				            ventanaRegistro = loader.load();
+				            Stage st = new Stage();
+				            // No hacer clickeables resto de ventanas abiertas
+				            st.initModality(Modality.APPLICATION_MODAL);
+				            st.setScene(new Scene(ventanaRegistro));
+				            st.getIcons().add(Main.ICONO_APP);
+				            st.setTitle("Registro de usuario");
+				            st.centerOnScreen();
+				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_TECNICO) {
 							//Abrir parte tecnico
 						} else {
