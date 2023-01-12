@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import java.util.Vector;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
 import application.main.MensajeObj;
