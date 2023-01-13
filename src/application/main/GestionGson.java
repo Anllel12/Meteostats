@@ -15,7 +15,7 @@ public class GestionGson {
 	public final static int ROL_USUARIO = 1;
 	public final static int ROL_ADMIN = 2;
 	public final static int ROL_TECNICO = 3;
-	private final static String RUTA_JSON = "data/usuarios.json";
+	public final static String RUTA_JSON = "data/usuarios.json";
 	public final static int REG_ERROR_MISMO_USUARIO = 1;
 	public final static int REG_ERROR_ESCRITURA = 2;
 	public final static int REG_OK = 0;

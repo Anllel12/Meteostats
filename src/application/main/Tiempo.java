@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Tiempo {
 	
-	private final static String JSON_TIEMPO = "data/tiempo.json";
+	public final static String JSON_TIEMPO = "data/tiempo.json";
 
 	public Vector<TiempoObj> getWeather() {
 		Vector<TiempoObj> tiempo = deserializarJsonArray();

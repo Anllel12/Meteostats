@@ -1,0 +1,58 @@
+[
+  {
+    "descripcion": "Hola tecnico soy admin 2",
+    "from": 2,
+    "to": 3,
+    "status": 0,
+    "fecha": "13/01/2023 - 17:57:43"
+  },
+  {
+    "descripcion": "Hola tecnico soy admin 3",
+    "from": 2,
+    "to": 3,
+    "status": 0,
+    "fecha": "13/01/2023 - 17:57:47"
+  },
+  {
+    "descripcion": "Hola admin soy tecnico 2",
+    "from": 3,
+    "to": 2,
+    "status": 0,
+    "fecha": "13/01/2023 - 18:34:23"
+  },
+  {
+    "descripcion": "Hola admin soy tecnico 3",
+    "from": 3,
+    "to": 2,
+    "status": 0,
+    "fecha": "13/01/2023 - 18:34:27"
+  },
+  {
+    "descripcion": "Hola admin soy tecnico 3",
+    "from": 3,
+    "to": 2,
+    "status": 0,
+    "fecha": "13/01/2023 - 18:39:02"
+  },
+  {
+    "descripcion": "sugerencia de cliente 2",
+    "from": 10,
+    "to": 3,
+    "status": 0,
+    "fecha": "13/01/2023 - 19:33:37"
+  },
+  {
+    "descripcion": "holahola sugerencia",
+    "from": 10,
+    "to": 3,
+    "status": 0,
+    "fecha": "13/01/2023 - 19:38:37"
+  },
+  {
+    "descripcion": "holahola error",
+    "from": 11,
+    "to": 3,
+    "status": 0,
+    "fecha": "13/01/2023 - 19:38:43"
+  }
+]

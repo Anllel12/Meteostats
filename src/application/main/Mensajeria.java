@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Mensajeria {
 
-	private final static String JSON_MENSAJERIA = "data/mensajeria.json";
+	public final static String JSON_MENSAJERIA = "data/mensajeria.json";
 	public static final int ERROR_ESCRITURA = -1;
 	public static final int ESCRITURA_OK = 0;
 	public static final int MENS_NO_EXISTE = -1;
@@ -23,12 +23,32 @@ public class Mensajeria {
 	public static final int STATUS_INICIAL = 0;
 	public static final int STATUS_PENDIENTE = 1;
 	public static final int USER_ADMIN = 2;
+	public static final int CLIENTE_SUGERENCIA = 10;
+	public static final int CLIENTE_ERROR = 11;
 	
 	public int writeNewMessage(String msg, int from, int to) {
-		return serializarArrayAJson(new MensajeObj(msg, from, to, 0, generateDate()));
+		return serializarArrayAJson(new MensajeObj(msg, from, to, STATUS_INICIAL, generateDate()));
 	}
 	
 	public int deleteMessage(MensajeObj msg) {
+		boolean found = false;
+		Vector<MensajeObj> mensajes = deserializarJsonArray();
+		Vector<MensajeObj> msgNew = new Vector<MensajeObj>();
+		for (MensajeObj mensajeObj : mensajes) {
+			if (mensajeObj.getDescripcion().equals(msg.getDescripcion()) && mensajeObj.getFecha().equals(msg.getFecha())) {
+				found = true;
+			} else {
+				msgNew.add(mensajeObj);
+			}
+		}
+		
+		if (found) {
+			return vectorToJson(msgNew);
+		} else {
+			return MENS_NO_EXISTE;
+		}
+		
+		/*
 		Vector<MensajeObj> mensajes = deserializarJsonArray();
 		if (mensajes.contains(msg)) {
 			mensajes.remove(msg);
@@ -36,8 +56,9 @@ public class Mensajeria {
 		} else {
 			return MENS_NO_EXISTE;
 		}
-		
+		*/
 	}
+	
 	
 	public Vector<MensajeObj> getMessages(int to) {
 		Vector<MensajeObj> mensajes = deserializarJsonArray();
@@ -90,7 +111,11 @@ public class Mensajeria {
 	private int serializarArrayAJson(MensajeObj msg) {
 		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
 		Vector<MensajeObj> mensajes = deserializarJsonArray();
+		if (mensajes == null) {
+			mensajes = new Vector<MensajeObj>();
+		}
 		mensajes.add(msg);
+		
 		try(FileWriter writer = new FileWriter(JSON_MENSAJERIA)){
 			prettyGson.toJson(mensajes, writer);
 			return ESCRITURA_OK;
