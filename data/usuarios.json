@@ -78,5 +78,29 @@
     "contrasena": "p",
     "email": "p",
     "rol": 2
+  },
+  {
+    "usuario": "cliente",
+    "nombre": "cliente",
+    "apellido": "cliente",
+    "contrasena": "cliente",
+    "email": "cliente",
+    "rol": 1
+  },
+  {
+    "usuario": "admin",
+    "nombre": "admin",
+    "apellido": "admin",
+    "contrasena": "admin",
+    "email": "admin",
+    "rol": 2
+  },
+  {
+    "usuario": "tecnico",
+    "nombre": "tecnico",
+    "apellido": "tecnico",
+    "contrasena": "tecnico",
+    "email": "tecnico",
+    "rol": 3
   }
 ]

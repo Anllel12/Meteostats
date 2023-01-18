@@ -1,15 +1,16 @@
 package application.control;
 
-import java.io.IOException;
-
 import java.util.Vector;
 
 import com.jfoenix.controls.JFXTextArea;
 
+import application.main.GestionGson;
 import application.main.MensajeObj;
 import application.main.Mensajeria;
 import application.main.TiempoObj;
 import application.main.Tiempo;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -66,6 +67,8 @@ public class AdministradorController {
     
     @FXML
     private Label funcionamiento;
+    
+    private MensajeObj selectedMsg;
 
     void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,28 +79,47 @@ public class AdministradorController {
 	}
     
     @FXML
-    void enviarMensaje(ActionEvent event) throws IOException{
+    void enviarMensaje(ActionEvent event) {
+    	
     	Mensajeria mg = new Mensajeria();
-    	int from = 0;
-    	int to = 0;    	
+    	int from = GestionGson.ROL_ADMIN;
+    	int to = GestionGson.ROL_TECNICO;
     	String mensaje = txtMensaje.getText().trim();
-    	int isOk = mg.writeNewMessage(mensaje, from, to);
-		if (isOk == Mensajeria.ERROR_ESCRITURA) {
-			errorAlertCreator("Error","No se ha podido enviar el mensaje");
-		} else if (isOk == Mensajeria.ESCRITURA_OK) {
-			errorAlertCreator("Completado","El mensaje se ha enviado correctamente");
-		}
+    	if (!mensaje.isEmpty()) {
+    		int isOk = mg.writeNewMessage(mensaje, from, to);
+    		if (isOk == Mensajeria.ERROR_ESCRITURA) {
+    			errorAlertCreator("Error","No se ha podido enviar el mensaje");
+    		} else if (isOk == Mensajeria.ESCRITURA_OK) {
+    			errorAlertCreator("Completado","El mensaje se ha enviado correctamente");
+    		}
+    	} else {
+    		errorAlertCreator("Error","El mensaje no puede estar vacio");
+    	}
+    	
+    	
     }
     
     @FXML
 	void initialize() {
+    	comunicacionesTab();
 		adminTabPane.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
             selectedTab(nv.getText());
             System.out.println(nv.getText() + nv.getId());
             
 		});
 		
-	
+		tbMsg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MensajeObj>() {
+
+			@Override
+			public void changed(ObservableValue<? extends MensajeObj> observable, MensajeObj oldValue,
+					MensajeObj newValue) {
+				if (tbMsg.getSelectionModel().getSelectedItem() != null) {
+					selectedMsg = tbMsg.getSelectionModel().getSelectedItem();
+				}
+				
+			}
+		});
+		
 	}
 	
 	private void selectedTab(String tabTitle) {
@@ -112,11 +134,11 @@ public class AdministradorController {
 			
 			break;
 			
-		case "Comunicar a Técnico":
+	/*	case "Comunicar a Técnico":
 			comunicacionesTab();
 			
 			break;
-
+	*/
 		default:
 			break;
 		}
@@ -126,13 +148,42 @@ public class AdministradorController {
 		fecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
 		desc.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("descripcion"));
 		status.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("status"));
+		updateMsgsTab();
+		
+	}
+	
+	private void updateMsgsTab() {
 		Mensajeria mensajeria = new Mensajeria();
 		Vector<MensajeObj> mensajes = mensajeria.getMessages(Mensajeria.USER_ADMIN);
 		
 		tbMsg.getItems().setAll(mensajes);
-		
 	}
 	
+	@FXML
+	void menuTablaEliminar() {
+		if (selectedMsg != null) {
+			Mensajeria mensajeria = new Mensajeria();
+			mensajeria.deleteMessage(selectedMsg);
+			errorAlertCreator("OK", "Mensaje eliminado correctamente");
+			updateMsgsTab();
+		} else {
+			errorAlertCreator("OK", "Ningun mensaje seleccionado");
+		}
+	}
+	
+	@FXML
+	void menuTablaSetPendiente() {
+		if (selectedMsg != null) {
+			Mensajeria mensajeria = new Mensajeria();
+			selectedMsg.setStatus(Mensajeria.STATUS_PENDIENTE);
+			mensajeria.modifyMessage(selectedMsg);
+			errorAlertCreator("OK", "Mensaje set como corregido");
+			updateMsgsTab();
+		} else {
+			errorAlertCreator("OK", "Ningun mensaje seleccionado");
+		}
+	}
+
 	private void estadoTab() {
 		Tiempo tiempo_ = new Tiempo();
 		Vector<TiempoObj> tiempos = tiempo_.getWeather();

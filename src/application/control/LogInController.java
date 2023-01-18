@@ -153,7 +153,7 @@ public class LogInController {
 				            st.initModality(Modality.APPLICATION_MODAL);
 				            st.setScene(new Scene(ventanaRegistro));
 				            st.getIcons().add(Main.ICONO_APP);
-				            st.setTitle("Registro de usuario");
+				            st.setTitle("Admin: " + us.getUsuario() + " - Nombre: " + us.getNombre());
 				            st.centerOnScreen();
 				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_USUARIO) {
@@ -166,11 +166,22 @@ public class LogInController {
 				            st.initModality(Modality.APPLICATION_MODAL);
 				            st.setScene(new Scene(ventanaRegistro));
 				            st.getIcons().add(Main.ICONO_APP);
-				            st.setTitle("Registro de usuario");
+				            st.setTitle("Cliente: " + us.getUsuario() + " - Nombre: " + us.getNombre());
 				            st.centerOnScreen();
 				            st.show();
 						} else if (us.getRol() == GestionGson.ROL_TECNICO) {
-							//Abrir parte tecnico
+							Stage currentSt = (Stage) view.getScene().getWindow();
+							currentSt.close();
+				            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/tecnico.fxml"));
+				            ventanaRegistro = loader.load();
+				            Stage st = new Stage();
+				            // No hacer clickeables resto de ventanas abiertas
+				            st.initModality(Modality.APPLICATION_MODAL);
+				            st.setScene(new Scene(ventanaRegistro));
+				            st.getIcons().add(Main.ICONO_APP);
+				            st.setTitle("Tecnico: " + us.getUsuario() + " - Nombre: " + us.getNombre());
+				            st.centerOnScreen();
+				            st.show();
 						} else {
 							errorAlertCreator("ROL " + us.getRol(), "ROL NO ENCONTRADO");
 						}

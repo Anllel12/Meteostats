@@ -29,8 +29,8 @@
                           <menus>
                             <Menu mnemonicParsing="false" text="Acciones">
                               <items>
-                                <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Eliminar entrada" />
-                                    <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Establecer como pendiente" />
+                                <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Eliminar entrada" onAction="#menuTablaEliminar"/>
+                                    <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Establecer como pendiente" onAction="#menuTablaSetPendiente"/>
                               </items>
                             </Menu>
                           </menus>
@@ -197,8 +197,8 @@
                             <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="95.0" text="Enviar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <JFXTextArea prefColumnCount="0" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Button mnemonicParsing="false" onAction="#enviarMensaje" prefHeight="31.0" prefWidth="95.0" text="Enviar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXTextArea prefColumnCount="0" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fx:id="txtMensaje">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>
