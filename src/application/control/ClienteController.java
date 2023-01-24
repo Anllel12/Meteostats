@@ -81,6 +81,7 @@ public class ClienteController {
                System.out.println(nv.getText() + nv.getId());
                
    		});
+   		cbEleccion.getItems().addAll(SELEC_SUGERENCIA, SELEC_ERROR);
    		
    	}
     
@@ -104,11 +105,6 @@ public class ClienteController {
    			
    			break;
    			
-   		case "Sugerencias / Errores":
-   			cbEleccion.getItems().addAll(SELEC_SUGERENCIA, SELEC_ERROR);
-   			
-   			break;
-
    		default:
    			break;
    		}

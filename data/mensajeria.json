@@ -27,5 +27,16 @@
     ],
     "status": 0,
     "fecha": "24/01/2023 - 16:49:45"
+  },
+  {
+    "descripcion": "Sugerencia ruben",
+    "from": 10,
+    "to": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "status": 0,
+    "fecha": "24/01/2023 - 18:15:16"
   }
 ]
