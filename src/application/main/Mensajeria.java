@@ -25,8 +25,10 @@ public class Mensajeria {
 	public static final int USER_ADMIN = 2;
 	public static final int CLIENTE_SUGERENCIA = 10;
 	public static final int CLIENTE_ERROR = 11;
+	public static final String TO_ADMIN = "TO_ADMIN_GENERICO"; 
+	public static final String TO_TECNICO = "TO_TECNICO_GENERICO"; 
 	
-	public int writeNewMessage(String msg, int from, int to) {
+	public int writeNewMessage(String msg, int from, Vector<String> to) {
 		return serializarArrayAJson(new MensajeObj(msg, from, to, STATUS_INICIAL, generateDate()));
 	}
 	
@@ -60,12 +62,21 @@ public class Mensajeria {
 	}
 	
 	
-	public Vector<MensajeObj> getMessages(int to) {
+	public Vector<MensajeObj> getMessages(Usuario us) {
 		Vector<MensajeObj> mensajes = deserializarJsonArray();
 		Vector<MensajeObj> msgNew = new Vector<MensajeObj>();
-		for (MensajeObj mensajeObj : mensajes) {
-			if (mensajeObj.getTo() == to) {
-				msgNew.add(mensajeObj);
+		if (mensajes != null) {
+			for (MensajeObj mensajeObj : mensajes) {
+				if (us.getRol() == GestionGson.ROL_TECNICO) {
+					if (mensajeObj.getTo().contains(us.getUsuario()) || mensajeObj.getTo().contains(TO_TECNICO)) {
+						msgNew.add(mensajeObj);
+					}
+				} else if (us.getRol() == GestionGson.ROL_ADMIN) {
+					if (mensajeObj.getTo().contains(TO_ADMIN)) {
+						msgNew.add(mensajeObj);
+					}
+				}
+				
 			}
 		}
 		return msgNew;

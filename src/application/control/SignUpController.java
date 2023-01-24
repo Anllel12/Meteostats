@@ -1,6 +1,7 @@
 package application.control;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -172,6 +173,9 @@ public class SignUpController {
 		String ap = apellido.getText().trim();
 		String selected = seleccionRol.getSelectionModel().getSelectedItem();
 		
+		Vector<String> tecnicosACargo = new Vector<String>();
+		Vector<String> adminACargo = new Vector<String>();
+		
 		if (!contrasena2.validate()) {
 			
 		} else if (!usuario.validate() || !email.validate() || !nombre.validate() || !contrasena.validate()
@@ -182,6 +186,8 @@ public class SignUpController {
 			int rol = 0;
 			switch (selected) {
 				case ROL_USUARIO_ST:
+					tecnicosACargo = gg.getNombreUsuarioByRol(GestionGson.ROL_TECNICO);
+					adminACargo = gg.getNombreUsuarioByRol(GestionGson.ROL_ADMIN);
 					rol = GestionGson.ROL_USUARIO;
 					break;
 				case ROL_ADMINISTRADOR_ST:
@@ -191,7 +197,7 @@ public class SignUpController {
 					rol = GestionGson.ROL_TECNICO;
 					break;
 			}
-			int isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol));
+			int isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol, tecnicosACargo, adminACargo));
 			if (isOk == GestionGson.REG_ERROR_ESCRITURA) {
 				errorAlertCreator("Error en el registro", "Error registrando usuario en JSON");
 			} else if (isOk == GestionGson.REG_ERROR_MISMO_USUARIO) {

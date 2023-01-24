@@ -5,7 +5,6 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
-import application.main.GestionGson;
 import application.main.Mensajeria;
 import application.main.Tiempo;
 import application.main.TiempoObj;
@@ -133,9 +132,9 @@ public class ClienteController {
    	}
    	
 	private void saveMessage(int from) {
-		Mensajeria mg = new Mensajeria();
-    	int to = GestionGson.ROL_TECNICO;    	
+		Mensajeria mg = new Mensajeria();   	
     	String mensaje = textArea.getText().trim();
+    	Vector<String> to = LogInController.USUARIO_LOGUEADO.getTecnicosACargo();
     	if (!mensaje.isEmpty()) {
     		int isOk = mg.writeNewMessage(mensaje, from, to);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {

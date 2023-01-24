@@ -1,58 +1,31 @@
 [
   {
-    "descripcion": "Hola tecnico soy admin 2",
-    "from": 2,
-    "to": 3,
-    "status": 0,
-    "fecha": "13/01/2023 - 17:57:43"
-  },
-  {
-    "descripcion": "Hola tecnico soy admin 3",
-    "from": 2,
-    "to": 3,
-    "status": 0,
-    "fecha": "13/01/2023 - 17:57:47"
-  },
-  {
-    "descripcion": "Hola admin soy tecnico 2",
-    "from": 3,
-    "to": 2,
-    "status": 0,
-    "fecha": "13/01/2023 - 18:34:23"
-  },
-  {
-    "descripcion": "Hola admin soy tecnico 3",
-    "from": 3,
-    "to": 2,
-    "status": 0,
-    "fecha": "13/01/2023 - 18:34:27"
-  },
-  {
-    "descripcion": "Hola admin soy tecnico 3",
-    "from": 3,
-    "to": 2,
-    "status": 0,
-    "fecha": "13/01/2023 - 18:39:02"
-  },
-  {
-    "descripcion": "sugerencia de cliente 2",
+    "descripcion": "Hola tencico1 2 y 3",
     "from": 10,
-    "to": 3,
+    "to": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
     "status": 0,
-    "fecha": "13/01/2023 - 19:33:37"
+    "fecha": "24/01/2023 - 16:48:52"
   },
   {
-    "descripcion": "holahola sugerencia",
-    "from": 10,
-    "to": 3,
+    "descripcion": "Hola administradores!",
+    "from": 3,
+    "to": [
+      "TO_ADMIN_GENERICO"
+    ],
     "status": 0,
-    "fecha": "13/01/2023 - 19:38:37"
+    "fecha": "24/01/2023 - 16:49:21"
   },
   {
-    "descripcion": "holahola error",
-    "from": 11,
-    "to": 3,
+    "descripcion": "Hola tecnicos!",
+    "from": 2,
+    "to": [
+      "TO_TECNICO_GENERICO"
+    ],
     "status": 0,
-    "fecha": "13/01/2023 - 19:38:43"
+    "fecha": "24/01/2023 - 16:49:45"
   }
 ]

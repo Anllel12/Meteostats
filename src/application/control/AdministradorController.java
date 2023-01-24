@@ -83,10 +83,12 @@ public class AdministradorController {
     	
     	Mensajeria mg = new Mensajeria();
     	int from = GestionGson.ROL_ADMIN;
-    	int to = GestionGson.ROL_TECNICO;
+    	Vector<String> toTecnico = new Vector<String>();
+    	toTecnico.add(Mensajeria.TO_TECNICO);
+    	
     	String mensaje = txtMensaje.getText().trim();
     	if (!mensaje.isEmpty()) {
-    		int isOk = mg.writeNewMessage(mensaje, from, to);
+    		int isOk = mg.writeNewMessage(mensaje, from, toTecnico);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
     		} else if (isOk == Mensajeria.ESCRITURA_OK) {
@@ -154,7 +156,7 @@ public class AdministradorController {
 	
 	private void updateMsgsTab() {
 		Mensajeria mensajeria = new Mensajeria();
-		Vector<MensajeObj> mensajes = mensajeria.getMessages(Mensajeria.USER_ADMIN);
+		Vector<MensajeObj> mensajes = mensajeria.getMessages(LogInController.USUARIO_LOGUEADO);
 		
 		tbMsg.getItems().setAll(mensajes);
 	}

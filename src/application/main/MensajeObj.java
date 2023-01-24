@@ -1,10 +1,12 @@
 package application.main;
 
+import java.util.Vector;
+
 public class MensajeObj {
 
 	private String descripcion;
 	private int from;
-	private int to;
+	private Vector<String> to;
 	private int status;
 	private String fecha;
 	
@@ -26,10 +28,10 @@ public class MensajeObj {
 	public void setFrom(int from) {
 		this.from = from;
 	}
-	public int getTo() {
+	public Vector<String> getTo() {
 		return to;
 	}
-	public void setTo(int to) {
+	public void setTo(Vector<String> to) {
 		this.to = to;
 	}
 	public int getStatus() {
@@ -45,7 +47,7 @@ public class MensajeObj {
 		this.fecha = fecha;
 	}
 
-	public MensajeObj(String descripcion, int from, int to, int status, String fecha) {
+	public MensajeObj(String descripcion, int from, Vector<String> to, int status, String fecha) {
 		super();
 		this.descripcion = descripcion;
 		this.from = from;

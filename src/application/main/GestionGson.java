@@ -31,6 +31,17 @@ public class GestionGson {
 		
 	}
 	
+	public Vector<String> getNombreUsuarioByRol(int rol) {
+		Vector<String> aux = new Vector<String>();
+		Vector<Usuario> us = deserializarJsonArray();
+		for (Usuario usuario : us) {
+			if (usuario.getRol() == rol && aux.size() < 3) {
+				aux.add(usuario.getUsuario());
+			}
+		}
+		return aux;
+	}
+	
 	public int loginUsuario(String usuario, String contra) {
 		Usuario us;
 		if ((us = getUserByUsername(usuario)) == null) {
@@ -62,6 +73,7 @@ public class GestionGson {
 	private int serializarArrayAJson(Usuario u) {
 		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
 		Vector<Usuario> usuarios = deserializarJsonArray();
+		// Vector<Usuario> usuarios = new Vector<Usuario>();
 		for (Usuario us : usuarios) {
 			if (us.getUsuario().equals(u.getUsuario())) {
 				return REG_ERROR_MISMO_USUARIO;

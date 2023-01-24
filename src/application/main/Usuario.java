@@ -1,5 +1,7 @@
 package application.main;
 
+import java.util.Vector;
+
 public class Usuario {
 	private String usuario;
 	private String nombre;
@@ -7,12 +9,31 @@ public class Usuario {
 	private String contrasena;
 	private String email;
 	private int rol;
+	private Vector<String> tecnicosACargo;
+	private Vector<String> adminsACargo;
 	
+	
+
 	@Override
 	public String toString() {
 		return "Usuario [usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", contrasena="
-				+ contrasena + ", email=" + email + ", rol=" + rol + "]";
+				+ contrasena + ", email=" + email + ", rol=" + rol + ", tecnicosACargo=" + tecnicosACargo
+				+ ", adminsACargo=" + adminsACargo + "]";
 	}
+	
+	public Usuario(String usuario, String nombre, String apellido, String contrasena, String email, int rol,
+			Vector<String> tecnicosACargo, Vector<String> adminsACargo) {
+		super();
+		this.usuario = usuario;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.contrasena = contrasena;
+		this.email = email;
+		this.rol = rol;
+		this.tecnicosACargo = tecnicosACargo;
+		this.adminsACargo = adminsACargo;
+	}
+
 
 	public Usuario(String usuario, String nombre, String apellido, String contrasena, String email, int rol) {
 		super();
@@ -59,6 +80,22 @@ public class Usuario {
 	}
 	public void setRol(int rol) {
 		this.rol = rol;
+	}
+
+	public Vector<String> getTecnicosACargo() {
+		return tecnicosACargo;
+	}
+
+	public void setTecnicosACargo(Vector<String> tecnicosACargo) {
+		this.tecnicosACargo = tecnicosACargo;
+	}
+
+	public Vector<String> getAdminsACargo() {
+		return adminsACargo;
+	}
+
+	public void setAdminsACargo(Vector<String> adminsACargo) {
+		this.adminsACargo = adminsACargo;
 	}
 	
 	

@@ -177,11 +177,12 @@ public class TecnicoController {
 	   	@FXML
 		void comunicarAdministrador() {
 			Mensajeria mg = new Mensajeria();
-	    	int from = GestionGson.ROL_TECNICO;
-	    	int to = GestionGson.ROL_ADMIN;    	
+	    	int from = GestionGson.ROL_TECNICO;	
 	    	String mensaje = comuncarAdmTxt.getText().trim();
+	    	Vector<String> toAdmin = new Vector<String>();
+	    	toAdmin.add(Mensajeria.TO_ADMIN);
 	    	if (!mensaje.isEmpty()) {
-	    		int isOk = mg.writeNewMessage(mensaje, from, to);
+	    		int isOk = mg.writeNewMessage(mensaje, from, toAdmin);
 	    		if (isOk == Mensajeria.ERROR_ESCRITURA) {
 	    			errorAlertCreator("Error","No se ha podido enviar el mensaje");
 	    		} else if (isOk == Mensajeria.ESCRITURA_OK) {
@@ -203,7 +204,7 @@ public class TecnicoController {
 		
 		private void loadMessagesTabla() {
 			Mensajeria mensajeria = new Mensajeria();
-			Vector<MensajeObj> mensajes = mensajeria.getMessages(GestionGson.ROL_TECNICO);
+			Vector<MensajeObj> mensajes = mensajeria.getMessages(LogInController.USUARIO_LOGUEADO);
 			Vector<MensajeObj> msg_aux = new Vector<>();	
 			for (MensajeObj mensajeObj : mensajes) {
 				if (mensajeObj.getFrom() == Mensajeria.CLIENTE_ERROR) {
@@ -299,10 +300,10 @@ public class TecnicoController {
 		
 		private void loadMessagesTablaSugerencias() {
 			Mensajeria mensajeria = new Mensajeria();
-			Vector<MensajeObj> mensajes = mensajeria.getMessages(GestionGson.ROL_TECNICO);
+			Vector<MensajeObj> mensajes = mensajeria.getMessages(LogInController.USUARIO_LOGUEADO);
 			Vector<MensajeObj> msg_aux = new Vector<>();	
 			for (MensajeObj mensajeObj : mensajes) {
-				if (mensajeObj.getFrom() == Mensajeria.CLIENTE_SUGERENCIA) {
+				if (mensajeObj.getFrom() == Mensajeria.CLIENTE_SUGERENCIA || mensajeObj.getTo().contains(Mensajeria.TO_TECNICO)) {
 					msg_aux.add(mensajeObj);
 				}
 			}

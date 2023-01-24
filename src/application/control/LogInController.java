@@ -43,6 +43,8 @@ public class LogInController {
 	crearValidacionUsuario cv;
 	crearValidacionUsuario cv2;
 	
+	public static Usuario USUARIO_LOGUEADO = null;
+	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
 		/**
@@ -141,6 +143,7 @@ public class LogInController {
 						break;
 					case GestionGson.LOG_OK:
 						Usuario us = gg.getUsuarioActual();
+						USUARIO_LOGUEADO = us;
 						
 						if (us.getRol() == GestionGson.ROL_ADMIN) {
 							//Abrir parte admin
