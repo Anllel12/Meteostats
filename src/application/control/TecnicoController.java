@@ -70,6 +70,7 @@ public class TecnicoController {
 	               System.out.println(nv.getText() + nv.getId());
 	               
 	   		});
+	   		cbEleccion.getItems().addAll(SELEC_BORRAR_MENSAJES, SELEC_BORRAR_USUARIOS, SELEC_RESET_HISTORIAL);
 	   		
 	   		tbMsg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MensajeObj>() {
 
@@ -118,10 +119,10 @@ public class TecnicoController {
 	   			
 	   			break;
 	   			
-	   		case "Arreglos":
-	   			cbEleccion.getItems().addAll(SELEC_BORRAR_MENSAJES, SELEC_BORRAR_USUARIOS, SELEC_RESET_HISTORIAL);
+	   		/*case "Arreglos":
 	   			
-	   			break;
+	   			
+	   			break;*/
 	   			
 	   		/*case "Comunicar a Administrador":
 	   			// TODO
