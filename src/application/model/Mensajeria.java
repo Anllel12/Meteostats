@@ -1,4 +1,4 @@
-package application.main;
+package application.model;
 
 import java.io.FileReader;
 import java.io.FileWriter;

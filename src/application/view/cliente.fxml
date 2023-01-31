@@ -172,13 +172,13 @@
                             <RowConstraints maxHeight="175.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXButton prefHeight="35.0" prefWidth="87.0" text="Enviar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" onAction="#sendMensaje"/>
-                              <JFXTextArea prefHeight="124.0" prefWidth="388.0" promptText="Escribe aquí tus sugerencias o errores" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fx:id="textArea">
+                              <JFXButton onAction="#sendMensaje" prefHeight="35.0" prefWidth="87.0" text="Enviar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXTextArea fx:id="textArea" focusColor="#3ac48d" prefHeight="124.0" prefWidth="388.0" promptText="Escribe aquí tus sugerencias o errores" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>
                               </JFXTextArea>
-                              <JFXComboBox promptText="Elige uno" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="cbEleccion"/>
+                              <JFXComboBox fx:id="cbEleccion" promptText="Elige uno" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                      </children>

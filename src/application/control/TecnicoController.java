@@ -7,10 +7,10 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
-import application.main.GestionGson;
-import application.main.MensajeObj;
-import application.main.Mensajeria;
-import application.main.Tiempo;
+import application.model.GestionGson;
+import application.model.MensajeObj;
+import application.model.Mensajeria;
+import application.model.Tiempo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;

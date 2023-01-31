@@ -5,9 +5,9 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
-import application.main.Mensajeria;
-import application.main.Tiempo;
-import application.main.TiempoObj;
+import application.model.Mensajeria;
+import application.model.Tiempo;
+import application.model.TiempoObj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

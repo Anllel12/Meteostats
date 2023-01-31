@@ -21,6 +21,31 @@
     -fx-background-color: #3ac48db3;
     -fx-text-base-color:white;
 }
+.jfx-combo-box {
+    -fx-border-color: #3ac48d;
+    -fx-border-radius:  5px;
+    -fx-background-radius:  5px;
+    -fx-background-color: #ffffff;
+}
+.jfx-combo-box .arrow{
+    -fx-background-color: #3ac48d;
+}
+.jfx-combo-box .arrow-button{
+    -fx-background-color:white;
+    -fx-border-style:none;
+}
+.jfx-combo-box > .input-line {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0px;
+    -fx-translate-y: 0px;
+}
+.jfx-combo-box > .input-focused-line {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0px;
+}
+.combo-box .cell {
+    -fx-text-fill: #000000;
+}
 /* PARA REDONDEAR TEXT-FIELDS
 .jfx-text-field,
 .jfx-combo-box {

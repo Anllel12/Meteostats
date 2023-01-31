@@ -1,4 +1,4 @@
-package application.main;
+package application.model;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -68,6 +68,17 @@ public class GestionGson {
 			}
 		}
 		return null;
+	}
+	
+	public Vector<Usuario> getUsersContainingAdminUsername(String usernameAdmin) {
+		Vector<Usuario> usuarios = deserializarJsonArray();
+		Vector<Usuario> usConAdmin = new Vector<Usuario>();
+		for (Usuario us : usuarios) {
+			if (us.getAdminsACargo().contains(usernameAdmin)) {
+				usConAdmin.add(us);
+			}
+		}
+		return usConAdmin;
 	}
 	
 	private int serializarArrayAJson(Usuario u) {

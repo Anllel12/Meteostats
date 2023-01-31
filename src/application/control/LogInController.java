@@ -7,9 +7,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.base.ValidatorBase;
 
-import application.main.GestionGson;
 import application.main.Main;
-import application.main.Usuario;
+import application.model.GestionGson;
+import application.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package application.main;
+package application.model;
 
 public class TiempoObj {
 	private String ubicacion;

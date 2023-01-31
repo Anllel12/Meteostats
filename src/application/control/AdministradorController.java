@@ -1,14 +1,17 @@
 package application.control;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
-import application.main.GestionGson;
-import application.main.MensajeObj;
-import application.main.Mensajeria;
-import application.main.TiempoObj;
-import application.main.Tiempo;
+import application.model.GestionGson;
+import application.model.MensajeObj;
+import application.model.Mensajeria;
+import application.model.Tiempo;
+import application.model.TiempoObj;
+import application.model.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -68,6 +71,11 @@ public class AdministradorController {
     @FXML
     private Label funcionamiento;
     
+    @FXML
+    private JFXComboBox<String> cbCliente;
+    
+    private Vector<Usuario> usuariosACargo;
+    
     private MensajeObj selectedMsg;
 
     void errorAlertCreator(String header, String context) {
@@ -80,7 +88,6 @@ public class AdministradorController {
     
     @FXML
     void enviarMensaje(ActionEvent event) {
-    	
     	Mensajeria mg = new Mensajeria();
     	int from = GestionGson.ROL_ADMIN;
     	Vector<String> toTecnico = new Vector<String>();
@@ -103,6 +110,12 @@ public class AdministradorController {
     
     @FXML
 	void initialize() {
+    	cbCliente.setPromptText("Selecciona un cliente");
+    	rellenarComboBoxYClientes();
+    	cbCliente.valueProperty().addListener((ov, p1, p2) -> {
+    	    estadoTab(p2);
+    	});
+    	
     	comunicacionesTab();
 		adminTabPane.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
             selectedTab(nv.getText());
@@ -123,6 +136,16 @@ public class AdministradorController {
 		});
 		
 	}
+
+	private void rellenarComboBoxYClientes() {
+		GestionGson gg = new GestionGson();
+    	usuariosACargo = gg.getUsersContainingAdminUsername(LogInController.USUARIO_LOGUEADO.getUsuario());
+    	ArrayList<String> nombresUsuarios = new ArrayList<>();
+    	for (Usuario usuario : usuariosACargo) {
+			nombresUsuarios.add(usuario.getUsuario());
+		}
+    	cbCliente.getItems().addAll(nombresUsuarios);
+	}
 	
 	private void selectedTab(String tabTitle) {
 		switch (tabTitle) {
@@ -132,7 +155,7 @@ public class AdministradorController {
 			break;
 			
 		case "Estado del Servicio":
-			estadoTab();
+			estadoTab(null);
 			
 			break;
 			
@@ -144,6 +167,16 @@ public class AdministradorController {
 		default:
 			break;
 		}
+	}
+	
+	@FXML
+	void menuTablaEliminarUsuarios() {
+		
+	}
+	
+	@FXML
+	void menuTablaCambiarRol() {
+		
 	}
 
 	private void comunicacionesTab() {
@@ -186,7 +219,8 @@ public class AdministradorController {
 		}
 	}
 
-	private void estadoTab() {
+	private void estadoTab(String usuario_cliente) {
+		//TODO meter usuario dentro del tiempo para poder mostrar el q se relacione cn admin
 		Tiempo tiempo_ = new Tiempo();
 		Vector<TiempoObj> tiempos = tiempo_.getWeather();
 		//%d = integer, %s = string

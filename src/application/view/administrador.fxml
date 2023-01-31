@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -29,8 +30,8 @@
                           <menus>
                             <Menu mnemonicParsing="false" text="Acciones">
                               <items>
-                                <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Eliminar entrada" onAction="#menuTablaEliminar"/>
-                                    <MenuItem mnemonicParsing="false" styleClass="buttonItem" text="Establecer como pendiente" onAction="#menuTablaSetPendiente"/>
+                                <MenuItem mnemonicParsing="false" onAction="#menuTablaEliminar" styleClass="buttonItem" text="Eliminar entrada" />
+                                    <MenuItem mnemonicParsing="false" onAction="#menuTablaSetPendiente" styleClass="buttonItem" text="Establecer como pendiente" />
                               </items>
                             </Menu>
                           </menus>
@@ -178,6 +179,11 @@
                                     <Insets bottom="5.0" />
                                  </GridPane.margin>
                               </Label>
+                              <JFXComboBox fx:id="cbCliente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets top="10.0" />
+                                 </GridPane.margin>
+                              </JFXComboBox>
                            </children>
                         </GridPane>
                      </children>
@@ -198,7 +204,7 @@
                           </rowConstraints>
                            <children>
                               <Button mnemonicParsing="false" onAction="#enviarMensaje" prefHeight="31.0" prefWidth="95.0" text="Enviar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <JFXTextArea prefColumnCount="0" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fx:id="txtMensaje">
+                              <JFXTextArea fx:id="txtMensaje" focusColor="#3ac48d" prefColumnCount="0" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>
@@ -212,6 +218,38 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab styleClass="tabs" text="Usuarios">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
+                     <children>
+                        <MenuBar maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="640.0" styleClass="menuBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <menus>
+                            <Menu mnemonicParsing="false" text="Acciones">
+                              <items>
+                                <MenuItem mnemonicParsing="false" onAction="#menuTablaEliminarUsuarios" styleClass="buttonItem" text="Eliminar usuario" />
+                                    <MenuItem mnemonicParsing="false" onAction="#menuTablaCambiarRol" styleClass="buttonItem" text="Cambiar rol del usuario" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                        <TableView fx:id="tbUsuarios" layoutY="32.0" prefHeight="330.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+                          <columns>
+                            <TableColumn fx:id="usuario" prefWidth="70.0" styleClass="column" text="USUARIO" />
+                              <TableColumn fx:id="nombre" prefWidth="405.0" styleClass="column" text="NOMBRE" />
+                              <TableColumn fx:id="apellidos" prefWidth="102.0" styleClass="column" text="APELLIDOS" />
+                              <TableColumn fx:id="rol" prefWidth="102.0" styleClass="column" text="ROL" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </padding>
+                  </AnchorPane>
+            </content>
+          </Tab>
         </tabs>
       </TabPane>
    </children>

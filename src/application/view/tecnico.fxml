@@ -121,7 +121,7 @@
                                     <Insets right="20.0" />
                                  </GridPane.margin>
                               </Button>
-                              <JFXTextArea fx:id="comuncarAdmTxt" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <JFXTextArea fx:id="comuncarAdmTxt" focusColor="#3ac48d" prefHeight="151.0" prefWidth="477.0" promptText="Escribe aquí el texto a enviar" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>
