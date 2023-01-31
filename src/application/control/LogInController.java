@@ -3,6 +3,7 @@ package application.control;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.base.ValidatorBase;
 
@@ -29,7 +30,7 @@ public class LogInController {
 	private JFXTextField txtUser;
 	
 	@FXML
-	private JFXTextField txtPass;
+	private JFXPasswordField txtPass;
 	
 	@FXML
 	private Hyperlink hyperlinkRegistro;

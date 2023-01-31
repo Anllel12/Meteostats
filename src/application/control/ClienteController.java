@@ -165,10 +165,11 @@ public class ClienteController {
 	private void estadoTab() {
 		Tiempo tiempo_ = new Tiempo();
 		Vector<TiempoObj> tiempos = tiempo_.getWeather();
+		//%d = integer, %s = string
 		ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
-		temperatura.setText(Integer.toString(tiempos.lastElement().getTemperatura()));
-		presion.setText(Integer.toString(tiempos.lastElement().getPresion()));
-		humedad.setText(Integer.toString(tiempos.lastElement().getHumedad()));
+		temperatura.setText(String.format("%d %s", tiempos.lastElement().getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
+		presion.setText(String.format("%d %s", tiempos.lastElement().getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
+		humedad.setText(String.format("%d %s", tiempos.lastElement().getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
 		amanecer.setText(Integer.toString(tiempos.lastElement().getAmanacer()));
 		atardecer.setText(Integer.toString(tiempos.lastElement().getAtardecer()));		
 	}

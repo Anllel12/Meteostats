@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Vector;
 
 import com.google.gson.Gson;
@@ -12,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 public class Tiempo {
 	
 	public final static String JSON_TIEMPO = "data/tiempo.json";
+	//Array para unidades de temperatura, presion, humedad, tiempo del sistema
+	public final static ArrayList<String> UNIDADES_TIEMPO = new ArrayList<>(Arrays.asList("ºC", "mmHg", "%", "segundos"));
 
 	public Vector<TiempoObj> getWeather() {
 		Vector<TiempoObj> tiempo = deserializarJsonArray();

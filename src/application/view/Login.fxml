@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
@@ -46,11 +47,11 @@
                   <Insets left="100.0" right="100.0" top="40.0" />
                </GridPane.margin>
             </JFXTextField>
-                  <JFXTextField fx:id="txtPass" focusColor="#3ac48d" prefHeight="31.0" prefWidth="206.0" promptText="Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <JFXPasswordField fx:id="txtPass" focusColor="#3ac48d" prefHeight="31.0" prefWidth="206.0" promptText="Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="40.0" left="100.0" right="100.0" />
                </GridPane.margin>
-            </JFXTextField>
+            </JFXPasswordField>
                   <JFXButton fx:id="btnEntrar" onAction="#loguear" prefHeight="34.0" prefWidth="82.0" ripplerFill="#3ac48d" text="Entrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
