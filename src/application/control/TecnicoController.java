@@ -1,12 +1,14 @@
 package application.control;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.main.Main;
 import application.model.GestionGson;
 import application.model.MensajeObj;
 import application.model.Mensajeria;
@@ -14,11 +16,16 @@ import application.model.Tiempo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class TecnicoController {
 		@FXML
@@ -309,6 +316,28 @@ public class TecnicoController {
 				}
 			}
 			tbSugerencias.getItems().setAll(msg_aux);
+		}
+		
+		@FXML
+		void logOut() {
+			//Las siguientes dos lineas para cerrar la anterior ventana
+			Stage st = (Stage) tabPaneTecnico.getScene().getWindow();
+			st.close();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/Login.fxml"));
+	        
+			Stage stage = new Stage();
+	        // No hacer clickeables resto de ventanas abiertas
+	        stage.setTitle("Login");
+	        Parent root1;
+			try {
+				root1 = (Parent) loader.load();
+				stage.setScene(new Scene(root1));
+				stage.getIcons().add(Main.ICONO_APP);
+	            stage.centerOnScreen();
+	            stage.show();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 }

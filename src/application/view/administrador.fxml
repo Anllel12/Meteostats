@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.AdministradorController">
+<AnchorPane fx:id="view" prefHeight="400.0" prefWidth="640.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.AdministradorController">
    <children>
-      <TabPane fx:id="adminTabPane" prefHeight="405.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="adminTabPane" layoutY="39.0" prefHeight="361.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab styleClass="tabs" text="Comunicaciones">
             <content>
@@ -252,5 +252,6 @@
           </Tab>
         </tabs>
       </TabPane>
+      <Button fx:id="btnLogoutAdmin" onAction="#logOut" layoutX="569.0" layoutY="6.0" mnemonicParsing="false" text="Cerrar Sesion" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>
