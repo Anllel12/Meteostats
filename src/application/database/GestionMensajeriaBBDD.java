@@ -34,7 +34,7 @@ public class GestionMensajeriaBBDD {
 	public static final String TO_ADMIN = "TO_ADMIN_GENERICO"; 
 	public static final String TO_TECNICO = "TO_TECNICO_GENERICO";
 
-	public int writeNewMessage(String msg, int from, Vector<String> to) {
+	public int writeNewMessage(String msg, int from, int to) {
 		
 	}
 	

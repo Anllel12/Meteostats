@@ -95,14 +95,14 @@ public class AdministradorController {
     
     @FXML
     void enviarMensaje(ActionEvent event) {
-    	Mensajeria mg = new Mensajeria();
-    	int from = GestionGson.ROL_ADMIN;
-    	Vector<String> toTecnico = new Vector<String>();
-    	toTecnico.add(Mensajeria.TO_TECNICO);
+    	GestionUsuariosBBDD gMens = new GestionUsuariosBBDD();
+    	GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
+    	int from = gUser.getIdUsuarioByUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
+    	int to ;
     	
     	String mensaje = txtMensaje.getText().trim();
     	if (!mensaje.isEmpty()) {
-    		int isOk = mg.writeNewMessage(mensaje, from, toTecnico);
+    		int isOk = gMens.writeNewMessage(mensaje, from, to);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
     		} else if (isOk == Mensajeria.ESCRITURA_OK) {
