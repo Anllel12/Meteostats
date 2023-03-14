@@ -212,6 +212,11 @@
                                     <Insets bottom="20.0" left="60.0" right="60.0" top="60.0" />
                                  </GridPane.margin>
                               </JFXTextArea>
+                              <JFXComboBox fx:id="cbTecnicos" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin>
+                              </JFXComboBox>
                            </children>
                         </GridPane>
                      </children>
@@ -252,6 +257,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="btnLogoutAdmin" onAction="#logOut" layoutX="569.0" layoutY="6.0" mnemonicParsing="false" text="Cerrar Sesion" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+      <Button fx:id="btnLogoutAdmin" layoutX="569.0" layoutY="6.0" mnemonicParsing="false" onAction="#logOut" text="Cerrar Sesion" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>

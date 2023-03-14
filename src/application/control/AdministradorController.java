@@ -7,6 +7,7 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.GestionGson;
 import application.model.MensajeObj;
@@ -146,6 +147,16 @@ public class AdministradorController {
 	private void rellenarComboBoxYClientes() {
 		GestionGson gg = new GestionGson();
     	usuariosACargo = gg.getUsersContainingAdminUsername(LogInController.USUARIO_LOGUEADO.getUsuario());
+    	ArrayList<String> nombresUsuarios = new ArrayList<>();
+    	for (Usuario usuario : usuariosACargo) {
+			nombresUsuarios.add(usuario.getUsuario());
+		}
+    	cbCliente.getItems().addAll(nombresUsuarios);
+	}
+	
+	private void rellenarComboBoxTecnicos() {
+		GestionUsuariosBBDD gub = new GestionUsuariosBBDD();
+    	Vector<String> tecnicos = gub.getUsuarioAndIdByRol(GestionUsuariosBBDD.ROL_TECNICO);
     	ArrayList<String> nombresUsuarios = new ArrayList<>();
     	for (Usuario usuario : usuariosACargo) {
 			nombresUsuarios.add(usuario.getUsuario());

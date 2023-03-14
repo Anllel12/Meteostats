@@ -16,7 +16,7 @@ public class GestionUsuariosBBDD {
 	public final static int REG_ERROR_MISMO_USUARIO = 1;
 	public final static int REG_ERROR_ESCRITURA = 2;
 	public final static int REG_OK = 0;
-	public final static int LOG_USUARIO_NO_ENCONTRADO = 1;
+	public final static int USUARIO_NO_ENCONTRADO = 1;
 	public final static int LOG_CONTRA_INCORRECTA = 2;
 	public final static int LOG_OK = 0;
 	private Usuario UsuarioActual = null;
@@ -80,6 +80,30 @@ public class GestionUsuariosBBDD {
 		
 	}
 	
+	public int getIdUsuarioByUsuario(String usuario) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		String query = "SELECT id_usuario FROM usuario WHERE usuario = %s";
+		String.format(query, usuario);
+		int idUsuarioRes;
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			idUsuarioRes = rs.getInt("id_usuario");
+			rs.close();
+			statement.close();
+			return idUsuarioRes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return USUARIO_NO_ENCONTRADO;
+		}
+		
+		
+	}
+	
 	public int loginUsuario(String usuario, String contra) {
 		
 	}
@@ -91,6 +115,13 @@ public class GestionUsuariosBBDD {
 	public Usuario getUserByUsername(String username) {
 		
 	}
+	
+	public Vector<String> getUsuarioAndIdByRol(int rol) {
+		Vector<String> vectorAux = new Vector<String>();
+		// Rellenar vectorAux con el usuario, id
+		// meter vectorAux en vector original
+	}
+	
 	
 	public Vector<Usuario> getUsersContainingAdminUsername(String usernameAdmin) {
 		
