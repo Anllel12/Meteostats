@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MariaDBConnectionService {
-	public Statement connectDB() {
-		Connection connection = null;
+	public Connection connection = null;
+	public Connection connectDB() {
 		String ip = "localhost"; //127.0.0.1
 		String port = "3306";
 		try {
@@ -16,8 +16,6 @@ public class MariaDBConnectionService {
 			String user = "pi2_meteostats";
 			String pass = "pi2_meteostats";
 			connection = DriverManager.getConnection(db, user, pass);
-			Statement statement = connection.createStatement();
-			return statement;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,6 +23,6 @@ public class MariaDBConnectionService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return connection;
 	}
 }
