@@ -44,7 +44,7 @@ public class Usuario {
 		this.email = email;
 		this.rol = rol;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}

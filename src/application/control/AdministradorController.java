@@ -7,6 +7,7 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.GestionGson;
@@ -47,6 +48,18 @@ public class AdministradorController {
     
     @FXML
     private TableColumn<MensajeObj, String> status;
+	
+	@FXML
+	private TableView<Usuario> tbUsuario;
+	
+	@FXML
+	private TableColumn<Usuario, String> usuario;
+	
+    @FXML
+    private TableColumn<Usuario, String> email;
+    
+    @FXML
+    private TableColumn<Usuario, Integer> rol;
     
     @FXML
     private Button btnEnviarM;
@@ -81,9 +94,18 @@ public class AdministradorController {
     @FXML
     private JFXComboBox<String> cbCliente;
     
+    @FXML
+    private JFXComboBox<String> cbTecnicos;
+    
     private Vector<Usuario> usuariosACargo;
     
     private MensajeObj selectedMsg;
+    
+    private Usuario selectedUsuario;
+    
+    private String selectedTecnico;
+    
+    private Vector<Vector<String>> tecnicosAndIds;
 
     void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -123,6 +145,12 @@ public class AdministradorController {
     	    estadoTab(p2);
     	});
     	
+    	cbCliente.setPromptText("Selecciona un tecnico");
+    	rellenarComboBoxTecnicos();
+    	cbCliente.valueProperty().addListener((ov, p1, p2) -> {
+    	    selectedTecnico = p2;
+    	});
+    	
     	comunicacionesTab();
 		adminTabPane.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
             selectedTab(nv.getText());
@@ -142,6 +170,18 @@ public class AdministradorController {
 			}
 		});
 		
+		tbUsuario.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Usuario>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Usuario> observable, Usuario oldValue,
+					Usuario newValue) {
+				if (tbUsuario.getSelectionModel().getSelectedItem() != null) {
+					selectedUsuario = tbUsuario.getSelectionModel().getSelectedItem();
+				}
+				
+			}
+		});
+		
 	}
 
 	private void rellenarComboBoxYClientes() {
@@ -156,12 +196,23 @@ public class AdministradorController {
 	
 	private void rellenarComboBoxTecnicos() {
 		GestionUsuariosBBDD gub = new GestionUsuariosBBDD();
-    	Vector<String> tecnicos = gub.getUsuarioAndIdByRol(GestionUsuariosBBDD.ROL_TECNICO);
+    	Vector<Vector<String>> tecnicos = gub.getUsuarioAndIdByRol(GestionUsuariosBBDD.ROL_TECNICO);
     	ArrayList<String> nombresUsuarios = new ArrayList<>();
-    	for (Usuario usuario : usuariosACargo) {
-			nombresUsuarios.add(usuario.getUsuario());
+    	for (Vector<String> usuario : tecnicos) {
+			nombresUsuarios.add(usuario.get(0));
 		}
-    	cbCliente.getItems().addAll(nombresUsuarios);
+    	tecnicosAndIds = tecnicos;
+    	cbTecnicos.getItems().addAll(nombresUsuarios);
+	}
+	
+	// TODO meter en TO de mensaje enviado
+	private int getIdTecnicoByNombre() {
+		for (Vector<String> vector : tecnicosAndIds) {
+			if (vector.get(0).equals(selectedTecnico)) {
+				return Integer.valueOf(vector.get(1));
+			}
+		}
+		return -1;
 	}
 	
 	private void selectedTab(String tabTitle) {
@@ -175,22 +226,61 @@ public class AdministradorController {
 			estadoTab(null);
 			
 			break;
-			
-	/*	case "Comunicar a Técnico":
-			comunicacionesTab();
+		case "Comunicar a Técnico":
 			
 			break;
-	*/
+		case "Usuarios":
+			usuariosTab();
+			break;
 		default:
 			break;
 		}
 	}
 	
-	@FXML
-	void menuTablaEliminarUsuarios() {
+	private void usuariosTab() {
+		usuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("usuario"));
+		email.setCellValueFactory(new PropertyValueFactory<Usuario, String>("email"));
+		rol.setCellValueFactory(new PropertyValueFactory<Usuario, Integer>("rol"));
+		updateUsuariosTab();
+		
+	}
+
+	private void updateUsuariosTab() {
+		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+		// TODO obtener objetos mensajes desde BBDD
+		Vector<Usuario> usuarios = gestionUsuariosBBDD.getUsuarios();
+		tbUsuario.getItems().setAll(usuarios);
 		
 	}
 	
+
+
+	@FXML
+	void tablaUsuarioCambiarRolATecnico() {
+		setUsuarioRol(GestionUsuariosBBDD.ROL_TECNICO);
+	}
+	
+	@FXML
+	void tablaUsuarioCambiarRolACliente() {
+		setUsuarioRol(GestionUsuariosBBDD.ROL_USUARIO);
+	}
+	
+	@FXML
+	void tablaUsuarioCambiarRolAAdmin() {
+		setUsuarioRol(GestionUsuariosBBDD.ROL_ADMIN);
+	}
+	
+	private void setUsuarioRol(int rol) {
+		if (selectedUsuario != null) {
+			GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+			gestionUsuariosBBDD.updateUsuario(selectedUsuario, rol);
+			updateUsuariosTab();
+		} else {
+			errorAlertCreator("Error", "Ningun usuario seleccionado");
+		}
+		
+	}
+
 	@FXML
 	void menuTablaCambiarRol() {
 		
@@ -219,7 +309,7 @@ public class AdministradorController {
 			errorAlertCreator("OK", "Mensaje eliminado correctamente");
 			updateMsgsTab();
 		} else {
-			errorAlertCreator("OK", "Ningun mensaje seleccionado");
+			errorAlertCreator("Error", "Ningun mensaje seleccionado");
 		}
 	}
 	
