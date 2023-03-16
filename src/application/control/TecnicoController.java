@@ -3,11 +3,13 @@ package application.control;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.GestionGson;
 import application.model.MensajeObj;
@@ -63,12 +65,25 @@ public class TecnicoController {
 	    @FXML
 	    private JFXComboBox<String> cbEleccion;
 	    
+	    @FXML
+	    private JFXComboBox<String> cbAdmins;
+	    
+	    @FXML
+	    private Vector<Vector<String>> adminsAndIds;
+	    
+	    private String adminSelected;
+	    
 	    private static final String SELEC_RESET_HISTORIAL = "Borrar TODO el historial del tiempo";
 	    private static final String SELEC_BORRAR_USUARIOS = "Borrar BBDD de todos los usuarios";
 	    private static final String SELEC_BORRAR_MENSAJES = "Borrar TODOS los mensajes";
 	
 	    @FXML
 	   	void initialize() {
+	    	cbAdmins.setPromptText("Selecciona un administrador");
+	    	rellenarComboBoxAdmins();
+	    	cbAdmins.valueProperty().addListener((ov, p1, p2) -> {
+	    	    adminSelected = p2;
+	    	});
 	    	//Como primer tab en cargar es sugerencias cargamos mensajes
 	    	sugerenciasTabla();
 	    	
@@ -104,7 +119,29 @@ public class TecnicoController {
 			});
 	   	}
 	    
-	    void errorAlertCreator(String header, String context) {
+	    private void rellenarComboBoxAdmins() {
+	    	GestionUsuariosBBDD gub = new GestionUsuariosBBDD();
+	    	Vector<Vector<String>> admins = gub.getUsuarioAndIdByRol(GestionUsuariosBBDD.ROL_ADMIN);
+	    	ArrayList<String> nombresUsuarios = new ArrayList<>();
+	    	for (Vector<String> usuario : admins) {
+				nombresUsuarios.add(usuario.get(0));
+			}
+	    	adminsAndIds = admins;
+	    	cbAdmins.getItems().addAll(nombresUsuarios);
+			
+		}
+	    
+	 // TODO meter en TO de mensaje enviado
+		private int getIdAdminByNombre() {
+			for (Vector<String> vector : adminsAndIds) {
+				if (vector.get(0).equals(adminSelected)) {
+					return Integer.valueOf(vector.get(1));
+				}
+			}
+			return -1;
+		}
+
+		void errorAlertCreator(String header, String context) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("ERROR");
 			alert.setHeaderText(header);
@@ -188,6 +225,7 @@ public class TecnicoController {
 	    	int from = GestionGson.ROL_TECNICO;	
 	    	String mensaje = comuncarAdmTxt.getText().trim();
 	    	Vector<String> toAdmin = new Vector<String>();
+	    	// TODO meter en to el valor de combobox (getIdAdminByNombre())
 	    	toAdmin.add(Mensajeria.TO_ADMIN);
 	    	if (!mensaje.isEmpty()) {
 	    		int isOk = mg.writeNewMessage(mensaje, from, toAdmin);

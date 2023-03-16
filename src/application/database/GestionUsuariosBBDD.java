@@ -53,7 +53,7 @@ public class GestionUsuariosBBDD {
 		}
 	}
 
-	public Vector<Integer> getNombreUsuarioByRol(int rol) {
+	public Vector<Integer> getIdUsuariosByRol(int rol) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "SELECT id_usuario FROM usuario WHERE rol=%d";
 		String.format(query, rol);
@@ -76,6 +76,73 @@ public class GestionUsuariosBBDD {
 		}
 		
 		
+	}
+	
+	public int setAdminACargoUsuario(Usuario usuario, Vector<Integer> ids_admin) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		String query = "INSERT OR IGNORE INTO admin(id_admin, usuario) "
+				+ "VALUES (?, ?)";
+		int idUsuario = getIdUsuarioByUsuario(usuario.getUsuario());
+		
+		Connection connection = checkConnection(mdb);
+		PreparedStatement preparedStatement;
+		try {
+			for (Integer idAdmin : ids_admin) {
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setInt(1, idAdmin);
+				preparedStatement.setInt(2, idUsuario);
+				connection.commit();
+			}
+			return REG_OK;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return REG_ERROR_ESCRITURA;
+		}
+	}
+	
+	public int setTecnicoACargoUsuario(Usuario usuario, Vector<Integer> ids_tecnico) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		String query = "INSERT OR IGNORE INTO tecnico(id_tecnico, usuario) "
+				+ "VALUES (?, ?)";
+		int idUsuario = getIdUsuarioByUsuario(usuario.getUsuario());
+		
+		Connection connection = checkConnection(mdb);
+		PreparedStatement preparedStatement;
+		try {
+			for (Integer idTecnico : ids_tecnico) {
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setInt(1, idTecnico);
+				preparedStatement.setInt(2, idUsuario);
+				connection.commit();
+			}
+			return REG_OK;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return REG_ERROR_ESCRITURA;
+		}
+	}
+	
+	public Vector<Integer> getTecnicoACargoUsuario(String usuario) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_usuario = getIdUsuarioByUsuario(usuario);
+		String query = String.format("SELECT id_tecnico FROM tecnico WHERE usuario=%d", id_usuario);
+		Vector<Integer> tecnicosIds = new Vector<Integer>();
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				tecnicosIds.add(rs.getInt("id_tecnico"));
+			}
+			rs.close();
+			statement.close();
+			return tecnicosIds;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public int getIdUsuarioByUsuario(String usuario) {
@@ -149,7 +216,7 @@ public class GestionUsuariosBBDD {
 		
 	}
 	
-	public Usuario loginUsuario(String us, String contra) {
+	private Usuario loginUsuario(String us, String contra) {
 		Usuario resUsuario = null;
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = String.format("SELECT * FROM usuario WHERE (usuario='%s' AND contrasena='%s')", us, contra);
@@ -175,6 +242,16 @@ public class GestionUsuariosBBDD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public int loginUsuarioAux(String us, String contra) {
+		Usuario res = loginUsuario(us, contra);
+		if (res == null) {
+			return LOG_CONTRA_INCORRECTA;
+		} else {
+			UsuarioActual = res;
+			return LOG_OK;
 		}
 	}
 	
@@ -243,8 +320,8 @@ public class GestionUsuariosBBDD {
 	}
 	
 	
-	public Vector<Usuario> getUsersContainingAdminUsername(String usernameAdmin) {
+	/*public Vector<Usuario> getUsersContainingAdminUsername(String usernameAdmin) {
 		
 	}
-
+	 */
 }

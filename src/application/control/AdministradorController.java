@@ -145,9 +145,9 @@ public class AdministradorController {
     	    estadoTab(p2);
     	});
     	
-    	cbCliente.setPromptText("Selecciona un tecnico");
+    	cbTecnicos.setPromptText("Selecciona un tecnico");
     	rellenarComboBoxTecnicos();
-    	cbCliente.valueProperty().addListener((ov, p1, p2) -> {
+    	cbTecnicos.valueProperty().addListener((ov, p1, p2) -> {
     	    selectedTecnico = p2;
     	});
     	

@@ -1,15 +1,15 @@
 package application.control;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Vector;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
 
+import application.database.GestionUsuariosBBDD;
 import application.main.Main;
-import application.model.GestionGson;
 import application.model.Usuario;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -42,17 +42,9 @@ public class SignUpController {
 	@FXML
 	private JFXTextField apellido;
 	
-	@FXML
-	private JFXComboBox<String> seleccionRol;
-	
-	private static final String ROL_TECNICO_ST = "Técnico";
-	private static final String ROL_ADMINISTRADOR_ST = "Administrador";
-	private static final String ROL_USUARIO_ST = "Usuario";
-	
 	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-		seleccionRol.getItems().addAll(ROL_USUARIO_ST, ROL_TECNICO_ST, ROL_ADMINISTRADOR_ST);
 		
 		// Para validar que los campos no estan vacios
 		RequiredFieldValidator rfv = new RequiredFieldValidator();
@@ -65,18 +57,12 @@ public class SignUpController {
         validacionContrasenas();
         
         apellido.getValidators().add(rfv);
-        seleccionRol.getValidators().add(rfv);
         rfv.setMessage("Este campo es obligatorio");
         
         setListenerValidaction(usuario);
         setListenerValidaction(email);
         setListenerValidaction(nombre);
         setListenerValidaction(apellido);
-        seleccionRol.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (!newValue) {
-                seleccionRol.validate();
-            }
-        });
 		
     }
 	
@@ -163,47 +149,53 @@ public class SignUpController {
 		}
 	}
 	
+	public static int getRandomIdFromVector(Vector<Integer> vector) {
+	    int rnd = new Random().nextInt(vector.size());
+	    return vector.get(rnd);
+	}
+	
 	@FXML
 	void registrarse(ActionEvent event) {
-		GestionGson gg = new GestionGson();
+		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
 		String u = usuario.getText().trim();
 		String e = email.getText().trim();
 		String n = nombre.getText().trim();
 		String c = contrasena.getText().trim();
 		String ap = apellido.getText().trim();
-		String selected = seleccionRol.getSelectionModel().getSelectedItem();
+		int rol = GestionUsuariosBBDD.ROL_USUARIO;
+		// TODO asignar admin a cargo
+		Vector<Integer> allAdmins = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_ADMIN);
+		Vector<Integer> adminACargoRandom = new Vector<Integer>();
+		adminACargoRandom.add(getRandomIdFromVector(allAdmins));
 		
-		Vector<String> tecnicosACargo = new Vector<String>();
-		Vector<String> adminACargo = new Vector<String>();
+		Vector<Integer> allTecnicos = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_TECNICO);
+		Vector<Integer> tecnicoACargoRandom = new Vector<Integer>();
+		tecnicoACargoRandom.add(getRandomIdFromVector(allTecnicos));
+		
 		
 		if (!contrasena2.validate()) {
 			
 		} else if (!usuario.validate() || !email.validate() || !nombre.validate() || !contrasena.validate()
-				|| !apellido.validate() || !seleccionRol.validate()) {
+				|| !apellido.validate()) {
 			
 			
 		} else {
-			int rol = 0;
-			switch (selected) {
-				case ROL_USUARIO_ST:
-					tecnicosACargo = gg.getNombreUsuarioByRol(GestionGson.ROL_TECNICO);
-					adminACargo = gg.getNombreUsuarioByRol(GestionGson.ROL_ADMIN);
-					rol = GestionGson.ROL_USUARIO;
-					break;
-				case ROL_ADMINISTRADOR_ST:
-					rol = GestionGson.ROL_ADMIN;
-					break;
-				case ROL_TECNICO_ST:
-					rol = GestionGson.ROL_TECNICO;
-					break;
-			}
-			int isOk = gg.registrarUsuario(new Usuario(u, n, ap, c, e, rol, tecnicosACargo, adminACargo));
-			if (isOk == GestionGson.REG_ERROR_ESCRITURA) {
-				errorAlertCreator("Error en el registro", "Error registrando usuario en JSON");
-			} else if (isOk == GestionGson.REG_ERROR_MISMO_USUARIO) {
-				errorAlertCreator("Error en el registro", "El usuario introducido ya existe en la BBDD");
+			Usuario usReg = new Usuario(u, n, ap, c, e, rol, adminACargoRandom, tecnicoACargoRandom);
+			int isOk = gestionUsuariosBBDD.registrarUsuario(usReg);
+			if (isOk == GestionUsuariosBBDD.REG_ERROR_ESCRITURA) {
+				errorAlertCreator("Error en el registro", "Error registrando usuario en BBDD");
 			} else {
-				loadLogin(null);
+				isOk = gestionUsuariosBBDD.setAdminACargoUsuario(usReg, adminACargoRandom);
+				if (isOk == GestionUsuariosBBDD.REG_ERROR_ESCRITURA) {
+					errorAlertCreator("Error en la relacion con admins", "Error registrando admins a cargo de usuario en BBDD");
+				} else {
+					isOk = gestionUsuariosBBDD.setTecnicoACargoUsuario(usReg, tecnicoACargoRandom);
+					if (isOk == GestionUsuariosBBDD.REG_ERROR_ESCRITURA) {
+						errorAlertCreator("Error en la relacion con tecnicos", "Error registrando tecnicos a cargo de usuario en BBDD");
+					} else {
+						loadLogin(null);
+					}
+				}
 			}
 			
 		}

@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.base.ValidatorBase;
 
+import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.GestionGson;
 import application.model.Usuario;
@@ -132,18 +133,17 @@ public class LogInController {
 				errorAlertCreator("Error de inicio de sesión", "Existen campos vacíos");
         	} else {
         		
-        		GestionGson gg = new GestionGson();
-        		switch (gg.loginUsuario(usuario, contra)) {
-					case GestionGson.LOG_CONTRA_INCORRECTA:
+        		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+        		switch (gestionUsuariosBBDD.loginUsuarioAux(usuario, contra)) {
+					case GestionUsuariosBBDD.LOG_CONTRA_INCORRECTA:
 						cv2.setError(true);
 						txtPass.validate();
-						break;
-					case GestionGson.LOG_USUARIO_NO_ENCONTRADO:
 						cv.setError(true);
 						txtUser.validate();
 						break;
-					case GestionGson.LOG_OK:
-						Usuario us = gg.getUsuarioActual();
+						
+					case GestionUsuariosBBDD.LOG_OK:
+						Usuario us = gestionUsuariosBBDD.getUsuarioActual();
 						USUARIO_LOGUEADO = us;
 						
 						if (us.getRol() == GestionGson.ROL_ADMIN) {
