@@ -167,10 +167,13 @@ public class SignUpController {
 		Vector<Integer> allAdmins = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_ADMIN);
 		Vector<Integer> adminACargoRandom = new Vector<Integer>();
 		adminACargoRandom.add(getRandomIdFromVector(allAdmins));
+		System.out.println(adminACargoRandom.toString());
 		
 		Vector<Integer> allTecnicos = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_TECNICO);
 		Vector<Integer> tecnicoACargoRandom = new Vector<Integer>();
 		tecnicoACargoRandom.add(getRandomIdFromVector(allTecnicos));
+		System.out.println(tecnicoACargoRandom.toString());
+		
 		
 		
 		if (!contrasena2.validate()) {

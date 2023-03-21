@@ -34,36 +34,36 @@ public class GestionMensajeriaBBDD {
 	public static final String TO_ADMIN = "TO_ADMIN_GENERICO"; 
 	public static final String TO_TECNICO = "TO_TECNICO_GENERICO";
 
-	public int writeNewMessage(String msg, int from, Vector<String> to) {
-		
-	}
-	
-	public int deleteMessage(MensajeObj msg) {
-	}
-	
-	//TODO: 1 mensaje desde 1 usuario y hacia 1 administrador / 1 tecnico
-	public Vector<MensajeObj> getMessages(Usuario us) {
-		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT usuario_to FROM usuario WHERE rol = %d";
-		
-	}
-	
-	public int modifyMessage(MensajeObj msg) {
-	}
-	
-	private String generateDate() {
-		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yyyy '-' HH:mm:ss");
-		Date date = new Date(System.currentTimeMillis());
-		return formatter.format(date);
-	}
-	
-	private int vectorToJson(Vector<MensajeObj> msgs) {
-	}
-	
-	private int serializarArrayAJson(MensajeObj msg) {
-		
-	}
-	
-	private Vector<MensajeObj> deserializarJsonArray() {
-	}
+//	public int writeNewMessage(String msg, int from, Vector<String> to) {
+//		
+//	}
+//	
+//	public int deleteMessage(MensajeObj msg) {
+//	}
+//	
+//	//TODO: 1 mensaje desde 1 usuario y hacia 1 administrador / 1 tecnico
+//	public Vector<MensajeObj> getMessages(Usuario us) {
+//		MariaDBConnectionService mdb = new MariaDBConnectionService();
+//		String query = "SELECT usuario_to FROM usuario WHERE rol = %d";
+//		
+//	}
+//	
+//	public int modifyMessage(MensajeObj msg) {
+//	}
+//	
+//	private String generateDate() {
+//		SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yyyy '-' HH:mm:ss");
+//		Date date = new Date(System.currentTimeMillis());
+//		return formatter.format(date);
+//	}
+//	
+//	private int vectorToJson(Vector<MensajeObj> msgs) {
+//	}
+//	
+//	private int serializarArrayAJson(MensajeObj msg) {
+//		
+//	}
+//	
+//	private Vector<MensajeObj> deserializarJsonArray() {
+//	}
 }
