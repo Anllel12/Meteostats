@@ -6,6 +6,7 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.Mensajeria;
@@ -141,12 +142,12 @@ public class ClienteController {
    	}
    	
 	private void saveMessage(int from) {
-		Mensajeria mg = new Mensajeria();   	
+		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();   	
     	String mensaje = textArea.getText().trim();
     	// id tecnico a cargo
     	int to = getTecnicosACargo();
     	if (!mensaje.isEmpty()) {
-    		int isOk = mg.writeNewMessage(mensaje, from, to);
+    		int isOk = gMens.writeNewMessage(mensaje, from, to);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
     		} else if (isOk == Mensajeria.ESCRITURA_OK) {

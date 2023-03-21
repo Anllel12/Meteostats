@@ -1,6 +1,7 @@
 package application.control;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -117,14 +118,16 @@ public class AdministradorController {
     
     @FXML
     void enviarMensaje(ActionEvent event) {
-    	GestionUsuariosBBDD gMens = new GestionUsuariosBBDD();
+    	GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
     	GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
     	int from = gUser.getIdUsuarioByUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
-    	int to ;
-    	
+    	int to = gUser.getIdUsuarioByUsuario(selectedTecnico);   	
     	String mensaje = txtMensaje.getText().trim();
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	if (!mensaje.isEmpty()) {
-    		int isOk = gMens.writeNewMessage(mensaje, from, to);
+    		
+    		MensajeObj msg = new MensajeObj(mensaje, from, to, 0, timestamp);
+    		int isOk = gMens.writeNewMessage(msg);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
     		} else if (isOk == Mensajeria.ESCRITURA_OK) {
