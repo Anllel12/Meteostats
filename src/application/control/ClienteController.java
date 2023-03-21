@@ -147,7 +147,7 @@ public class ClienteController {
     	// id tecnico a cargo
     	int to = getTecnicosACargo();
     	if (!mensaje.isEmpty()) {
-    		int isOk = gMens.writeNewMessage(mensaje, from, to);
+    		int isOk = gMens.writeNewMessage(msg);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
     		} else if (isOk == Mensajeria.ESCRITURA_OK) {
