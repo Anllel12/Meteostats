@@ -6,6 +6,7 @@ import java.util.Vector;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.Mensajeria;
 import application.model.Tiempo;
@@ -116,6 +117,12 @@ public class ClienteController {
    		}
    	}
    	
+   	// TODO obtenemos el primer tecnico a cargo, por defecto en el registro solo se asigna un tecnico
+   	private int getTecnicosACargo() {
+   		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+   		return gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getNombre()).get(0);
+   	}
+   	
    	@FXML
    	void sendMensaje() {
    		int from = 0;
@@ -136,7 +143,8 @@ public class ClienteController {
 	private void saveMessage(int from) {
 		Mensajeria mg = new Mensajeria();   	
     	String mensaje = textArea.getText().trim();
-    	Vector<String> to = LogInController.USUARIO_LOGUEADO.getTecnicosACargo();
+    	// id tecnico a cargo
+    	int to = getTecnicosACargo();
     	if (!mensaje.isEmpty()) {
     		int isOk = mg.writeNewMessage(mensaje, from, to);
     		if (isOk == Mensajeria.ERROR_ESCRITURA) {

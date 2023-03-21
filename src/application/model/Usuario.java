@@ -9,20 +9,19 @@ public class Usuario {
 	private String contrasena;
 	private String email;
 	private int rol;
-	private Vector<String> tecnicosACargo;
-	private Vector<String> adminsACargo;
+	private Vector<Integer> adminsACargo;
+	private Vector<Integer> tecnicosACargo;
 	
 	
 
 	@Override
 	public String toString() {
 		return "Usuario [usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", contrasena="
-				+ contrasena + ", email=" + email + ", rol=" + rol + ", tecnicosACargo=" + tecnicosACargo
-				+ ", adminsACargo=" + adminsACargo + "]";
+				+ contrasena + ", email=" + email + ", rol=" + rol + ", adminsACargo=" + adminsACargo + "]";
 	}
 	
 	public Usuario(String usuario, String nombre, String apellido, String contrasena, String email, int rol,
-			Vector<String> tecnicosACargo, Vector<String> adminsACargo) {
+			Vector<Integer> adminsACargo, Vector<Integer> tecnicosACargo) {
 		super();
 		this.usuario = usuario;
 		this.nombre = nombre;
@@ -30,8 +29,8 @@ public class Usuario {
 		this.contrasena = contrasena;
 		this.email = email;
 		this.rol = rol;
-		this.tecnicosACargo = tecnicosACargo;
 		this.adminsACargo = adminsACargo;
+		this.tecnicosACargo = tecnicosACargo;
 	}
 
 
@@ -44,7 +43,7 @@ public class Usuario {
 		this.email = email;
 		this.rol = rol;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -82,22 +81,20 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	public Vector<String> getTecnicosACargo() {
-		return tecnicosACargo;
-	}
-
-	public void setTecnicosACargo(Vector<String> tecnicosACargo) {
-		this.tecnicosACargo = tecnicosACargo;
-	}
-
-	public Vector<String> getAdminsACargo() {
+	public Vector<Integer> getAdminsACargo() {
 		return adminsACargo;
 	}
 
-	public void setAdminsACargo(Vector<String> adminsACargo) {
+	public void setAdminsACargo(Vector<Integer> adminsACargo) {
 		this.adminsACargo = adminsACargo;
 	}
 	
+	public Vector<Integer> getTecnicosACargo() {
+		return tecnicosACargo;
+	}
 	
+	public void setTecnicosACargo(Vector<Integer> tecnicosACargo) {
+		this.tecnicosACargo = tecnicosACargo;
+	}
 
 }

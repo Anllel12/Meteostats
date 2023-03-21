@@ -223,7 +223,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab styleClass="tabs" text="Usuarios">
+          <Tab styleClass="tabs" text="Usuarios">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
                      <children>
@@ -231,17 +231,17 @@
                           <menus>
                             <Menu mnemonicParsing="false" text="Acciones">
                               <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuTablaEliminarUsuarios" styleClass="buttonItem" text="Eliminar usuario" />
-                                    <MenuItem mnemonicParsing="false" onAction="#menuTablaCambiarRol" styleClass="buttonItem" text="Cambiar rol del usuario" />
+                                <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolATecnico" styleClass="buttonItem" text="Cambiar Rol a TECNICO" />
+                                <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolACliente" styleClass="buttonItem" text="Cambiar Rol a CLIENTE" />
+                                <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolAAdmin" styleClass="buttonItem" text="Cambiar Rol a ADMINISTRADOR" />
                               </items>
                             </Menu>
                           </menus>
                         </MenuBar>
-                        <TableView fx:id="tbUsuarios" layoutY="32.0" prefHeight="330.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+                        <TableView fx:id="tbUsuario" layoutY="32.0" prefHeight="330.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
                           <columns>
                             <TableColumn fx:id="usuario" prefWidth="70.0" styleClass="column" text="USUARIO" />
-                              <TableColumn fx:id="nombre" prefWidth="405.0" styleClass="column" text="NOMBRE" />
-                              <TableColumn fx:id="apellidos" prefWidth="102.0" styleClass="column" text="APELLIDOS" />
+                              <TableColumn fx:id="email" prefWidth="405.0" styleClass="column" text="EMAIL" />
                               <TableColumn fx:id="rol" prefWidth="102.0" styleClass="column" text="ROL" />
                           </columns>
                            <columnResizePolicy>
