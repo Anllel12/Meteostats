@@ -23,7 +23,7 @@ public class GestionUsuariosBBDD {
 	
 	public int registrarUsuario(Usuario u) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "INSERT OR IGNORE INTO usuario(id_usuario, usuario, nombre, apellido, contrasena, email, rol) "
+		String query = "INSERT IGNORE INTO usuario(id_usuario, usuario, nombre, apellido, contrasena, email, rol) "
 				+ "VALUES (0, ?, ?, ?, ?, ?, ?)";
 		Connection connection = checkConnection(mdb);
 		PreparedStatement preparedStatement;
@@ -56,7 +56,7 @@ public class GestionUsuariosBBDD {
 	public Vector<Integer> getIdUsuariosByRol(int rol) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "SELECT id_usuario FROM usuario WHERE rol=%d";
-		String.format(query, rol);
+		query = String.format(query, rol);
 		Vector<Integer> usuByRol = new Vector<Integer>();
 		Connection connection = checkConnection(mdb);
 		Statement statement;
@@ -80,10 +80,9 @@ public class GestionUsuariosBBDD {
 	
 	public int setAdminACargoUsuario(Usuario usuario, Vector<Integer> ids_admin) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "INSERT OR IGNORE INTO admin(id_admin, usuario) "
+		String query = "INSERT IGNORE INTO admin(id_admin, usuario) "
 				+ "VALUES (?, ?)";
 		int idUsuario = getIdUsuarioByUsuario(usuario.getUsuario());
-		
 		Connection connection = checkConnection(mdb);
 		PreparedStatement preparedStatement;
 		try {
@@ -91,6 +90,8 @@ public class GestionUsuariosBBDD {
 				preparedStatement = connection.prepareStatement(query);
 				preparedStatement.setInt(1, idAdmin);
 				preparedStatement.setInt(2, idUsuario);
+				preparedStatement.executeUpdate();
+				preparedStatement.close();
 				connection.commit();
 			}
 			return REG_OK;
@@ -102,10 +103,9 @@ public class GestionUsuariosBBDD {
 	
 	public int setTecnicoACargoUsuario(Usuario usuario, Vector<Integer> ids_tecnico) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "INSERT OR IGNORE INTO tecnico(id_tecnico, usuario) "
+		String query = "INSERT IGNORE INTO tecnico(id_tecnico, usuario) "
 				+ "VALUES (?, ?)";
 		int idUsuario = getIdUsuarioByUsuario(usuario.getUsuario());
-		
 		Connection connection = checkConnection(mdb);
 		PreparedStatement preparedStatement;
 		try {
@@ -113,6 +113,8 @@ public class GestionUsuariosBBDD {
 				preparedStatement = connection.prepareStatement(query);
 				preparedStatement.setInt(1, idTecnico);
 				preparedStatement.setInt(2, idUsuario);
+				preparedStatement.executeUpdate();
+				preparedStatement.close();
 				connection.commit();
 			}
 			return REG_OK;
@@ -145,10 +147,55 @@ public class GestionUsuariosBBDD {
 		}
 	}
 	
+	public String getUsuarioById(int id) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		String query = String.format("SELECT usuario FROM usuario WHERE id_usuario=%d", id);
+		String usuario = "";
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				usuario = rs.getString("usuario");
+			}
+			rs.close();
+			statement.close();
+			return usuario;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Vector<Integer> getUsuariosACargoAdmin(String usuario) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_admin = getIdUsuarioByUsuario(usuario);
+		String query = String.format("SELECT usuario FROM admin WHERE id_admin=%d", id_admin);
+		Vector<Integer> usuariosACargo = new Vector<Integer>();
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				usuariosACargo.add(rs.getInt("usuario"));
+			}
+			rs.close();
+			statement.close();
+			return usuariosACargo;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public int getIdUsuarioByUsuario(String usuario) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "SELECT id_usuario FROM usuario WHERE usuario='%s'";
-		String.format(query, usuario);
+		query = String.format(query, usuario);
 		int idUsuarioRes;
 		Connection connection = checkConnection(mdb);
 		Statement statement;
@@ -156,7 +203,12 @@ public class GestionUsuariosBBDD {
 			statement = connection.createStatement();
 			
 			ResultSet rs = statement.executeQuery(query);
-			idUsuarioRes = rs.getInt("id_usuario");
+			if (rs.next()) {
+				idUsuarioRes = rs.getInt("id_usuario");
+			} else {
+				idUsuarioRes = -1;
+			}
+			
 			rs.close();
 			statement.close();
 			return idUsuarioRes;
@@ -203,10 +255,12 @@ public class GestionUsuariosBBDD {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "UPDATE usuario SET rol=%d WHERE id_usuario=%d";
 		Connection connection = checkConnection(mdb);
-		String.format(query, newRol, usId);
+		query = String.format(query, newRol, usId);
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
-			statement.execute();
+			statement.executeUpdate();
+			statement.close();
+			connection.commit();
 			return REG_OK;
 		} catch (SQLException e) {
 			e.printStackTrace();

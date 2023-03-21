@@ -3,6 +3,7 @@ package application.control;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -98,7 +99,7 @@ public class AdministradorController {
     @FXML
     private JFXComboBox<String> cbTecnicos;
     
-    private Vector<Usuario> usuariosACargo;
+    private Vector<Integer> usuariosACargo;
     
     private MensajeObj selectedMsg;
     
@@ -188,11 +189,11 @@ public class AdministradorController {
 	}
 
 	private void rellenarComboBoxYClientes() {
-		GestionGson gg = new GestionGson();
-    	usuariosACargo = gg.getUsersContainingAdminUsername(LogInController.USUARIO_LOGUEADO.getUsuario());
+    	GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+    	usuariosACargo = gestionUsuariosBBDD.getUsuariosACargoAdmin(LogInController.USUARIO_LOGUEADO.getUsuario());
     	ArrayList<String> nombresUsuarios = new ArrayList<>();
-    	for (Usuario usuario : usuariosACargo) {
-			nombresUsuarios.add(usuario.getUsuario());
+    	for (Integer idUsuario : usuariosACargo) {
+			nombresUsuarios.add(gestionUsuariosBBDD.getUsuarioById(idUsuario));
 		}
     	cbCliente.getItems().addAll(nombresUsuarios);
 	}
@@ -250,7 +251,6 @@ public class AdministradorController {
 
 	private void updateUsuariosTab() {
 		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
-		// TODO obtener objetos mensajes desde BBDD
 		Vector<Usuario> usuarios = gestionUsuariosBBDD.getUsuarios();
 		tbUsuario.getItems().setAll(usuarios);
 		
@@ -273,11 +273,33 @@ public class AdministradorController {
 		setUsuarioRol(GestionUsuariosBBDD.ROL_ADMIN);
 	}
 	
+	public static int getRandomIdFromVector(Vector<Integer> vector) {
+	    int rnd = new Random().nextInt(vector.size());
+	    return vector.get(rnd);
+	}
+	
 	private void setUsuarioRol(int rol) {
 		if (selectedUsuario != null) {
 			GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
-			gestionUsuariosBBDD.updateUsuario(selectedUsuario, rol);
-			updateUsuariosTab();
+			if (rol == GestionUsuariosBBDD.ROL_USUARIO) {
+				Vector<Integer> allAdmins = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_ADMIN);
+				Vector<Integer> adminACargoRandom = new Vector<Integer>();
+				adminACargoRandom.add(getRandomIdFromVector(allAdmins));
+				
+				Vector<Integer> allTecnicos = gestionUsuariosBBDD.getIdUsuariosByRol(GestionUsuariosBBDD.ROL_TECNICO);
+				Vector<Integer> tecnicoACargoRandom = new Vector<Integer>();
+				tecnicoACargoRandom.add(getRandomIdFromVector(allTecnicos));
+				
+				gestionUsuariosBBDD.updateUsuario(selectedUsuario, rol);
+				gestionUsuariosBBDD.setAdminACargoUsuario(selectedUsuario, adminACargoRandom);
+				gestionUsuariosBBDD.setTecnicoACargoUsuario(selectedUsuario, tecnicoACargoRandom);
+				
+				updateUsuariosTab();
+			} else {
+				gestionUsuariosBBDD.updateUsuario(selectedUsuario, rol);
+				updateUsuariosTab();
+			}
+			
 		} else {
 			errorAlertCreator("Error", "Ningun usuario seleccionado");
 		}
