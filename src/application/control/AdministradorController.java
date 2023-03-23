@@ -329,7 +329,7 @@ public class AdministradorController {
 	@FXML
 	void menuTablaEliminar() {
 		if (selectedMsg != null) {
-			Mensajeria mensajeria = new Mensajeria();
+			GestionMensajeriaBBDD mensajeria = new GestionMensajeriaBBDD();
 			mensajeria.deleteMessage(selectedMsg);
 			errorAlertCreator("OK", "Mensaje eliminado correctamente");
 			updateMsgsTab();

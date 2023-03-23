@@ -59,7 +59,7 @@ public class GestionMensajeriaBBDD {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, m.getFrom());
 			preparedStatement.setInt(2, m.getTo());
-			preparedStatement.setInt(3, getMessagesByTime(m.getFecha()));
+			preparedStatement.setInt(3, getIdMessagesByTime(m.getFecha()));
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			connection.commit();
@@ -71,9 +71,24 @@ public class GestionMensajeriaBBDD {
 		
 	}
 	
-//	public int deleteMessage(MensajeObj msg) {
-//		
-//	}
+	public int deleteMessage(MensajeObj msg) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id = getIdMessagesByTime(msg.getFecha());
+		String query = "DELETE FROM mensajes WHERE id_mensaje = ?";
+		String.format(query, id);
+		Connection connection = checkConnection(mdb);
+		try {
+			PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, id);
+            
+            stmt.executeUpdate();
+            stmt.close();
+			return id;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return MENS_NO_EXISTE;
+		}
+	}
 	
 //	//TODO: 1 mensaje desde 1 usuario y hacia 1 administrador / 1 tecnico
 //	public Vector<MensajeObj> getMessages(Usuario us) {
@@ -82,11 +97,11 @@ public class GestionMensajeriaBBDD {
 //		
 //	}
 	
-	public int getMessagesByTime(Timestamp time) {
+	public int getIdMessagesByTime(Timestamp time) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "SELECT id_mensaje FROM mensajes WHERE fecha = %d";
 		String.format(query, time);
-		int id = 0;
+		int id = -1;
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 		try {
