@@ -179,7 +179,15 @@
                                     <Font name="System Italic" size="15.0" />
                                  </font>
                               </JFXTextArea>
-                              <JFXComboBox fx:id="cbEleccion" promptText="Elige uno" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXComboBox fx:id="cbEleccion" promptText="Elige uno" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin></JFXComboBox>
+                              <JFXComboBox fx:id="cbDestinatario" promptText="Destinatario" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets right="20.0" />
+                                 </GridPane.margin>
+                              </JFXComboBox>
                            </children>
                         </GridPane>
                      </children>
@@ -188,6 +196,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="btnLogoutCliente" onAction="#logOut" layoutX="529.0" layoutY="-1.0" mnemonicParsing="false" text="Cerrar Sesion" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
+      <Button fx:id="btnLogoutCliente" layoutX="529.0" layoutY="-1.0" mnemonicParsing="false" onAction="#logOut" text="Cerrar Sesion" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>

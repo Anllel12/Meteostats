@@ -77,6 +77,9 @@ public class ClienteController {
     @FXML
     private JFXTextArea textArea;
     
+    @FXML
+    private JFXComboBox<String> cbDestinatario;
+    
     private static final String SELEC_SUGERENCIA = "Sugerencia";
 	private static final String SELEC_ERROR = "Error";
     
@@ -90,8 +93,13 @@ public class ClienteController {
                
    		});
    		cbEleccion.getItems().addAll(SELEC_SUGERENCIA, SELEC_ERROR);
-   		
+   		cbDestinatario.getItems().addAll(getAdminsACargo());
    	}
+    
+    Vector<String> getAdminsACargo() {
+    	GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+   		return gestionUsuariosBBDD.getAdminsACargoUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
+    }
     
     void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -123,6 +131,8 @@ public class ClienteController {
    		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
    		return gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getNombre()).get(0);
    	}
+   	
+   	// TODO obtener id administrador seleccionado en combobox de cliente de mensaje a enviar
    	
    	@FXML
    	void sendMensaje() {

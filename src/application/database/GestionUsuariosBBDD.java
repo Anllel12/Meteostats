@@ -169,6 +169,30 @@ public class GestionUsuariosBBDD {
 		}
 	}
 	
+	public Vector<String> getAdminsACargoUsuario(String cliente) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_usuario = getIdUsuarioByUsuario(cliente);
+		String query = String.format("SELECT id_admin FROM admin WHERE usuario=%d", id_usuario);
+		Vector<String> adminsACargo = new Vector<String>();
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				adminsACargo.add(getUsuarioById(rs.getInt("id_admin")));
+			}
+			rs.close();
+			statement.close();
+			return adminsACargo;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	public Vector<Integer> getUsuariosACargoAdmin(String usuario) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		int id_admin = getIdUsuarioByUsuario(usuario);
