@@ -12,9 +12,7 @@ import com.jfoenix.controls.JFXTextArea;
 import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
-import application.model.GestionGson;
 import application.model.MensajeObj;
-import application.model.Mensajeria;
 import application.model.Tiempo;
 import application.model.TiempoObj;
 import application.model.Usuario;
@@ -125,13 +123,12 @@ public class AdministradorController {
     	int to = gUser.getIdUsuarioByUsuario(selectedTecnico);   	
     	String mensaje = txtMensaje.getText().trim();
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    	if (!mensaje.isEmpty()) {
-    		
+    	if (!mensaje.isEmpty()) {   		
     		MensajeObj msg = new MensajeObj(mensaje, from, to, 0, timestamp);
     		int isOk = gMens.writeNewMessage(msg);
-    		if (isOk == Mensajeria.ERROR_ESCRITURA) {
+    		if (isOk == gMens.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
-    		} else if (isOk == Mensajeria.ESCRITURA_OK) {
+    		} else if (isOk == gMens.ESCRITURA_OK) {
     			errorAlertCreator("Completado","El mensaje se ha enviado correctamente");
     		}
     	} else {
@@ -255,8 +252,6 @@ public class AdministradorController {
 		tbUsuario.getItems().setAll(usuarios);
 		
 	}
-	
-
 
 	@FXML
 	void tablaUsuarioCambiarRolATecnico() {
@@ -306,22 +301,16 @@ public class AdministradorController {
 		
 	}
 
-	@FXML
-	void menuTablaCambiarRol() {
-		
-	}
-
 	private void comunicacionesTab() {
 		fecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
 		desc.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("descripcion"));
 		status.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("status"));
-		updateMsgsTab();
-		
+		updateMsgsTab();	
 	}
 	
 	private void updateMsgsTab() {
-		Mensajeria mensajeria = new Mensajeria();
-		Vector<MensajeObj> mensajes = mensajeria.getMessages(LogInController.USUARIO_LOGUEADO);
+		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
+		Vector<MensajeObj> mensajes = gMens.getMessages(LogInController.USUARIO_LOGUEADO);
 		
 		tbMsg.getItems().setAll(mensajes);
 	}
@@ -341,9 +330,9 @@ public class AdministradorController {
 	@FXML
 	void menuTablaSetPendiente() {
 		if (selectedMsg != null) {
-			Mensajeria mensajeria = new Mensajeria();
-			selectedMsg.setStatus(Mensajeria.STATUS_PENDIENTE);
-			mensajeria.modifyMessage(selectedMsg);
+			GestionMensajeriaBBDD gMns = new GestionMensajeriaBBDD();
+			selectedMsg.setStatus(gMns.STATUS_PENDIENTE);
+			gMns.modifyMessage(selectedMsg);
 			errorAlertCreator("OK", "Mensaje set como corregido");
 			updateMsgsTab();
 		} else {

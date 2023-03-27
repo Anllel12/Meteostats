@@ -1,7 +1,6 @@
 package application.model;
 
 import java.sql.Timestamp;
-import java.util.Vector;
 
 public class MensajeObj {
 
