@@ -1,14 +1,16 @@
 package application.control;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Vector;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
+import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
-import application.model.Mensajeria;
+import application.model.MensajeObj;
 import application.model.Tiempo;
 import application.model.TiempoObj;
 import javafx.fxml.FXML;
@@ -136,13 +138,14 @@ public class ClienteController {
    	@FXML
    	void sendMensaje() {
    		int from = 0;
+   		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
    		if (cbEleccion.getSelectionModel().getSelectedItem() != null) {
    			String selected = cbEleccion.getSelectionModel().getSelectedItem();
    			if (selected.equals(SELEC_ERROR)) {
-   				from = Mensajeria.CLIENTE_ERROR;
+   				from = gMens.CLIENTE_ERROR;
    				saveMessage(from);
    			} else if (selected.equals(SELEC_SUGERENCIA)) {
-   				from = Mensajeria.CLIENTE_SUGERENCIA;
+   				from = gMens.CLIENTE_SUGERENCIA;
    				saveMessage(from);
    			}
    		} else {
@@ -151,17 +154,17 @@ public class ClienteController {
    	}
    	
 	private void saveMessage(int from) {
-		Mensajeria mg = new Mensajeria();   	
+		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();   	
     	String mensaje = textArea.getText().trim();
     	// id tecnico a cargo
     	int to = getTecnicosACargo();
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	if (!mensaje.isEmpty()) {
-//    		int isOk = mg.writeNewMessage(mensaje, from, to);
-    		// TODO
-    		int isOk = Mensajeria.ERROR_ESCRITURA;
-    		if (isOk == Mensajeria.ERROR_ESCRITURA) {
+    		MensajeObj msg = new MensajeObj(mensaje, from, to, 0, timestamp);
+    		int isOk = gMens.writeNewMessage(msg);
+    		if (isOk == gMens.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
-    		} else if (isOk == Mensajeria.ESCRITURA_OK) {
+    		} else if (isOk == gMens.ESCRITURA_OK) {
     			errorAlertCreator("Completado","El mensaje se ha enviado correctamente");
     		}
     	} else {
@@ -177,11 +180,10 @@ public class ClienteController {
 		tcPresion.setCellValueFactory(new PropertyValueFactory<TiempoObj, String>("presion"));
 		tcAmanecer.setCellValueFactory(new PropertyValueFactory<TiempoObj, String>("amanacer"));
 		tcAtardecer.setCellValueFactory(new PropertyValueFactory<TiempoObj, String>("atardecer"));
-		loadMessagesTabla();
-		
+		loadWeatherTabla();	
 	}
 	
-	private void loadMessagesTabla() {
+	private void loadWeatherTabla() {
 		Tiempo tiempo_ = new Tiempo();
 		Vector<TiempoObj> tiempos = tiempo_.getWeather();
 		
