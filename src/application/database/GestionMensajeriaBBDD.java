@@ -49,7 +49,7 @@ public class GestionMensajeriaBBDD {
 	
 	public int writeRelationMessage(MensajeObj m) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "INSERT IGNORE INTO mensajes(usuario_from, usuario_to, mensaje) "
+		String query = "INSERT IGNORE INTO mensaje(usuario_from, usuario_to, mensaje) "
 				+ "VALUES (?, ?, ?)";
 		Connection connection = checkConnection(mdb);
 		PreparedStatement preparedStatement;
@@ -137,20 +137,20 @@ public class GestionMensajeriaBBDD {
 	
 	public int getIdMessagesByTime(Timestamp time) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT id_mensaje FROM mensajes WHERE fecha = %d";
-		String.format(query, time);
+		String query = "SELECT id_mensaje FROM mensajes WHERE fecha = ?";
 		int id = -1;
 		Connection connection = checkConnection(mdb);
-		Statement statement;
+		PreparedStatement preparedStatement;
 		try {
-			statement = connection.createStatement();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setTimestamp(1, time);
 			
-			ResultSet rs = statement.executeQuery(query);
+			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				id = rs.getInt("id_mensaje");
 			}
 			rs.close();
-			statement.close();
+			preparedStatement.close();
 			return id;
 		} catch (SQLException e) {
 			e.printStackTrace();
