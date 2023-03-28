@@ -232,7 +232,6 @@
                             <Menu mnemonicParsing="false" text="Acciones">
                               <items>
                                 <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolATecnico" styleClass="buttonItem" text="Cambiar Rol a TECNICO" />
-                                <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolACliente" styleClass="buttonItem" text="Cambiar Rol a CLIENTE" />
                                 <MenuItem mnemonicParsing="false" onAction="#tablaUsuarioCambiarRolAAdmin" styleClass="buttonItem" text="Cambiar Rol a ADMINISTRADOR" />
                               </items>
                             </Menu>
