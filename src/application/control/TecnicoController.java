@@ -185,8 +185,8 @@ public class TecnicoController {
 	   	}
 	   	
 	   	
-//	   	@FXML
-//		void comunicarAdministrador() {
+	   	@FXML
+		void comunicarAdministrador() {
 //			Mensajeria mg = new Mensajeria();
 //	    	int from = GestionGson.ROL_TECNICO;	
 //	    	String mensaje = comuncarAdmTxt.getText().trim();
@@ -203,8 +203,8 @@ public class TecnicoController {
 //	    	} else {
 //	    		errorAlertCreator("Error","El mensaje no puede estar vacio");
 //	    	}
-//			
-//		}
+			
+		}
 //
 		private void erroresTabla() {
 			fecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
