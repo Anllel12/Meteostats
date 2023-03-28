@@ -259,11 +259,6 @@ public class AdministradorController {
 	}
 	
 	@FXML
-	void tablaUsuarioCambiarRolACliente() {
-		setUsuarioRol(GestionUsuariosBBDD.ROL_USUARIO);
-	}
-	
-	@FXML
 	void tablaUsuarioCambiarRolAAdmin() {
 		setUsuarioRol(GestionUsuariosBBDD.ROL_ADMIN);
 	}
