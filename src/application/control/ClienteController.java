@@ -71,9 +71,6 @@ public class ClienteController {
 	private TableColumn<TiempoObj, String> tcAtardecer;
     
     @FXML
-    private JFXComboBox<String> cbEleccion;
-    
-    @FXML
     private JFXTextArea textArea;
     
     @FXML
@@ -91,7 +88,6 @@ public class ClienteController {
                System.out.println(nv.getText() + nv.getId());
                
    		});
-   		cbEleccion.getItems().addAll(SELEC_SUGERENCIA, SELEC_ERROR);
    		cbDestinatario.getItems().addAll(getAdminsACargo());
    	}
     
