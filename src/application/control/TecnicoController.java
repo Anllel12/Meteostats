@@ -45,18 +45,6 @@ public class TecnicoController {
 	    @FXML
 	    private TableColumn<MensajeObj, String> status;
 	    
-	    @FXML
-		private TableView<MensajeObj> tbSugerencias;
-		
-		@FXML
-		private TableColumn<MensajeObj, String> sFecha;
-		
-	    @FXML
-	    private TableColumn<MensajeObj, String> sDesc;
-	    
-	    @FXML
-	    private TableColumn<MensajeObj, String> sEstado;
-	    
 	    private MensajeObj selectedMsg;
 	    
 	    @FXML
@@ -84,14 +72,14 @@ public class TecnicoController {
 	    	cbAdmins.valueProperty().addListener((ov, p1, p2) -> {
 	    	    adminSelected = p2;
 	    	});
-	    	//Como primer tab en cargar es sugerencias cargamos mensajes
-//	    	sugerenciasTabla();
+	    	//Como primer tab en cargar es tabla de errores cargamos mensajes
+	    	erroresTabla();
 	    	
-//	   		tabPaneTecnico.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
-//	               selectedTab(nv.getText());
-//	               System.out.println(nv.getText() + nv.getId());
-//	               
-//	   		});
+	   		tabPaneTecnico.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
+	               selectedTab(nv.getText());
+	               System.out.println(nv.getText() + nv.getId());
+	               
+	   		});
 	   		cbEleccion.getItems().addAll(SELEC_BORRAR_MENSAJES, SELEC_BORRAR_USUARIOS, SELEC_RESET_HISTORIAL);
 	   		
 	   		tbMsg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MensajeObj>() {
@@ -149,19 +137,14 @@ public class TecnicoController {
 			alert.showAndWait();
 		}
 	   	
-//	   	private void selectedTab(String tabTitle) {
-//	   		switch (tabTitle) {
-//	   		case "Sugerencias":
-//	   			selectedMsg = null;
-//	   			sugerenciasTabla();
-//	   			
-//	   			break;
-//	   			
-//	   		case "Errores":
-//	   			selectedMsg = null;
-//	   			erroresTabla();
-//	   			
-//	   			break;
+	   	private void selectedTab(String tabTitle) {
+ 	   		switch (tabTitle) {
+ 	   			
+ 	   		case "Errores":
+ 	   			selectedMsg = null;
+ 	   			erroresTabla();
+ 	   			
+ 	   			break;
 	   			
 	   		/*case "Arreglos":
 	   			
@@ -169,15 +152,15 @@ public class TecnicoController {
 	   			break;*/
 	   			
 	   		/*case "Comunicar a Administrador":
-	   			// TODO
-	   			// comunicarAdministrador();
+	   			  TODO
+	   			  comunicarAdministrador();
 	   			
 	   			break;*/
-//
-//	   		default:
-//	   			break;
-//	   		}
-//	   	}
+ 
+ 	   		default:
+ 	   			break;
+ 	   		}
+ 	   	}
 
 	   	@FXML
 	   	void aplicarArreglo() {
@@ -240,121 +223,51 @@ public class TecnicoController {
 //			
 //		}
 //
-//		private void erroresTabla() {
-//			fecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
-//			desc.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("descripcion"));
-//			status.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("status"));
-//			loadMessagesTabla();
-//			
-//		}
-//		
-//		private void loadMessagesTabla() {
-//			GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
-//			Vector<MensajeObj> mensajes = gMens.getMessages(LogInController.USUARIO_LOGUEADO);
-//			Vector<MensajeObj> msg_aux = new Vector<>();	
-//			for (MensajeObj mensajeObj : mensajes) {
-//				if (mensajeObj.getFrom() == Mensajeria.CLIENTE_ERROR) {
-//					msg_aux.add(mensajeObj);
-//				}
-//			}
-//			tbMsg.getItems().setAll(msg_aux);
-//		}
-//		
-//		@FXML
-//		void menuTablaEliminar() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				mensajeria.deleteMessage(selectedMsg);
-//				errorAlertCreator("OK", "Mensaje eliminado correctamente");
-//				loadMessagesTabla();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//		
-//		@FXML
-//		void menuTablaEliminarSugerencias() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				mensajeria.deleteMessage(selectedMsg);
-//				errorAlertCreator("OK", "Mensaje eliminado correctamente");
-//				loadMessagesTablaSugerencias();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//		
-//		@FXML
-//		void menuTablaReestablecerStatus() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				selectedMsg.setStatus(Mensajeria.STATUS_INICIAL);
-//				mensajeria.modifyMessage(selectedMsg);
-//				errorAlertCreator("OK", "Status reestablecido");
-//				loadMessagesTabla();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//		
-//		@FXML
-//		void menuTablaReestablecerStatusSugerencias() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				selectedMsg.setStatus(Mensajeria.STATUS_INICIAL);
-//				mensajeria.modifyMessage(selectedMsg);
-//				errorAlertCreator("OK", "Status reestablecido");
-//				loadMessagesTablaSugerencias();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//		
-//		@FXML
-//		void menuTablaSetPendienteSugerencias() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				selectedMsg.setStatus(Mensajeria.STATUS_PENDIENTE);
-//				mensajeria.modifyMessage(selectedMsg);
-//				errorAlertCreator("OK", "Mensaje set como corregido");
-//				loadMessagesTablaSugerencias();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//		
-//		@FXML
-//		void menuTablaSetPendiente() {
-//			if (selectedMsg != null) {
-//				Mensajeria mensajeria = new Mensajeria();
-//				selectedMsg.setStatus(Mensajeria.STATUS_PENDIENTE);
-//				mensajeria.modifyMessage(selectedMsg);
-//				errorAlertCreator("OK", "Mensaje set como corregido");
-//				loadMessagesTabla();
-//			} else {
-//				errorAlertCreator("OK", "Ningun mensaje seleccionado");
-//			}
-//		}
-//
-//		private void sugerenciasTabla() {
-//			sFecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
-//			sDesc.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("descripcion"));
-//			sEstado.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("status"));
-//			loadMessagesTablaSugerencias();
-//			
-//		}
-//		
-//		private void loadMessagesTablaSugerencias() {
-//			Mensajeria mensajeria = new Mensajeria();
-//			Vector<MensajeObj> mensajes = mensajeria.getMessages(LogInController.USUARIO_LOGUEADO);
-//			Vector<MensajeObj> msg_aux = new Vector<>();	
-//			for (MensajeObj mensajeObj : mensajes) {
-//				if (mensajeObj.getFrom() == Mensajeria.CLIENTE_SUGERENCIA || mensajeObj.getTo().contains(Mensajeria.TO_TECNICO)) {
-//					msg_aux.add(mensajeObj);
-//				}
-//			}
-//			tbSugerencias.getItems().setAll(msg_aux);
-//		}
+		private void erroresTabla() {
+			fecha.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("fecha"));
+			desc.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("descripcion"));
+			status.setCellValueFactory(new PropertyValueFactory<MensajeObj, String>("status"));
+			loadMessagesTabla();
+			
+		}
+		
+		private void loadMessagesTabla() {
+			GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
+			Vector<MensajeObj> mensajes = gMens.getMessages(LogInController.USUARIO_LOGUEADO);
+			tbMsg.getItems().setAll(mensajes);
+		}
+		
+		@FXML
+		void menuTablaEliminar() {
+			if (selectedMsg != null) {
+				//TODO eliminar el mensaje seleccionado
+				errorAlertCreator("OK", "Mensaje eliminado correctamente");
+				loadMessagesTabla();
+			} else {
+				errorAlertCreator("OK", "Ningun mensaje seleccionado");
+			}
+		}
+		@FXML
+		void menuTablaReestablecerStatus() {
+			if (selectedMsg != null) {
+				//TODO establecer estado inicial
+				errorAlertCreator("OK", "Status reestablecido");
+				loadMessagesTabla();
+			} else {
+				errorAlertCreator("OK", "Ningun mensaje seleccionado");
+			}
+		}
+		
+		@FXML
+		void menuTablaSetPendiente() {
+			if (selectedMsg != null) {
+				//TODO establecer estado a pendiente
+				errorAlertCreator("OK", "Mensaje set como corregido");
+				loadMessagesTabla();
+			} else {
+				errorAlertCreator("OK", "Ningun mensaje seleccionado");
+			}
+		}
 		
 		@FXML
 		void logOut() {
