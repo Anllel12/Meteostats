@@ -1,14 +1,14 @@
 package application.model;
 
-import java.util.Vector;
+import java.sql.Timestamp;
 
 public class MensajeObj {
 
 	private String descripcion;
 	private int from;
-	private Vector<String> to;
+	private int to;
 	private int status;
-	private String fecha;
+	private Timestamp fecha;
 	
 	@Override
 	public String toString() {
@@ -28,10 +28,10 @@ public class MensajeObj {
 	public void setFrom(int from) {
 		this.from = from;
 	}
-	public Vector<String> getTo() {
+	public int getTo() {
 		return to;
 	}
-	public void setTo(Vector<String> to) {
+	public void setTo(int to) {
 		this.to = to;
 	}
 	public int getStatus() {
@@ -40,14 +40,14 @@ public class MensajeObj {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 
-	public MensajeObj(String descripcion, int from, Vector<String> to, int status, String fecha) {
+	public MensajeObj(String descripcion, int from, int to, int status, Timestamp fecha) {
 		super();
 		this.descripcion = descripcion;
 		this.from = from;
