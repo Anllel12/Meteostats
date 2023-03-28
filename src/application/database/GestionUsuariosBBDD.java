@@ -140,6 +140,7 @@ public class GestionUsuariosBBDD {
 			}
 			rs.close();
 			statement.close();
+			System.out.println(String.valueOf(tecnicosIds));
 			return tecnicosIds;
 		} catch (SQLException e) {
 			e.printStackTrace();

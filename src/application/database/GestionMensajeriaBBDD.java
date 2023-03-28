@@ -49,6 +49,7 @@ public class GestionMensajeriaBBDD {
 	
 	public int writeRelationMessage(MensajeObj m) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id = getIdMessagesByTime(m.getFecha());
 		String query = "INSERT IGNORE INTO mensaje(usuario_from, usuario_to, mensaje) "
 				+ "VALUES (?, ?, ?)";
 		Connection connection = checkConnection(mdb);
@@ -57,7 +58,7 @@ public class GestionMensajeriaBBDD {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, m.getFrom());
 			preparedStatement.setInt(2, m.getTo());
-			preparedStatement.setInt(3, getIdMessagesByTime(m.getFecha()));
+			preparedStatement.setInt(3, id);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			connection.commit();

@@ -73,16 +73,10 @@ public class ClienteController {
 	private TableColumn<TiempoObj, String> tcAtardecer;
     
     @FXML
-    private JFXComboBox<String> cbEleccion;
-    
-    @FXML
     private JFXTextArea textArea;
     
     @FXML
     private JFXComboBox<String> cbDestinatario;
-    
-    private static final String SELEC_SUGERENCIA = "Sugerencia";
-	private static final String SELEC_ERROR = "Error";
     
     @FXML
    	void initialize() {
@@ -93,14 +87,13 @@ public class ClienteController {
                System.out.println(nv.getText() + nv.getId());
                
    		});
-   		cbEleccion.getItems().addAll(SELEC_SUGERENCIA, SELEC_ERROR);
-   		cbDestinatario.getItems().addAll(getAdminsACargo());
+   		cbDestinatario.getItems().addAll(getTecnicosACargo());
    	}
     
-    Vector<String> getAdminsACargo() {
-    	GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
-   		return gestionUsuariosBBDD.getAdminsACargoUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
-    }
+//    Vector<String> getAdminsACargo() {
+//    	GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+//   		return gestionUsuariosBBDD.getAdminsACargoUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
+//    }
     
     void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -128,43 +121,39 @@ public class ClienteController {
    	}
    	
    	// TODO obtenemos el primer tecnico a cargo, por defecto en el registro solo se asigna un tecnico
-   	private int getTecnicosACargo() {
+   	private Vector<String> getTecnicosACargo() {
    		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
-   		return gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getNombre()).get(0);
+   		int tecnico_id = gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getNombre()).get(0);
+   		Vector<String> tecnicos = new Vector<String>();
+   		tecnicos.add(gestionUsuariosBBDD.getUsuarioById(tecnico_id));
+   		return tecnicos;
    	}
    	
    	// TODO obtener id administrador seleccionado en combobox de cliente de mensaje a enviar
    	
    	@FXML
    	void sendMensaje() {
-   		int from = 0;
-   		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();
-   		if (cbEleccion.getSelectionModel().getSelectedItem() != null) {
-   			String selected = cbEleccion.getSelectionModel().getSelectedItem();
-   			if (selected.equals(SELEC_ERROR)) {
-   				from = gMens.CLIENTE_ERROR;
-   				saveMessage(from);
-   			} else if (selected.equals(SELEC_SUGERENCIA)) {
-   				from = gMens.CLIENTE_SUGERENCIA;
-   				saveMessage(from);
-   			}
+   		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
+   		if (cbDestinatario.getSelectionModel().getSelectedItem() != null) {
+   				saveMessage(gUsuario.getIdUsuarioByUsuario(LogInController.USUARIO_LOGUEADO.getUsuario()));
    		} else {
 				errorAlertCreator("ERROR", "Debes seleccionar Sugerencia o Error");
 		}
    	}
    	
 	private void saveMessage(int from) {
-		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();   	
+		GestionMensajeriaBBDD gMens = new GestionMensajeriaBBDD();  
+		GestionUsuariosBBDD gUsuarios = new GestionUsuariosBBDD();
     	String mensaje = textArea.getText().trim();
     	// id tecnico a cargo
-    	int to = getTecnicosACargo();
+    	int to = gUsuarios.getIdUsuarioByUsuario(cbDestinatario.getSelectionModel().getSelectedItem());
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	if (!mensaje.isEmpty()) {
     		MensajeObj msg = new MensajeObj(mensaje, from, to, 0, timestamp);
     		int isOk = gMens.writeNewMessage(msg);
-    		if (isOk == gMens.ERROR_ESCRITURA) {
+    		if (isOk == GestionMensajeriaBBDD.ERROR_ESCRITURA) {
     			errorAlertCreator("Error","No se ha podido enviar el mensaje");
-    		} else if (isOk == gMens.ESCRITURA_OK) {
+    		} else if (isOk == GestionMensajeriaBBDD.ESCRITURA_OK) {
     			errorAlertCreator("Completado","El mensaje se ha enviado correctamente");
     		}
     	} else {
