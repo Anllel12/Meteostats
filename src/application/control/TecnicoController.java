@@ -1,8 +1,6 @@
 package application.control;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -12,9 +10,7 @@ import com.jfoenix.controls.JFXTextArea;
 import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
-import application.model.GestionGson;
 import application.model.MensajeObj;
-import application.model.Tiempo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -26,7 +22,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TecnicoController {
@@ -89,18 +84,6 @@ public class TecnicoController {
 						MensajeObj newValue) {
 					if (tbMsg.getSelectionModel().getSelectedItem() != null) {
 						selectedMsg = tbMsg.getSelectionModel().getSelectedItem();
-					}
-					
-				}
-			});
-	   		
-	   		tbSugerencias.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MensajeObj>() {
-
-				@Override
-				public void changed(ObservableValue<? extends MensajeObj> observable, MensajeObj oldValue,
-						MensajeObj newValue) {
-					if (tbSugerencias.getSelectionModel().getSelectedItem() != null) {
-						selectedMsg = tbSugerencias.getSelectionModel().getSelectedItem();
 					}
 					
 				}
