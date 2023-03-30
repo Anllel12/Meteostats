@@ -114,9 +114,9 @@ public class GestionMensajeriaBBDD {
 		GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
 		Vector<MensajeObj> msg = new Vector<MensajeObj>();
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT * FROM mensajes";
-		String.format(query, gUser.getIdUsuarioByUsuario(us.getUsuario()));
-		int id = -1;
+		String query = "SELECT mensajes.*, mensaje.usuario_from, mensaje.usuario_to FROM mensajes "
+				+ "INNER JOIN mensaje ON mensajes.id_mensaje = mensaje.mensaje WHERE mensaje.usuario_to = %s";
+		query = String.format(query, gUser.getIdUsuarioByUsuario(us.getUsuario()));
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 		try {
