@@ -56,11 +56,25 @@ public class TiempoObj {
 		this.humedad = humedad;
 	}
 	public int getAmanecer() {
-		return amanecer;
+			return amanecer;
 	}
+/*	public int getAmanecer() {
+		if(amanecer >= 5 && amanecer <=10) {
+			return amanecer;
+		}else {
+			return 0;
+		}
+	}*/
 	public void setAmanecer(int amanacer) {
 		this.amanecer = amanacer;
 	}
+	/*public int getAtardecer() {
+		if(amanecer >= 15 && amanecer <=21) {
+			return amanecer;
+		}else {
+			return 0;
+		}
+	}*/
 	public int getAtardecer() {
 		return atardecer;
 	}

@@ -92,7 +92,9 @@ public class ClienteController {
     @FXML
    	void initialize() {
     	//Como programa empieza en historial de mediciones, cargamos los datos de primeras
-    	loadWeatherTabla();  	
+    	loadWeatherTabla(); 
+    	estadoTab();
+    	
     	/*clienteTabPane.getSelectionModel().selectedItemProperty().addListener((obs,ov,nv)->{
                selectedTab(nv.getText());
                System.out.println(nv.getText() + nv.getId());
@@ -214,45 +216,22 @@ public class ClienteController {
 	
 
 	private void estadoTab() {
-		
-	    this.tcFecha.setCellValueFactory(new PropertyValueFactory<>("hora"));
-	    this.tcTemperatura.setCellValueFactory(new PropertyValueFactory<>("temperatura"));
-	    this.tcPresion.setCellValueFactory(new PropertyValueFactory<>("presion"));
-	    this.tcHumedad.setCellValueFactory(new PropertyValueFactory<>("humedad"));
-	    this.tcAmanecer.setCellValueFactory(new PropertyValueFactory<>("amanecer"));
-	    this.tcAtardecer.setCellValueFactory(new PropertyValueFactory<>("atardecer"));
 
+		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
 	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
-
-
-	    // Agregar la información del tiempo actualizado a la lista de elementos
 	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
 
-	    // Cargar los datos en la tabla
-	    this.tbMsg.setItems(items);
-	  /*  GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
-	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
-	    items.addAll(gestionTiempo.obtenerInformacionTiempo());
-
-	    // Imprimir valores de depuración
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
-	    System.out.println("Ubicación: " + tiempoActual.getUbicacion());
-	    System.out.println("Temperatura: " + tiempoActual.getTemperatura());
-	    System.out.println("Presión: " + tiempoActual.getPresion());
-	    System.out.println("Humedad: " + tiempoActual.getHumedad());
-	    System.out.println("Amanecer: " + tiempoActual.getAmanecer());
-	    System.out.println("Atardecer: " + tiempoActual.getAtardecer());*/
 
-	    // Actualizar la interfaz de usuario
-	   /* Platform.runLater(() -> {
+	    Platform.runLater(() -> {
 	        ubicacion.setText(tiempoActual.getUbicacion());
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
 	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
-	        amanecer.setText(Integer.toString(tiempoActual.getAmanecer()));
-	        atardecer.setText(Integer.toString(tiempoActual.getAtardecer()));
-	    });*/
+	        amanecer.setText(Integer.toString(tiempoActual.getAtardecer()));
+	        atardecer.setText(Integer.toString(tiempoActual.getAmanecer()));
+	    });
 
 	}
 

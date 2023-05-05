@@ -184,75 +184,6 @@ public class GestionTiempoBBDD {
 		return obs;
 	}
 	
-/*
-	public ObservableList<SensorAmaAtar> getAmanecer(){
-		
-		ObservableList<SensorAmaAtar> obs = FXCollections.observableArrayList();
-		
-		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'AmaAtar' AND lectura1 = '%am%";
-		Connection connection = checkConnection(mdb);
-		Statement statement;
-
-		try {
-			statement = connection.createStatement();
-			
-			ResultSet rs = statement.executeQuery(query);
-			
-			while(rs.next()) {
-
-				
-				String amanecer = rs.getString("lectura1");
-				String atardecer = "";
-				
-				SensorAmaAtar t = new SensorAmaAtar(amanecer, atardecer);
-				
-				obs.add(t);
-			}
-			
-			rs.close();
-			statement.close();
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return obs;
-	}
-	
-	
-	public ObservableList<SensorAmaAtar> getAtardecer(){
-		
-		ObservableList<SensorAmaAtar> obs = FXCollections.observableArrayList();
-		
-		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'AmaAtar' AND lectura1 = '%pm%";
-		Connection connection = checkConnection(mdb);
-		Statement statement;
-
-		try {
-			statement = connection.createStatement();
-			
-			ResultSet rs = statement.executeQuery(query);
-			
-			while(rs.next()) {
-
-				
-				String atardecer = rs.getString("lectura1");
-				String amanecer = "";
-				
-				SensorAmaAtar t = new SensorAmaAtar(amanecer, atardecer);
-				
-				obs.add(t);
-			}
-			
-			rs.close();
-			statement.close();
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return obs;
-	}*/
 	
 	/**
 	 * obtener datos tipo sensor 4
@@ -261,7 +192,7 @@ public class GestionTiempoBBDD {
 	public ObservableList<SensorHora> getHora(){
 		
 		ObservableList<SensorHora> obs = FXCollections.observableArrayList();
-		
+
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = "SELECT fecha FROM sensores";
 		Connection connection = checkConnection(mdb);
@@ -300,7 +231,7 @@ public class GestionTiempoBBDD {
 	    List<SensorAmaAtar> amaAtarList2 = getAmaAtar();
 	    List<SensorHora> horaList = getHora();
 	   
-
+	    
 	    List<TiempoObj> tiempos = new ArrayList<>();
 
 	    for (int i = 0; i < temperaturaList.size(); i++) {
@@ -362,7 +293,7 @@ public class GestionTiempoBBDD {
 	                                      temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
 	                                      presionList.get(presionList.size() - 1).getPresion(),
 	                                      humedadList.get(humedadList.size() - 1).getHumedad(),
-	                                      amaAtarList.get(amaAtarList.size() - 1).getAmanacer(),
+	                                      amaAtarList.get(amaAtarList.size() - 2).getAmanacer(),
 	                                      amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
 	                                      horaList.get(horaList.size() - 1).getHora());
 	    return tiempo;
