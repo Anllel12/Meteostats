@@ -221,7 +221,7 @@ public class ClienteController {
 	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
 	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
-
+	    
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
 	    Platform.runLater(() -> {

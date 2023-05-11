@@ -247,6 +247,10 @@ public class GestionTiempoBBDD {
 	
 	
 	public TiempoObj obtenerInformacionTiempoUltimo() {
+		
+		
+		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
+		String ubicacion = gUsuario.getUsuarioById(4);
 	    // Obtener las observables listas con la información de los sensores
 	    ObservableList<SensorTemp> temperaturaObsList = getTemperatura1();
 	    ObservableList<SensorHumedad> humedadObsList = getHumedad();
@@ -255,6 +259,10 @@ public class GestionTiempoBBDD {
 	    ObservableList<SensorAmaAtar> amaAtarObsList2 = getAmaAtar();
 	    ObservableList<SensorHora> horaObsList = getHora();
 
+	    if(ubicacion == null) {
+	    	ubicacion = "Ubicacion desconocida";
+	    }
+	    
 	    // Crear listas de sensores para almacenar los valores de los sensores
 	    List<SensorTemp> temperaturaList = new ArrayList<>();
 	    List<SensorHumedad> humedadList = new ArrayList<>();
@@ -289,7 +297,7 @@ public class GestionTiempoBBDD {
 	    }
 
 	    // Crear el objeto TiempoObj con la ultma informacion
-	    TiempoObj tiempo = new TiempoObj("Ubicación", 
+	    TiempoObj tiempo = new TiempoObj(ubicacion, 
 	                                      temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
 	                                      presionList.get(presionList.size() - 1).getPresion(),
 	                                      humedadList.get(humedadList.size() - 1).getHumedad(),
