@@ -1,0 +1,340 @@
+[
+  {
+    "usuario": "tecnico1",
+    "nombre": "tecnico1",
+    "apellido": "tecnico1",
+    "contrasena": "tecnico1",
+    "email": "tecnico1",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "tecnico2",
+    "nombre": "tecnico2",
+    "apellido": "tecnico2",
+    "contrasena": "tecnico2",
+    "email": "tecnico2",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "tecnico3",
+    "nombre": "tecnico3",
+    "apellido": "tecnico3",
+    "contrasena": "tecnico3",
+    "email": "tecnico3",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin1",
+    "nombre": "admin1",
+    "apellido": "admin1",
+    "contrasena": "admin1",
+    "email": "admin1",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin2",
+    "nombre": "admin2",
+    "apellido": "admin2",
+    "contrasena": "admin2",
+    "email": "admin2",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin3",
+    "nombre": "admin3",
+    "apellido": "admin3",
+    "contrasena": "admin3",
+    "email": "admin3",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "cliente1",
+    "nombre": "cliente1",
+    "apellido": "cliente1",
+    "contrasena": "cliente1",
+    "email": "cliente1",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "tecnico4",
+    "nombre": "tecnico4",
+    "apellido": "tecnico4",
+    "contrasena": "tecnico4",
+    "email": "tecnico4",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "cliente2",
+    "nombre": "cliente2",
+    "apellido": "cliente2",
+    "contrasena": "cliente2",
+    "email": "cliente2",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente3",
+    "nombre": "Mario",
+    "apellido": "Rodriguez",
+    "contrasena": "12345",
+    "email": "mario98@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente4",
+    "nombre": "Raul",
+    "apellido": "Gomez",
+    "contrasena": "12345",
+    "email": "raul.gomez3@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente5",
+    "nombre": "Elena",
+    "apellido": "Perez",
+    "contrasena": "12345",
+    "email": "eleperez@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente6",
+    "nombre": "Maria",
+    "apellido": "Garcia",
+    "contrasena": "12345",
+    "email": "meryy024@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente7",
+    "nombre": "Antonio",
+    "apellido": "Fernandez",
+    "contrasena": "12345",
+    "email": "Fernandez02an@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente8",
+    "nombre": "Patricia",
+    "apellido": "Perez",
+    "contrasena": "12345",
+    "email": "patrii00perez@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente9",
+    "nombre": "Jorge",
+    "apellido": "Martin",
+    "contrasena": "12345",
+    "email": "jorgee1357@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente10",
+    "nombre": "Ruben",
+    "apellido": "Quintana",
+    "contrasena": "12345",
+    "email": "rubenquintana02@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "cliente11",
+    "nombre": "Marta",
+    "apellido": "Lopez",
+    "contrasena": "12345",
+    "email": "martalopezz00@gmail.com",
+    "rol": 1,
+    "tecnicosACargo": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "adminsACargo": [
+      "admin1",
+      "admin2",
+      "admin3"
+    ]
+  },
+  {
+    "usuario": "tecnico4",
+    "nombre": "Javier",
+    "apellido": "Leganes",
+    "contrasena": "12345",
+    "email": "javierrleg97@gmail.com",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "tecnico5",
+    "nombre": "Sergio",
+    "apellido": "Rodriguez",
+    "contrasena": "12345",
+    "email": "sergiirodriguez@gmail.com",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "tecnico6",
+    "nombre": "Andrea",
+    "apellido": "Balaguer",
+    "contrasena": "12345",
+    "email": "andriusbalaguer@gmail.com",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "tecnico7",
+    "nombre": "Ignacio",
+    "apellido": "Fernandez",
+    "contrasena": "12345",
+    "email": "ignafernandez00@gmail.com",
+    "rol": 3,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin4",
+    "nombre": "Paula",
+    "apellido": "Moreno",
+    "contrasena": "12345",
+    "email": "paulaamoreno@gmail.com",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin5",
+    "nombre": "Sara",
+    "apellido": "Romero",
+    "contrasena": "12345",
+    "email": "sararomero00@gmail.com",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  },
+  {
+    "usuario": "admin6",
+    "nombre": "Mateo",
+    "apellido": "Villar",
+    "contrasena": "12345",
+    "email": "mateovillar@gmail.com",
+    "rol": 2,
+    "tecnicosACargo": [],
+    "adminsACargo": []
+  }
+]
