@@ -13,7 +13,6 @@ import application.database.GestionMensajeriaBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.MensajeObj;
-import application.model.Tiempo;
 import application.model.TiempoObj;
 import application.model.Usuario;
 import javafx.beans.value.ChangeListener;
@@ -328,13 +327,13 @@ public class AdministradorController {
 
 	private void estadoTab(String usuario_cliente) {
 		//TODO meter usuario dentro del tiempo para poder mostrar el q se relacione cn admin
-		Tiempo tiempo_ = new Tiempo();
-		Vector<TiempoObj> tiempos = tiempo_.getWeather();
+		//Tiempo tiempo_ = new Tiempo();
+		//Vector<TiempoObj> tiempos = tiempo_.getWeather();
 		//%d = integer, %s = string
-		ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
-		temperatura.setText(String.format("%d %s", tiempos.lastElement().getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
-		presion.setText(String.format("%d %s", tiempos.lastElement().getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
-		humedad.setText(String.format("%d %s", tiempos.lastElement().getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
+		//ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
+		//temperatura.setText(String.format("%d %s", tiempos.lastElement().getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
+		//presion.setText(String.format("%d %s", tiempos.lastElement().getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
+		//humedad.setText(String.format("%d %s", tiempos.lastElement().getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
 		//duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
 		//horaSist.setText(Integer.toString(tiempos.lastElement().getHora()));
 		//funcionamiento.setText(String.format("%d %s", tiempos.lastElement().getTiempoFuncionando(), Tiempo.UNIDADES_TIEMPO.get(3)));

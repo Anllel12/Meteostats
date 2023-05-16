@@ -18,7 +18,6 @@ import application.model.SensorAmaAtar;
 import application.model.SensorHumedad;
 import application.model.SensorPresion;
 import application.model.SensorTemp;
-import application.model.Tiempo;
 import application.model.TiempoObj;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -226,9 +225,9 @@ public class ClienteController {
 
 	    Platform.runLater(() -> {
 	        ubicacion.setText(tiempoActual.getUbicacion());
-	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
-	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
-	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
+	        //temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
+	        //presion.setText(String.format("%d %s", tiempoActual.getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
+	        //humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
 	        amanecer.setText(Integer.toString(tiempoActual.getAtardecer()));
 	        atardecer.setText(Integer.toString(tiempoActual.getAmanecer()));
 	    });

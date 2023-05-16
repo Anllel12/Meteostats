@@ -16,7 +16,6 @@ import application.model.SensorHora;
 import application.model.SensorHumedad;
 import application.model.SensorPresion;
 import application.model.SensorTemp;
-import application.model.Tiempo;
 import application.model.TiempoObj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
