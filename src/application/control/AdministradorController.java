@@ -329,8 +329,7 @@ public class AdministradorController {
 		//TODO meter usuario dentro del tiempo para poder mostrar el q se relacione cn admin
 		//Tiempo tiempo_ = new Tiempo();
 		//Vector<TiempoObj> tiempos = tiempo_.getWeather();
-		//%d = integer, %s = string
-		//ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
+		//%d = integer, %s = string		//ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
 		//temperatura.setText(String.format("%d %s", tiempos.lastElement().getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
 		//presion.setText(String.format("%d %s", tiempos.lastElement().getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
 		//humedad.setText(String.format("%d %s", tiempos.lastElement().getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
