@@ -45,7 +45,7 @@ public class GestionTiempoBBDD {
 		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
 
 		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp' AND usuario = '"+ gestionUsuarios.getUsuarioById(4) + "'";
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp'";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp'";
 		
 		Connection connection = checkConnection(mdb);
 		Statement statement;
@@ -81,7 +81,7 @@ public class GestionTiempoBBDD {
 		ObservableList<SensorHumedad> obs = FXCollections.observableArrayList();
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'humedad'"
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_humedad'"
 				+ "";
 		Connection connection = checkConnection(mdb);
 		Statement statement;
@@ -119,7 +119,7 @@ public class GestionTiempoBBDD {
 		ObservableList<SensorPresion> obs = FXCollections.observableArrayList();
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'presion'";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'BMP_presion'";
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -154,7 +154,7 @@ public class GestionTiempoBBDD {
 		ObservableList<SensorAmaAtar> obs = FXCollections.observableArrayList();
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'AmaAtar'";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'LDR'";
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -297,11 +297,11 @@ public class GestionTiempoBBDD {
 
 	    // Crear el objeto TiempoObj con la ultma informacion
 	    TiempoObj tiempo = new TiempoObj(ubicacion, 
-	                                      temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
-	                                      presionList.get(presionList.size() - 1).getPresion(),
-	                                      humedadList.get(humedadList.size() - 1).getHumedad(),
-	                                      amaAtarList.get(amaAtarList.size() - 2).getAmanacer(),
-	                                      amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
+	    		 temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
+	             presionList.get(presionList.size() - 1).getPresion(),
+	             humedadList.get(humedadList.size() - 1).getHumedad(),
+	             amaAtarList.get(amaAtarList.size() - 1).getAmanacer(),
+	             amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
 	                                      horaList.get(horaList.size() - 1).getHora());
 	    return tiempo;
 	}
@@ -332,5 +332,3 @@ public class GestionTiempoBBDD {
 	    }
 	  
 }
-
-
