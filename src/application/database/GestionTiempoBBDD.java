@@ -44,6 +44,17 @@ public class GestionTiempoBBDD {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
 
+		/*
+		 * 		GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
+
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+
+		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp' AND usuario = '"+ gestionUsuarios.getUsuarioById(4) + "'";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp' AND usuario = '%s'";
+		query = String.format(query, us.getUsuario());*/
+		
+		
 		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp' AND usuario = '"+ gestionUsuarios.getUsuarioById(4) + "'";
 		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp'";
 		
@@ -308,33 +319,9 @@ public class GestionTiempoBBDD {
 	
 
 
-	
-	  public List<String> obtenerUsuariosSensores() throws SQLException {
-	        List<String> usuarios = new ArrayList<>();
-			MariaDBConnectionService mdb = new MariaDBConnectionService();
-			Connection connection = checkConnection(mdb);
-
-	        String sql = "SELECT usuario FROM sensores";
-
-	        Statement statement = connection.createStatement();
-
-	        ResultSet resultSet = statement.executeQuery(sql);
-
-	        while (resultSet.next()) {
-	            String usuario = resultSet.getString("usuario");
-	            usuarios.add(usuario);
-	        }
-
-	        resultSet.close();
-	        statement.close();
-
-	        return usuarios;
-	    }
 	  
-<<<<<<< HEAD
 }
 
 
-=======
-}
->>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
+
+

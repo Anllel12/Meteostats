@@ -55,29 +55,29 @@ public class TiempoObj {
 	public void setHumedad(int humedad) {
 		this.humedad = humedad;
 	}
-	public int getAmanecer() {
+	/*public int getAmanecer() {
 			return amanecer;
-	}
-/*	public int getAmanecer() {
-		if(amanecer >= 5 && amanecer <=10) {
-			return amanecer;
-		}else {
-			return 0;
-		}
 	}*/
+	public int getAmanecer() {
+	    if (amanecer >= 5 && amanecer <= 10) {
+	        return amanecer;
+	    } else {
+	        return 0;
+	    }
+	}
 	public void setAmanecer(int amanacer) {
 		this.amanecer = amanacer;
 	}
-	/*public int getAtardecer() {
-		if(amanecer >= 15 && amanecer <=21) {
-			return amanecer;
-		}else {
-			return 0;
-		}
-	}*/
 	public int getAtardecer() {
-		return atardecer;
+	    if (amanecer >= 15 && amanecer <= 21) {
+	        return amanecer;
+	    } else {
+	        return 0;
+	    }
 	}
+	/*public int getAtardecer() {
+		return atardecer;
+	}*/
 	public void setAtardecer(int atardecer) {
 		this.atardecer = atardecer;
 	}

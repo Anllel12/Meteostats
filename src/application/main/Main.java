@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class Main extends Application {
 	
-	public static final Image ICONO_APP = new Image("file:data/resources/logo_icon.png");
+	public static final Image ICONO_APP = new Image("data/resources/logo_icon.png");
 	@Override
 	public void start(Stage primaryStage) {
 		try {
