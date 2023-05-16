@@ -3,6 +3,7 @@ package application.control;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -36,6 +37,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ClienteController {
+	
+	public final static ArrayList<String> UNIDADES_TIEMPO = new ArrayList<>(Arrays.asList("ºC", "mmHg", "%", "segundos"));
 	
 	@FXML
     private TabPane clienteTabPane;
@@ -225,9 +228,9 @@ public class ClienteController {
 
 	    Platform.runLater(() -> {
 	        ubicacion.setText(tiempoActual.getUbicacion());
-	        //temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
-	        //presion.setText(String.format("%d %s", tiempoActual.getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
-	        //humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
+	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
+	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
+	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
 	        amanecer.setText(Integer.toString(tiempoActual.getAtardecer()));
 	        atardecer.setText(Integer.toString(tiempoActual.getAmanecer()));
 	    });
