@@ -331,6 +331,10 @@ public class GestionTiempoBBDD {
 	        return usuarios;
 	    }
 	  
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89

@@ -20,9 +20,7 @@ import application.model.SensorHumedad;
 import application.model.SensorPresion;
 import application.model.SensorTemp;
 import application.model.TiempoObj;
-import application.model.TiempoObjConUnidades;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -67,7 +65,7 @@ public class ClienteController {
     private Label atardecer;
     
     @FXML
-    private TableView<TiempoObjConUnidades> tbMsg;
+    private TableView<TiempoObj> tbMsg;
     
     @FXML
 	private TableColumn<TiempoObj, String> tcFecha;
@@ -181,15 +179,14 @@ public class ClienteController {
 	}
 
 	private void historialMediciones() {
-	    tcFecha.setCellValueFactory(new PropertyValueFactory<>("hora"));
-	    tcTemperatura.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTemperatura() + " °C"));
-	    tcHumedad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHumedad() + " %"));
-	    tcPresion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPresion() + " hPa"));
-	    tcAmanecer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAmanacer() + " AM"));
-	    tcAtardecer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAtardecer() + " PM"));
-	    loadWeatherTabla();
+		   tcFecha.setCellValueFactory(new PropertyValueFactory<>("hora"));
+		    tcTemperatura.setCellValueFactory(new PropertyValueFactory<>("temperatura"));
+		    tcHumedad.setCellValueFactory(new PropertyValueFactory<>("humedad"));
+		    tcPresion.setCellValueFactory(new PropertyValueFactory<>("presion"));
+		    tcAmanecer.setCellValueFactory(new PropertyValueFactory<>("amanecer"));
+		    tcAtardecer.setCellValueFactory(new PropertyValueFactory<>("atardecer"));
+		    loadWeatherTabla();
 	}
-	
 	
 	private void loadWeatherTabla() {
 	    tcFecha.setCellValueFactory(new PropertyValueFactory<>("hora"));
@@ -204,24 +201,15 @@ public class ClienteController {
 	    List<TiempoObj> tiempoList = gestionTiempo.obtenerInformacionTiempo();
 
 	    if (tiempoList == null) {
-	        // muestra error si la lista esat vacia
+	        // Si la lista está vacía, mostrar un mensaje de error
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
 	        alert.setHeaderText("No se pudo cargar la información");
 	        alert.setContentText("La cantidad de elementos en las listas no coincide.");
 	        alert.showAndWait();
 	    } else {
-	        ObservableList<TiempoObjConUnidades> items = FXCollections.observableArrayList();
-	        for (TiempoObj tiempo : tiempoList) {
-	            TiempoObjConUnidades tiempoConUnidades = new TiempoObjConUnidades();
-	            tiempoConUnidades.setHora(tiempo.getHora());
-	            tiempoConUnidades.setTemperatura(tiempo.getTemperatura() + " °C");
-	            tiempoConUnidades.setPresion(tiempo.getPresion() + " hPa");
-	            tiempoConUnidades.setHumedad(tiempo.getHumedad() + " %");
-	            tiempoConUnidades.setAmanecer(tiempo.getAmanecer() + " AM");
-	            tiempoConUnidades.setAtardecer(tiempo.getAtardecer() + " PM");
-	            items.add(tiempoConUnidades);
-	        }
+	        ObservableList<TiempoObj> items = FXCollections.observableArrayList();
+	        items.addAll(tiempoList);
 
 	        // Cargar los datos en la tabla
 	        tbMsg.setItems(items);
@@ -229,7 +217,6 @@ public class ClienteController {
 	}
 	
 
-	
 	private void estadoTab() {
 
 		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();

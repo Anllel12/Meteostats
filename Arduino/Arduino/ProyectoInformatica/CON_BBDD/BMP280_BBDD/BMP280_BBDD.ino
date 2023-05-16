@@ -5,8 +5,13 @@
 #include <Adafruit_BME280.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
+<<<<<<< HEAD
 #include <Adafruit_BMP280.h>
 #include <Wire.h>
+=======
+#include <Wire.h>
+
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
 #define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BMP280 bme;
@@ -25,7 +30,11 @@ Adafruit_BMP280 bme;
   // Optional using hostname, and Ethernet built-in DNS lookup
   char server[] = "your_account.ddns.net"; // change to your server's hostname/URL
 #else
+<<<<<<< HEAD
   IPAddress server(192, 168, 61, 78);
+=======
+  IPAddress server(195, 235, 211, 197);
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
 #endif
 
 // IPAddress server(195, 235, 211, 197);
@@ -34,10 +43,17 @@ Adafruit_BMP280 bme;
 uint16_t server_port = 3306;    //3306;
 
 //char default_database[] = "pi2_bd_meteostats";           //"test_arduino";
+<<<<<<< HEAD
 char default_database[] = "pi2_bd_meteostats";
 char default_table[]    = "hello_arduino";          //"test_arduino";
 
 String default_value    = "Hello, Arduino!"; 
+=======
+char default_database[] = "primeteostats";
+//char default_table[]    = "hello_arduino";          //"test_arduino";
+
+//String default_value    = "Hello, Arduino!"; 
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
 
 /////// INICIALIZAMOS QUERY
 String INSERT_SQL = "";
@@ -50,13 +66,29 @@ MySQL_Query *query_mem;
 char ssid[] = "A52s Alex";             // your network SSID (name)
 char pass[] = "12345678";         // your network password
 
+<<<<<<< HEAD
+=======
+/////// DATOS WIFI 2.0
+//char ssid[] = "UE-Students";
+//char username[] = "21921432";
+//char identity[] = "21921432";
+//char password[] = "pass";
+
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
 //char ssid[] = "wireless-uem";             // your network SSID (name)
 //char pass[] = "";         // your network password
 
 /////// DATOS BBDD
+<<<<<<< HEAD
 char user[]         = "pi2_meteostats";              // MySQL user login username
 char password[]     = "pi2_meteostats";          // MySQL user login password
 char tipoSensor[] = "TIPO_SENSOR";
+=======
+char user[]         = "pri_meteostats";              // MySQL user login username
+char password[]     = "pri_meteostats";          // MySQL user login password
+char tipoSensor[] = "BMP_presion";
+int id_usuario = 3;
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
 
 unsigned long delayTime;
 
@@ -136,6 +168,7 @@ void runInsert()
 
 void loop()
 {
+<<<<<<< HEAD
    int id = 1;
     if (true) {
         float presion = bme.readPressure() / 100.0F;
@@ -160,3 +193,29 @@ void loop()
         }
     }  
   }
+=======
+  float presion = bme.readPressure() / 100.0F;
+  Serial.print(presion);
+  Serial.print("Pressure = ");
+  Serial.print(bme.readPressure() / 100.0F);
+  Serial.println(" hPa");
+  MYSQL_DISPLAY("Connecting...");
+  INSERT_SQL = "INSERT INTO primeteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(presion, 2) + "', 3) ";
+  Serial.println(INSERT_SQL);
+
+  //if (conn.connect(server, server_port, user, password))
+  delay(2000);
+  //Cambiar primera condicion a presion != 0
+  if ((true) && (conn.connected() || conn.connectNonBlocking(server, server_port, user, password) != RESULT_FAIL))
+  {
+    runInsert();
+  } 
+  else 
+  {
+    MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
+  }
+  //delay de 30 minutos
+  delay(1800000);
+}
+
+>>>>>>> 492da052cc6670ceb70cc9473e15f4e39cec2c89
