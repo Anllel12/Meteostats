@@ -2,3 +2,4 @@
 - Alejandro García
 - Jorge García
 - Ángel Esquinas
+- Juan Carlos Sánchez

@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
 import application.model.MensajeObj;
@@ -50,6 +52,7 @@ public class GestionMensajeriaBBDD {
 	public int writeRelationMessage(MensajeObj m) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		int id = getIdMessagesByTime(m.getFecha());
+		System.out.println(id);
 		String query = "INSERT IGNORE INTO mensaje(usuario_from, usuario_to, mensaje) "
 				+ "VALUES (?, ?, ?)";
 		Connection connection = checkConnection(mdb);
@@ -111,9 +114,9 @@ public class GestionMensajeriaBBDD {
 		GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
 		Vector<MensajeObj> msg = new Vector<MensajeObj>();
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT * FROM mensajes";
-		String.format(query, gUser.getIdUsuarioByUsuario(us.getUsuario()));
-		int id = -1;
+		String query = "SELECT mensajes.*, mensaje.usuario_from, mensaje.usuario_to FROM mensajes "
+				+ "INNER JOIN mensaje ON mensajes.id_mensaje = mensaje.mensaje WHERE mensaje.usuario_to = %s";
+		query = String.format(query, gUser.getIdUsuarioByUsuario(us.getUsuario()));
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 		try {
@@ -137,21 +140,24 @@ public class GestionMensajeriaBBDD {
 	}
 	
 	public int getIdMessagesByTime(Timestamp time) {
+		System.out.println(time);
+		String s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(time);
+		System.out.println(s);
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT id_mensaje FROM mensajes WHERE fecha = ?";
+		String query = "SELECT id_mensaje FROM mensajes WHERE fecha = \"%s\"";
+		query = String.format(query, s);
 		int id = -1;
 		Connection connection = checkConnection(mdb);
-		PreparedStatement preparedStatement;
+		Statement statement;
 		try {
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setTimestamp(1, time);
+			statement = connection.createStatement();
 			
-			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next()) {
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
 				id = rs.getInt("id_mensaje");
 			}
 			rs.close();
-			preparedStatement.close();
+			statement.close();
 			return id;
 		} catch (SQLException e) {
 			e.printStackTrace();
