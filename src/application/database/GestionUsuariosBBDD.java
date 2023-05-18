@@ -127,6 +127,7 @@ public class GestionUsuariosBBDD {
 	public Vector<Integer> getTecnicoACargoUsuario(String usuario) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		int id_usuario = getIdUsuarioByUsuario(usuario);
+		System.out.println(usuario + " " + id_usuario);
 		String query = String.format("SELECT id_tecnico FROM tecnico WHERE usuario=%d", id_usuario);
 		Vector<Integer> tecnicosIds = new Vector<Integer>();
 		Connection connection = checkConnection(mdb);

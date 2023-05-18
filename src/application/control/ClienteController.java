@@ -102,7 +102,8 @@ public class ClienteController {
                System.out.println(nv.getText() + nv.getId());
                
    		});
-   		cbDestinatario.getItems().addAll(getTecnicosACargo());*/
+   		*/
+   		cbDestinatario.getItems().addAll(getTecnicosACargo());
    	}
     
 //    Vector<String> getAdminsACargo() {
@@ -139,9 +140,11 @@ public class ClienteController {
    	// TODO obtenemos el primer tecnico a cargo, por defecto en el registro solo se asigna un tecnico
    	private Vector<String> getTecnicosACargo() {
    		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
-   		int tecnico_id = gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getNombre()).get(0);
+   		Vector<Integer> tecnicosACargo = gestionUsuariosBBDD.getTecnicoACargoUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
    		Vector<String> tecnicos = new Vector<String>();
-   		tecnicos.add(gestionUsuariosBBDD.getUsuarioById(tecnico_id));
+   		for (Integer idTecnico : tecnicosACargo) {
+			tecnicos.add(gestionUsuariosBBDD.getUsuarioById(idTecnico));
+		}
    		return tecnicos;
    	}
    	
