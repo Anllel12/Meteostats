@@ -1,0 +1,42 @@
+[
+  {
+    "descripcion": "Hola tencico1 2 y 3",
+    "from": 10,
+    "to": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "status": 0,
+    "fecha": "24/01/2023 - 16:48:52"
+  },
+  {
+    "descripcion": "Hola administradores!",
+    "from": 3,
+    "to": [
+      "TO_ADMIN_GENERICO"
+    ],
+    "status": 0,
+    "fecha": "24/01/2023 - 16:49:21"
+  },
+  {
+    "descripcion": "Hola tecnicos!",
+    "from": 2,
+    "to": [
+      "TO_TECNICO_GENERICO"
+    ],
+    "status": 0,
+    "fecha": "24/01/2023 - 16:49:45"
+  },
+  {
+    "descripcion": "Sugerencia ruben",
+    "from": 10,
+    "to": [
+      "tecnico1",
+      "tecnico2",
+      "tecnico3"
+    ],
+    "status": 0,
+    "fecha": "24/01/2023 - 18:15:16"
+  }
+]

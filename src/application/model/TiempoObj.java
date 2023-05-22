@@ -7,8 +7,8 @@ public class TiempoObj {
 	private int temperatura;
 	private int presion;
 	private int humedad;
-	private int amanecer;
-	private int atardecer;
+	private String amanecer;
+	private String atardecer;
 	private Timestamp hora;
 	
 	
@@ -20,7 +20,7 @@ public class TiempoObj {
 				+ humedad + ", amanacer=" + amanecer + ", atardecer=" + atardecer + ", hora=" + hora + "]";
 	}
 
-	public TiempoObj(String ubicacion, int temperatura, int presion, int humedad, int amanacer, int atardecer, Timestamp hora) {
+	public TiempoObj(String ubicacion, int temperatura, int presion, int humedad, String amanacer, String atardecer, Timestamp hora) {
 		super();
 		this.ubicacion = ubicacion;
 		this.temperatura = temperatura;
@@ -55,35 +55,55 @@ public class TiempoObj {
 	public void setHumedad(int humedad) {
 		this.humedad = humedad;
 	}
-	public int getAmanecer() {
+	
+	/*public int getAmanecer() {
 			return amanecer;
 	}
-/*	public int getAmanecer() {
-		if(amanecer >= 5 && amanecer <=10) {
-			return amanecer;
-		}else {
-			return 0;
-		}
-	}*/
+	public int getAmanecer() {
+	    if (amanecer >= 5 && amanecer <= 10) {
+	        return amanecer;
+	    } else {
+	        return 0;
+	    }
+	}
 	public void setAmanecer(int amanacer) {
 		this.amanecer = amanacer;
 	}
-	/*public int getAtardecer() {
-		if(amanecer >= 15 && amanecer <=21) {
-			return amanecer;
-		}else {
-			return 0;
-		}
-	}*/
+	public int getAtardecer() {
+	    if (amanecer >= 15 && amanecer <= 21) {
+	        return amanecer;
+	    } else {
+	        return 0;
+	    }
+	}
 	public int getAtardecer() {
 		return atardecer;
 	}
 	public void setAtardecer(int atardecer) {
 		this.atardecer = atardecer;
-	}
+	}*/
+	
+	
+	
 	public Timestamp getHora() {
 		return hora;
 	}
+	public String getAmanecer() {
+		return amanecer;
+	}
+
+	public void setAmanecer(String amanecer) {
+		this.amanecer = amanecer;
+	}
+
+	public String getAtardecer() {
+		return atardecer;
+	}
+
+	public void setAtardecer(String atardecer) {
+		this.atardecer = atardecer;
+	}
+
 	public void setHora(Timestamp hora) {
 		this.hora = hora;
 	}

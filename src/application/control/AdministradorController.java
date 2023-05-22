@@ -2,7 +2,12 @@ package application.control;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Vector;
 
@@ -10,13 +15,17 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 
 import application.database.GestionMensajeriaBBDD;
+import application.database.GestionTiempoBBDD;
 import application.database.GestionUsuariosBBDD;
 import application.main.Main;
 import application.model.MensajeObj;
 import application.model.TiempoObj;
 import application.model.Usuario;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,6 +115,9 @@ public class AdministradorController {
 
 	private Vector<Vector<String>> tecnicosAndIds;
 
+	public final static ArrayList<String> UNIDADES_TIEMPO = new ArrayList<>(Arrays.asList("ºC", "mmHg", "%", "segundos", "AM", "PM"));
+
+	
 	void errorAlertCreator(String header, String context) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("ERROR");
@@ -326,16 +338,37 @@ public class AdministradorController {
 	}
 
 	private void estadoTab(String usuario_cliente) {
-		//TODO meter usuario dentro del tiempo para poder mostrar el q se relacione cn admin
-		//Tiempo tiempo_ = new Tiempo();
-		//Vector<TiempoObj> tiempos = tiempo_.getWeather();
-		//%d = integer, %s = string		//ubicacion.setText(tiempos.lastElement().getUbicacion().toString());
-		//temperatura.setText(String.format("%d %s", tiempos.lastElement().getTemperatura(), Tiempo.UNIDADES_TIEMPO.get(0)));
-		//presion.setText(String.format("%d %s", tiempos.lastElement().getPresion(), Tiempo.UNIDADES_TIEMPO.get(1)));
-		//humedad.setText(String.format("%d %s", tiempos.lastElement().getHumedad(), Tiempo.UNIDADES_TIEMPO.get(2)));
-		//duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
-		//horaSist.setText(Integer.toString(tiempos.lastElement().getHora()));
-		//funcionamiento.setText(String.format("%d %s", tiempos.lastElement().getTiempoFuncionando(), Tiempo.UNIDADES_TIEMPO.get(3)));
+		
+		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
+	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
+	    
+	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
+	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
+	    
+	    TiempoObj tiempoActual = items.get(items.size() - 1);
+
+	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 12, 0, 0); // Especifica la fecha y hora deseada
+
+	    
+	    LocalDateTime  horaActual = LocalDateTime.now();
+	    String horaSistema = horaActual.format(DateTimeFormatter.ofPattern("HH:mm"));
+	    
+	    Duration duracion = Duration.between(fechaEspecifica, horaActual); // Calcula la diferencia de tiempo entre los dos timestamps
+
+	    long dias = duracion.toDays(); // Obtiene la cantidad de días de diferencia
+
+	    
+	    Platform.runLater(() -> {
+	        ubicacion.setText(tiempoActual.getUbicacion());
+	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
+	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
+	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
+	        //duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
+		    horaSist.setText(horaSistema);
+			//funcionamiento.setText(String.format("%d %s", tiempos.lastElement().getTiempoFuncionando(), Tiempo.UNIDADES_TIEMPO.get(3)));
+	        funcionamiento.setText(String.format("%d %s", dias, "días"));
+
+	    });
 	}
 
 	@FXML

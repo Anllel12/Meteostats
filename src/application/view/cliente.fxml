@@ -59,15 +59,15 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                           	  <ImageView fitHeight="103.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           	  <ImageView fx:id="estadoImageView" fitHeight="103.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <image>
-                                    <Image url="@cloudy-icon.jpg" />
+                                    <Image url="@../../../../../../Downloads/despejado.jpg" />
                                  </image>
                                  <GridPane.margin>
                                     <Insets top="20.0" />
                                  </GridPane.margin>
                               </ImageView>
-                              <Label text="Mayormente nublado" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Label fx:id="estadoT" text="Mayormente nublado" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <font>
                                     <Font name="System Italic" size="15.0" />
                                  </font>

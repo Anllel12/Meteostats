@@ -137,10 +137,8 @@ void loop() {
         }
   }
   
-
-
   Serial.println("Data sent to MySQL server");
 
   conn.close();
-  delay(60000); // Esperar un minuto antes de enviar la siguiente lectura
+  delay(1800000);
 }
