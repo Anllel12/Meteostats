@@ -2,6 +2,10 @@ package application.control;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -343,14 +347,27 @@ public class AdministradorController {
 	    
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
+	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 12, 0, 0); // Especifica la fecha y hora deseada
+
+	    
+	    LocalDateTime  horaActual = LocalDateTime.now();
+	    String horaSistema = horaActual.format(DateTimeFormatter.ofPattern("HH:mm"));
+	    
+	    Duration duracion = Duration.between(fechaEspecifica, horaActual); // Calcula la diferencia de tiempo entre los dos timestamps
+
+	    long dias = duracion.toDays(); // Obtiene la cantidad de días de diferencia
+
+	    
 	    Platform.runLater(() -> {
 	        ubicacion.setText(tiempoActual.getUbicacion());
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
 	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
-	      //  amanecer.setText(Integer.toString(tiempoActual.getAtardecer()));
-	       // atardecer.setText(Integer.toString(tiempoActual.getAmanecer()));
-	        
+	        //duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
+		    horaSist.setText(horaSistema);
+			//funcionamiento.setText(String.format("%d %s", tiempos.lastElement().getTiempoFuncionando(), Tiempo.UNIDADES_TIEMPO.get(3)));
+	        funcionamiento.setText(String.format("%d %s", dias, "días"));
+
 	    });
 	}
 

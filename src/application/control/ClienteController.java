@@ -36,6 +36,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ClienteController {
@@ -49,6 +51,9 @@ public class ClienteController {
     private Label humedad;
     
     @FXML
+    private ImageView estadoImageView;
+    
+    @FXML
     private Label ubicacion;
     
     @FXML
@@ -56,6 +61,9 @@ public class ClienteController {
     
     @FXML
     private Label tiempo;
+    
+    @FXML
+    private Label estadoT;
     
     @FXML
     private Label presion;
@@ -244,8 +252,30 @@ public class ClienteController {
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
 	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
-	        amanecer.setText(Integer.toString(tiempoActual.getAtardecer()));
-	        atardecer.setText(Integer.toString(tiempoActual.getAmanecer()));
+	        amanecer.setText(String.valueOf(tiempoActual.getAmanecer()));
+	        atardecer.setText(String.valueOf(tiempoActual.getAtardecer()));
+	        
+	        
+	        double presion = tiempoActual.getPresion();
+	        double humedad = tiempoActual.getHumedad();
+	        
+	        double umbralPresion = 1013.25; // Valor de presión de referencia
+	        double umbralHumedad = 70; // Porcentaje de humedad de referencia
+	        
+	        boolean estaNublado = presion < umbralPresion && humedad > umbralHumedad;
+
+	        String tiempo = estaNublado ? "Tiempo Nublado" : "Tiempo Despejado";
+  
+	        estadoT.setText(tiempo);
+	        
+	        Image imagenEstado;
+	        if (estaNublado) {
+	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/nublado.png"));
+	        } else {
+	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/despejado.jpg"));
+	        }
+	        estadoImageView.setImage(imagenEstado);
+	        
 	    });
 
 	}

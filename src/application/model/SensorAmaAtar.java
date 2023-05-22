@@ -1,31 +1,39 @@
 package application.model;
 
+import java.sql.Timestamp;
+
 public class SensorAmaAtar {
 
-	private int amanacer;
-	private int atardecer;
+	private String amanacer;
+	private String atardecer;
 	
-
-
-	public SensorAmaAtar(int amanacer, int atardecer) {
+	
+	public SensorAmaAtar(String amanacer, String atardecer) {
+		super();
 		this.amanacer = amanacer;
 		this.atardecer = atardecer;
 	}
 
-	public int getAmanacer() {
+
+	public String getAmanacer() {
 		return amanacer;
 	}
 
-	public void setAmanacer(int amanacer) {
+
+	public void setAmanacer(String amanacer) {
 		this.amanacer = amanacer;
 	}
 
-	public int getAtardecer() {
+
+	public String getAtardecer() {
 		return atardecer;
 	}
 
-	public void setAtardecer(int atardecer) {
+
+	public void setAtardecer(String atardecer) {
 		this.atardecer = atardecer;
-	}	
+	}
+	
+	
 	
 }

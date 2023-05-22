@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -165,7 +166,7 @@ public class GestionTiempoBBDD {
 		ObservableList<SensorAmaAtar> obs = FXCollections.observableArrayList();
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'LDR'";
+		String query = "SELECT fecha FROM sensores WHERE tipo_sensor = 'LDR'";
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -175,14 +176,21 @@ public class GestionTiempoBBDD {
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
-
-				
-				int amanecer = rs.getInt("lectura1");
-				int atardecer = rs.getInt("lectura1");
-				
-				SensorAmaAtar t = new SensorAmaAtar(amanecer, atardecer);
-				
-				obs.add(t);
+	            Timestamp timestamp = rs.getTimestamp("fecha");
+	            LocalDateTime localDateTime = timestamp.toLocalDateTime();
+	            int horaAma = localDateTime.getHour();
+	            int minutosAma = localDateTime.getMinute();
+	            String amanecer = String.format("%02d:%02d", horaAma, minutosAma); // Formato "hora:minutos"
+	            
+	            
+	            int horaAtar = localDateTime.getHour();
+	            int minutosAtar = localDateTime.getMinute();
+	            String atardecer = String.format("%02d:%02d", horaAtar, minutosAtar); // Formato "hora:minutos"
+	            
+	            
+	            int horaAtardecer = localDateTime.getHour();
+	            SensorAmaAtar t = new SensorAmaAtar(amanecer, atardecer);
+	            obs.add(t);
 			}
 			
 			rs.close();
@@ -257,7 +265,6 @@ public class GestionTiempoBBDD {
 	
 	
 	public TiempoObj obtenerInformacionTiempoUltimo() {
-		
 		
 		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
 		String ubicacion = gUsuario.getUsuarioById(4);
