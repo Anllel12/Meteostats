@@ -38,6 +38,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class AdministradorController {
@@ -91,7 +93,10 @@ public class AdministradorController {
 	private Label presion;
 
 	@FXML
-	private Label duracDia;
+	private Label amanecer;
+	
+	@FXML
+	private Label atardecer;
 
 	@FXML
 	private Label horaSist;
@@ -99,6 +104,9 @@ public class AdministradorController {
 	@FXML
 	private Label funcionamiento;
 
+    @FXML
+    private ImageView estadoImageView;
+	
 	@FXML
 	private JFXComboBox<String> cbCliente;
 
@@ -347,7 +355,7 @@ public class AdministradorController {
 	    
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
-	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 12, 0, 0); // Especifica la fecha y hora deseada
+	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); // Especifica la fecha y hora deseada
 
 	    
 	    LocalDateTime  horaActual = LocalDateTime.now();
@@ -356,17 +364,39 @@ public class AdministradorController {
 	    Duration duracion = Duration.between(fechaEspecifica, horaActual); // Calcula la diferencia de tiempo entre los dos timestamps
 
 	    long dias = duracion.toDays(); // Obtiene la cantidad de días de diferencia
-
+	    long horas = duracion.toHours() % 24; // Obtiene la cantidad de horas, excluyendo los días completos
+	    long minutos = duracion.toMinutes() % 60; // Obtiene la cantidad de minutos, excluyendo las horas y los días completos
 	    
 	    Platform.runLater(() -> {
 	        ubicacion.setText(tiempoActual.getUbicacion());
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
 	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
-	        //duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
+	        amanecer.setText(String.valueOf(tiempoActual.getAmanecer()));
+	        atardecer.setText(String.valueOf(tiempoActual.getAtardecer()));	        //duracDia.setText(String.format("%d - %d", tiempos.lastElement().getAmanacer(), tiempos.lastElement().getAtardecer()));
 		    horaSist.setText(horaSistema);
-			//funcionamiento.setText(String.format("%d %s", tiempos.lastElement().getTiempoFuncionando(), Tiempo.UNIDADES_TIEMPO.get(3)));
-	        funcionamiento.setText(String.format("%d %s", dias, "días"));
+		    
+		    double presion = tiempoActual.getPresion();
+	        double humedad = tiempoActual.getHumedad();
+	        
+	        double umbralPresion = 1013.25; // Valor de presión de referencia
+	        double umbralHumedad = 70; // Porcentaje de humedad de referencia
+	        
+	        boolean estaNublado = presion < umbralPresion && humedad > umbralHumedad;
+
+	        String tiempo1 = estaNublado ? "Tiempo Nublado" : "Tiempo Despejado";
+		    
+		    tiempo.setText(tiempo1);
+	        String tiempoFuncionamiento = String.format("%d días, %d horas, %d minutos", dias, horas, minutos);
+	        funcionamiento.setText(tiempoFuncionamiento);
+	        
+	        Image imagenEstado;
+	        if (estaNublado) {
+	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/nublado.png"));
+	        } else {
+	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/despejado.jpg"));
+	        }
+	        estadoImageView.setImage(imagenEstado);
 
 	    });
 	}
