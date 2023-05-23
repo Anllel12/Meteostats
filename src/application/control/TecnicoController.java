@@ -1,6 +1,7 @@
 package application.control;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -48,6 +49,9 @@ public class TecnicoController {
 
 	@FXML
 	private JFXComboBox<String> cbEleccion;
+	
+	@FXML
+	private JFXComboBox<String> selecCliente;
 
 	@FXML
 	private JFXComboBox<String> cbAdmins;
@@ -56,10 +60,11 @@ public class TecnicoController {
 	private Vector<Vector<String>> adminsAndIds;
 
 	private String adminSelected;
+	
+	private String arregloSeleccionado;
 
-	private static final String SELEC_RESET_HISTORIAL = "Borrar TODO el historial del tiempo";
-	private static final String SELEC_BORRAR_USUARIOS = "Borrar BBDD de todos los usuarios";
-	private static final String SELEC_BORRAR_MENSAJES = "Borrar TODOS los mensajes";
+	private static final String SELEC_RESET_HISTORIAL_CLIENTE = "Borrar historial de cliente";
+	private static final String SELEC_BORRAR_CLIENTE = "Borrar un cliente";
 
 	@FXML
 	void initialize() {
@@ -76,8 +81,14 @@ public class TecnicoController {
 			System.out.println(nv.getText() + nv.getId());
 
 		});
-		cbEleccion.getItems().addAll(SELEC_BORRAR_MENSAJES, SELEC_BORRAR_USUARIOS, SELEC_RESET_HISTORIAL);
-
+		cbEleccion.getItems().addAll(SELEC_RESET_HISTORIAL_CLIENTE, SELEC_BORRAR_CLIENTE);
+		
+		cbEleccion.valueProperty().addListener((ov, p1, p2) -> {
+			arregloSeleccionado = p2;
+		});
+		
+		ArrayList<String> clientesACargo = getClientesACargo();
+		selecCliente.getItems().addAll(clientesACargo);
 		tbMsg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MensajeObj>() {
 
 			@Override
@@ -89,6 +100,21 @@ public class TecnicoController {
 
 			}
 		});
+	}
+
+	private ArrayList<String> getClientesACargo() {
+		GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+		Vector<Vector<String>> arrarUsuariosAndId = gestionUsuariosBBDD.getUsuariosACargoTecnico(LogInController.USUARIO_LOGUEADO.getUsuario());
+		ArrayList<String> nombresUsuarios = new ArrayList<>();
+		if (arrarUsuariosAndId.size() > 0) {
+			for (Vector<String> usuario : arrarUsuariosAndId) {
+				nombresUsuarios.add(usuario.get(0));
+			}
+		} else {
+			nombresUsuarios.add("SIN CLIENTES A CARGO");		
+		}
+		return nombresUsuarios;
+		
 	}
 
 	private void rellenarComboBoxAdmins() {
@@ -148,6 +174,27 @@ public class TecnicoController {
 
 	@FXML
 	void aplicarArreglo() {
+		if (arregloSeleccionado.equals(SELEC_BORRAR_CLIENTE)) {
+			if (selecCliente.getSelectionModel().getSelectedItem() != null) {
+				GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+				int res = gestionUsuariosBBDD.deleteCliente(selecCliente.getSelectionModel().getSelectedItem());
+				if (res == 0) {
+					errorAlertCreator("Cliente borrado ok", selecCliente.getSelectionModel().getSelectedItem());
+				} else {
+					errorAlertCreator("Error borrando cliente", selecCliente.getSelectionModel().getSelectedItem());
+				}
+			}
+		} else if (arregloSeleccionado.equals(SELEC_RESET_HISTORIAL_CLIENTE)) {
+			if (selecCliente.getSelectionModel().getSelectedItem() != null) {
+				GestionUsuariosBBDD gestionUsuariosBBDD = new GestionUsuariosBBDD();
+				int res = gestionUsuariosBBDD.deleteHistorial(selecCliente.getSelectionModel().getSelectedItem());
+				if (res == 0) {
+					errorAlertCreator("Historial de cliente borrado ok", selecCliente.getSelectionModel().getSelectedItem());
+				} else {
+					errorAlertCreator("Error borrando historial cliente", selecCliente.getSelectionModel().getSelectedItem());
+				}
+			}
+		}
 //		if (cbEleccion.getSelectionModel().getSelectedItem() != null) {
 //			switch (cbEleccion.getSelectionModel().getSelectedItem()) {
 //			case SELEC_BORRAR_USUARIOS:

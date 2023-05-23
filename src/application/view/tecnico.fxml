@@ -64,7 +64,12 @@
                           </rowConstraints>
                            <children>
                            <JFXComboBox fx:id="cbEleccion" promptText="Seleccionar arreglo" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                              <Button mnemonicParsing="false" onAction="#aplicarArreglo" prefHeight="31.0" prefWidth="95.0" text="Continuar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />                             
+                              <Button mnemonicParsing="false" onAction="#aplicarArreglo" prefHeight="31.0" prefWidth="95.0" text="Continuar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <JFXComboBox fx:id="selecCliente" promptText="Seleccionar cliente" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin>
+                              </JFXComboBox>                             
                            </children>
                         </GridPane>
                      </children>

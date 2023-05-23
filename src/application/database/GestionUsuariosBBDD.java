@@ -149,6 +149,74 @@ public class GestionUsuariosBBDD {
 		}
 	}
 	
+	public Vector<Vector<String>> getUsuariosACargoTecnico(String tecnico) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_tecnico = getIdUsuarioByUsuario(tecnico);
+		System.out.println(tecnico + " " + id_tecnico);
+		String query = String.format("SELECT usuario FROM tecnico WHERE id_tecnico=%d", id_tecnico);
+		Vector<Vector<String>> clienteAndIds = new Vector<Vector<String>>();
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				Vector<String> vAux = new Vector<String>();
+				int idUsuario = rs.getInt("usuario");
+				vAux.add(getUsuarioById(idUsuario));
+				vAux.add(String.valueOf(idUsuario));
+				clienteAndIds.add(vAux);
+			}
+			rs.close();
+			statement.close();;
+			return clienteAndIds;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int deleteCliente(String cliente) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_usuario = getIdUsuarioByUsuario(cliente);
+		String query = String.format("DELETE FROM usuario WHERE id_usuario=%d", id_usuario);
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+	
+	public int deleteHistorial(String cliente) {
+		MariaDBConnectionService mdb = new MariaDBConnectionService();
+		int id_usuario = getIdUsuarioByUsuario(cliente);
+		String query = String.format("DELETE FROM sensores WHERE usuario=%d", id_usuario);
+		Connection connection = checkConnection(mdb);
+		Statement statement;
+		
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+	
 	public String getUsuarioById(int id) {
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		String query = String.format("SELECT usuario FROM usuario WHERE id_usuario=%d", id);
