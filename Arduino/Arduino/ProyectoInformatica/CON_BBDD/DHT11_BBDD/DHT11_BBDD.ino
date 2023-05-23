@@ -1,12 +1,11 @@
+#include <MySQL_Generic.h>
 #include <DHT.h>
-#include <ESP8266WiFi.h>
-#include <MySQL_Connection.h>
-#include <MySQL_Cursor.h>
+#include <DHT_U.h>
 
-#define DHTPIN D3
-#define DHTTYPE DHT11
+#define DHT_SENSOR_PIN  21 // ESP32 pin GIOP21 connected to DHT11 sensor
+#define DHT_SENSOR_TYPE DHT11
 
-DHT dht(DHTPIN, DHTTYPE);
+DHT dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
 
 #define MYSQL_DEBUG_PORT      Serial
 
@@ -21,7 +20,7 @@ DHT dht(DHTPIN, DHTTYPE);
   // Optional using hostname, and Ethernet built-in DNS lookup
   char server[] = "your_account.ddns.net"; // change to your server's hostname/URL
 #else
-  IPAddress server(192, 168, 61, 78);
+  IPAddress server(195, 235, 211, 197);
 #endif
 
 // IPAddress server(195, 235, 211, 197);
@@ -30,10 +29,10 @@ DHT dht(DHTPIN, DHTTYPE);
 uint16_t server_port = 3306;    //3306;
 
 //char default_database[] = "pi2_bd_meteostats";           //"test_arduino";
-char default_database[] = "pi2_bd_meteostats";
-char default_table[]    = "hello_arduino";          //"test_arduino";
+char default_database[] = "primeteostats";
+//char default_table[]    = "hello_arduino";          //"test_arduino";
 
-String default_value    = "Hello, Arduino!"; 
+//String default_value    = "Hello, Arduino!"; 
 
 /////// INICIALIZAMOS QUERY
 String INSERT_SQL = "";
@@ -43,22 +42,22 @@ MySQL_Connection conn((Client *)&client);
 MySQL_Query *query_mem;
 
 /////// DATOS WIFI
-char ssid[] = "juanki";             // your network SSID (name)
-char pass[] = "12345";         // your network password
+char ssid[] = "A52s Alex";             // your network SSID (name)
+char pass[] = "12345678";         // your network password
 
 //char ssid[] = "wireless-uem";             // your network SSID (name)
 //char pass[] = "";         // your network password
 
 /////// DATOS BBDD
-char user[]         = "pi2_meteostats";              // MySQL user login username
-char password[]     = "pi2_meteostats";          // MySQL user login password
+char user[]         = "pri_meteostats";              // MySQL user login username
+char password[]     = "pri_meteostats";          // MySQL user login password
 char tipoSensor[] = "TIPO_SENSOR";
 
 unsigned long delayTime;
 
 void setup() {
   Serial.begin(115200);
-  dht.begin();
+  dht_sensor.begin();
   WiFi.begin(ssid, pass);
 
   MYSQL_DISPLAY1("\nStarting Basic_Insert_ESP on", ARDUINO_BOARD);
@@ -104,41 +103,45 @@ void runInsert()
 void loop() {
 
   int id = 1;
-
-  if(true){
-    float humidity = dht.readHumidity();
-  //float temperature = dht.readTemperature();
+  
+    float humidity = dht_sensor.readHumidity();
+    float temperature = dht_sensor.readTemperature();
    Serial.print("Humedad = ");
     Serial.print(humidity);
-
-
-    if (!conn.connected()) {
-    Serial.println("Connecting to MySQL server...");
-    if (conn.connect(server_addr, 3306, user, password, database)) {
-      Serial.println("Connected to MySQL server");
-    } else {
-      Serial.println("Connection failed");
-      return;
-    }
-  }
+    Serial.print("Temperatura = ");
+    Serial.print(temperature);
 
    MYSQL_DISPLAY("Connecting...");
-        INSERT_SQL = "INSERT INTO pi2_bd_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(humidity, 3) + "', 1) ";
+        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_humedad', now(), '" + String(humidity, 3) + "', 1) ";
         Serial.println(INSERT_SQL);
         delay(2000);
 
   if ((true) && (conn.connected() || conn.connectNonBlocking(server, server_port, user, password) != RESULT_FAIL))
-        {
-          runInsert();
-        } 
-        else 
-        {
-          MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
-        }
+  {
+    runInsert();
+  } 
+  else 
+  {
+    MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
+  }
+
+  MYSQL_DISPLAY("Connecting...");
+        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_temp', now(), '" + String(temperature, 3) + "', 1) ";
+        Serial.println(INSERT_SQL);
+        delay(2000);
+
+  if ((true) && (conn.connected() || conn.connectNonBlocking(server, server_port, user, password) != RESULT_FAIL))
+  {
+    runInsert();
+  } 
+  else 
+  {
+    MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
   }
   
   Serial.println("Data sent to MySQL server");
 
   conn.close();
+   //delay de 30 minutos
   delay(1800000);
 }

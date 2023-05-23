@@ -1,7 +1,6 @@
 #include <Wire.h>
 
-int LDR_Pin = A0; // Pin analógico al que está conectado el LDR
-int lecturaLDR = 0; // Variable para almacenar la lectura del LDR
+int sensor = 34; // Pin analógico al que está conectado el LDR
 
 #define MYSQL_DEBUG_PORT      Serial
 
@@ -16,7 +15,7 @@ int lecturaLDR = 0; // Variable para almacenar la lectura del LDR
   // Optional using hostname, and Ethernet built-in DNS lookup
   char server[] = "your_account.ddns.net"; // change to your server's hostname/URL
 #else
-  IPAddress server(192, 168, 61, 78);
+  IPAddress server(195, 235, 211, 197);
 #endif
 
 // IPAddress server(195, 235, 211, 197);
@@ -25,10 +24,10 @@ int lecturaLDR = 0; // Variable para almacenar la lectura del LDR
 uint16_t server_port = 3306;    //3306;
 
 //char default_database[] = "pi2_bd_meteostats";           //"test_arduino";
-char default_database[] = "pi2_bd_meteostats";
-char default_table[]    = "hello_arduino";          //"test_arduino";
+char default_database[] = "primeteostats";
+//char default_table[]    = "hello_arduino";          //"test_arduino";
 
-String default_value    = "Hello, Arduino!"; 
+//String default_value    = "Hello, Arduino!"; 
 
 /////// INICIALIZAMOS QUERY
 String INSERT_SQL = "";
@@ -38,16 +37,16 @@ MySQL_Connection conn((Client *)&client);
 MySQL_Query *query_mem;
 
 /////// DATOS WIFI
-char ssid[] = "juanki";             // your network SSID (name)
-char pass[] = "12345";         // your network password
+char ssid[] = "A52s Alex";             // your network SSID (name)
+char pass[] = "12345678";         // your network password
 
 //char ssid[] = "wireless-uem";             // your network SSID (name)
 //char pass[] = "";         // your network password
 
 /////// DATOS BBDD
-char user[]         = "pi2_meteostats";              // MySQL user login username
-char password[]     = "pi2_meteostats";          // MySQL user login password
-char tipoSensor[] = "TIPO_SENSOR";
+char user[]         = "pri_meteostats";              // MySQL user login username
+char password[]     = "pri_meteostats";          // MySQL user login password
+char tipoSensor[] = "LDR";
 
 unsigned long delayTime;
 
@@ -90,7 +89,6 @@ void runInsert()
 {
   // Initiate the query class instance
   MySQL_Query query_mem = MySQL_Query(&conn);
-
   if (conn.connected())
   {
     MYSQL_DISPLAY(INSERT_SQL);
@@ -115,14 +113,13 @@ void runInsert()
 void loop()
 {
    int id = 1;
-    if (true) {
-        float lecluz = bme.readLightLevel();
+        float lecluz = analogRead(sensor);
         Serial.print("Luminosity = ");
         Serial.print(lecluz);
         Serial.println(" lux");
 
         MYSQL_DISPLAY("Connecting...");
-        INSERT_SQL = "INSERT INTO pi2_bd_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(lecluz, 3) + "', 1) ";
+        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(lecluz, 3) + "', 1) ";
         Serial.println(INSERT_SQL);
 
         //if (conn.connect(server, server_port, user, password))
@@ -136,5 +133,6 @@ void loop()
         {
           MYSQL_DISPLAY("\nConnect failed. Trying again on next iteration.");
         }
-    }  
+        //delay de 30 minutos
+  delay(1800000);
 }
