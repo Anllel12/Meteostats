@@ -57,21 +57,26 @@ unsigned long delayTime;
 
 void setup() {
   Serial.begin(115200);
+  while (!Serial);
   dht_sensor.begin();
-  WiFi.begin(ssid, pass);
 
   MYSQL_DISPLAY1("\nStarting Basic_Insert_ESP on", ARDUINO_BOARD);
   MYSQL_DISPLAY(MYSQL_MARIADB_GENERIC_VERSION);
 
   /////// CONFIGURACION WIFI
   MYSQL_DISPLAY1("Connecting to", ssid);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
+  WiFi.begin(ssid, pass);
+  while (WiFi.status() != WL_CONNECTED) 
+  {
+    delay(500);
+    MYSQL_DISPLAY0(".");
   }
+ ////// IMPRIMIR INFORMACION DE CONEXION
+  MYSQL_DISPLAY1("Connected to network. My IP address is:", WiFi.localIP());
 
-  Serial.println("Connected to WiFi");
+  MYSQL_DISPLAY3("Connecting to SQL Server @", server, ", Port =", server_port);
+  MYSQL_DISPLAY5("User =", user, ", PW =", password, ", DB =", default_database);
+
 }
 
 void runInsert()
@@ -103,7 +108,7 @@ void runInsert()
 void loop() {
 
   int id = 1;
-  
+
     float humidity = dht_sensor.readHumidity();
     float temperature = dht_sensor.readTemperature();
    Serial.print("Humedad = ");
@@ -112,7 +117,7 @@ void loop() {
     Serial.print(temperature);
 
    MYSQL_DISPLAY("Connecting...");
-        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_humedad', now(), '" + String(humidity, 3) + "', 1) ";
+        INSERT_SQL = "INSERT INTO primeteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_humedad', now(), '" + String(humidity, 3) + "', 1) ";
         Serial.println(INSERT_SQL);
         delay(2000);
 
@@ -126,7 +131,7 @@ void loop() {
   }
 
   MYSQL_DISPLAY("Connecting...");
-        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_temp', now(), '" + String(temperature, 3) + "', 1) ";
+        INSERT_SQL = "INSERT INTO primeteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, 'DHT11_temp', now(), '" + String(temperature, 3) + "', 1) ";
         Serial.println(INSERT_SQL);
         delay(2000);
 

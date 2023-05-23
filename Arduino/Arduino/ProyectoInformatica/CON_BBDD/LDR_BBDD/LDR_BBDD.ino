@@ -119,7 +119,7 @@ void loop()
         Serial.println(" lux");
 
         MYSQL_DISPLAY("Connecting...");
-        INSERT_SQL = "INSERT INTO pri_meteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(lecluz, 3) + "', 1) ";
+        INSERT_SQL = "INSERT INTO primeteostats.sensores (id_sensor, tipo_sensor, fecha, lectura1, usuario) VALUES (0, '"+String(tipoSensor)+"', now(), '" + String(lecluz, 3) + "', 1) ";
         Serial.println(INSERT_SQL);
 
         //if (conn.connect(server, server_port, user, password))
