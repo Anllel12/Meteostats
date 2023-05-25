@@ -101,9 +101,14 @@ public class ClienteController {
     @FXML
     private JFXComboBox<String> cbDestinatario;
     
+    private String usuarioLoggeado;
+
+    
     @FXML
    	void initialize() {
     	//Como programa empieza en historial de mediciones, cargamos los datos de primeras
+        usuarioLoggeado = LogInController.USUARIO_LOGUEADO.getUsuario();
+
     	loadWeatherTabla(); 
     	estadoTab();
     	

@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 public class SensorTemp {
 
 	private int temperatura;
-
+	
 	
 	public SensorTemp() {
 	}

@@ -44,25 +44,18 @@ public class GestionTiempoBBDD {
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
 		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
 
-		/*
-		 * 		GestionUsuariosBBDD gUser = new GestionUsuariosBBDD();
-
-		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
-
-		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp' AND usuario = '"+ gestionUsuarios.getUsuarioById(4) + "'";
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp' AND usuario = '%s'";
-		query = String.format(query, us.getUsuario());*/
 		
 		
-		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'temp' AND usuario = '"+ gestionUsuarios.getUsuarioById(4) + "'";
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp'";
+	    String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp' AND usuario = " + usuarioId;
+		//String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_temp'";
 		
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
 		try {
+			
 			statement = connection.createStatement();
 			
 			ResultSet rs = statement.executeQuery(query);
@@ -84,6 +77,7 @@ public class GestionTiempoBBDD {
 		return obs;
 	}
 	
+	
 	/**
 	 * coger datos tipo sensor 2
 	 * @return
@@ -91,10 +85,12 @@ public class GestionTiempoBBDD {
 	public ObservableList<SensorHumedad> getHumedad(){
 		
 		ObservableList<SensorHumedad> obs = FXCollections.observableArrayList();
-		
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_humedad'"
-				+ "";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'DHT11_humedad' AND usuario = " + usuarioId;
+
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -129,9 +125,12 @@ public class GestionTiempoBBDD {
 	public ObservableList<SensorPresion> getPresion(){
 		
 		ObservableList<SensorPresion> obs = FXCollections.observableArrayList();
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
 		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'BMP_presion'";
+		String query = "SELECT lectura1 FROM sensores WHERE tipo_sensor = 'BMP_presion' AND usuario = " + usuarioId;
+
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -165,8 +164,12 @@ public class GestionTiempoBBDD {
 		
 		ObservableList<SensorAmaAtar> obs = FXCollections.observableArrayList();
 		
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT fecha FROM sensores WHERE tipo_sensor = 'LDR'";
+		String query = "SELECT fecha FROM sensores WHERE tipo_sensor = 'LDR' AND usuario = " + usuarioId;
+		
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -211,8 +214,11 @@ public class GestionTiempoBBDD {
 		
 		ObservableList<SensorHora> obs = FXCollections.observableArrayList();
 
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+		
 		MariaDBConnectionService mdb = new MariaDBConnectionService();
-		String query = "SELECT fecha FROM sensores";
+		String query = "SELECT fecha FROM sensores WHERE usuario = " + usuarioId;
 		Connection connection = checkConnection(mdb);
 		Statement statement;
 
@@ -265,9 +271,11 @@ public class GestionTiempoBBDD {
 	
 	
 	public TiempoObj obtenerInformacionTiempoUltimo() {
-		
-		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
-		String ubicacion = gUsuario.getUsuarioById(4);
+	    GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
+	    GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+
+	    String ubicacion = gUsuario.getUsuarioById(usuarioId);
 	    // Obtener las observables listas con la información de los sensores
 	    ObservableList<SensorTemp> temperaturaObsList = getTemperatura1();
 	    ObservableList<SensorHumedad> humedadObsList = getHumedad();
@@ -276,10 +284,10 @@ public class GestionTiempoBBDD {
 	    ObservableList<SensorAmaAtar> amaAtarObsList2 = getAmaAtar();
 	    ObservableList<SensorHora> horaObsList = getHora();
 
-	    if(ubicacion == null) {
-	    	ubicacion = "Ubicacion desconocida";
+	    if (ubicacion.isEmpty()) {
+	        ubicacion = "Ubicacion desconocida";
 	    }
-	    
+
 	    // Crear listas de sensores para almacenar los valores de los sensores
 	    List<SensorTemp> temperaturaList = new ArrayList<>();
 	    List<SensorHumedad> humedadList = new ArrayList<>();
@@ -288,42 +296,25 @@ public class GestionTiempoBBDD {
 	    List<SensorAmaAtar> amaAtarList2 = new ArrayList<>();
 	    List<SensorHora> horaList = new ArrayList<>();
 
-	    // Recorrer cada lista de observables y obtener los valores de cada sensor
-	    for (SensorTemp temp : temperaturaObsList) {
-	        temperaturaList.add(temp);
-	    }
+	    temperaturaList.addAll(temperaturaObsList);
+	    humedadList.addAll(humedadObsList);
+	    presionList.addAll(presionObsList);
+	    amaAtarList.addAll(amaAtarObsList);
+	    amaAtarList2.addAll(amaAtarObsList2);
+	    horaList.addAll(horaObsList);
 
-	    for (SensorHumedad hum : humedadObsList) {
-	        humedadList.add(hum);
-	    }
+	    // Obtener los últimos valores de las listas o establecerlos como null si las listas están vacías
+	    Integer temperatura = temperaturaList.isEmpty() ? null : temperaturaList.get(temperaturaList.size() - 1).getTemperatura();
+	    Integer presion = presionList.isEmpty() ? null : presionList.get(presionList.size() - 1).getPresion();
+	    Integer humedad = humedadList.isEmpty() ? null : humedadList.get(humedadList.size() - 1).getHumedad();
+	    String amanecer = amaAtarList.size() >= 2 ? amaAtarList.get(amaAtarList.size() - 2).getAmanacer() : null;
+	    String atardecer = amaAtarList2.isEmpty() ? null : amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer();
+	    Timestamp hora = horaList.isEmpty() ? null : horaList.get(horaList.size() - 1).getHora();
 
-	    for (SensorPresion pres : presionObsList) {
-	        presionList.add(pres);
-	    }
-
-	    for (SensorAmaAtar ama : amaAtarObsList) {
-	        amaAtarList.add(ama);
-	    }
-
-	    for (SensorAmaAtar ama2 : amaAtarObsList2) {
-	        amaAtarList2.add(ama2);
-	    }
-
-	    for (SensorHora hora : horaObsList) {
-	        horaList.add(hora);
-	    }
-
-	    // Crear el objeto TiempoObj con la ultma informacion
-	    TiempoObj tiempo = new TiempoObj(ubicacion, 
-	    		 temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
-	             presionList.get(presionList.size() - 1).getPresion(),
-	             humedadList.get(humedadList.size() - 1).getHumedad(),
-	             amaAtarList.get(amaAtarList.size() - 1).getAmanacer(),
-	             amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
-	                                      horaList.get(horaList.size() - 1).getHora());
+	    // Crear el objeto TiempoObj con la última información
+	    TiempoObj tiempo = new TiempoObj(ubicacion, temperatura, presion, humedad, amanecer, atardecer, hora);
 	    return tiempo;
 	}
-	
 
 
 	  

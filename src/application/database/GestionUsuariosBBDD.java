@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import application.control.LogInController;
 import application.model.Usuario;
 
 public class GestionUsuariosBBDD {
@@ -437,6 +438,17 @@ public class GestionUsuariosBBDD {
 			return null;
 		}
 	}
+	
+	
+	
+	public int getIdUsuarioLoggeado() {
+		if (LogInController.USUARIO_LOGUEADO != null) {
+	        return getIdUsuarioByUsuario(LogInController.USUARIO_LOGUEADO.getUsuario());
+	    } else {
+	        throw new IllegalStateException("No user is currently logged in.");
+	    }
+	}
+	
 	
 	public Vector<Vector<String>> getUsuarioAndIdByRol(int rol) {
 		Vector<Vector<String>> vectorUsuarioAndId = new Vector<Vector<String>>();
