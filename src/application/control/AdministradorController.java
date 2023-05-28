@@ -347,10 +347,11 @@ public class AdministradorController {
 
 	private void estadoTab(String usuario_cliente) {
 		
-		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
-	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
+		GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
+		ObservableList<TiempoObj> items = FXCollections.observableArrayList();
+	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
 	    
-		TiempoObj tiempoActual = gestionTiempo.obtenerInformacionTiempoUltimo();
+	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
 	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); // Especifica la fecha y hora deseada
 
@@ -365,7 +366,8 @@ public class AdministradorController {
 	    long minutos = duracion.toMinutes() % 60; // Obtiene la cantidad de minutos, excluyendo las horas y los días completos
 	    
 	    Platform.runLater(() -> {
-		    if (tiempoActual != null) {
+		 
+	    	if (tiempoActual != null) {
 	        ubicacion.setText(tiempoActual.getUbicacion());
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));

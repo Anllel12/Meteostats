@@ -275,10 +275,12 @@ public class GestionTiempoBBDD {
 	
 	
 	public TiempoObj obtenerInformacionTiempoUltimo() {
+		
 	    GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
 	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
-
+	    
 	    String ubicacion = gestionUsuarios.getUsuarioById(usuarioId);
+
 	    // Obtener las observables listas con la información de los sensores
 	    ObservableList<SensorTemp> temperaturaObsList = getTemperatura1();
 	    ObservableList<SensorHumedad> humedadObsList = getHumedad();
@@ -290,7 +292,7 @@ public class GestionTiempoBBDD {
 	    if (ubicacion.isEmpty()) {
 	        ubicacion = "Ubicacion desconocida";
 	    }
-
+	    
 	    // Crear listas de sensores para almacenar los valores de los sensores
 	    List<SensorTemp> temperaturaList = new ArrayList<>();
 	    List<SensorHumedad> humedadList = new ArrayList<>();
@@ -299,32 +301,47 @@ public class GestionTiempoBBDD {
 	    List<SensorAmaAtar> amaAtarList2 = new ArrayList<>();
 	    List<SensorHora> horaList = new ArrayList<>();
 
-	    TiempoObj tiempo = null;
-
-	    if (!temperaturaList.isEmpty() && !presionList.isEmpty() && !humedadList.isEmpty() &&
-	        !amaAtarList.isEmpty() && !amaAtarList2.isEmpty() && !horaList.isEmpty()) {
-
-	        temperaturaList.get(temperaturaList.size() - 1).getTemperatura();
-	        presionList.get(presionList.size() - 1).getPresion();
-	        humedadList.get(humedadList.size() - 1).getHumedad();
-	        amaAtarList.get(Math.max(0, amaAtarList.size() - 2)).getAmanacer();
-	        amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer();
-	        horaList.get(horaList.size() - 1).getHora();
-
-	        tiempo = new TiempoObj(ubicacion, 
-	                               temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
-	                               presionList.get(presionList.size() - 1).getPresion(),
-	                               humedadList.get(humedadList.size() - 1).getHumedad(),
-	                               amaAtarList.get(Math.max(0, amaAtarList.size() - 2)).getAmanacer(),
-	                               amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
-	                               horaList.get(horaList.size() - 1).getHora());
+	    // Recorrer cada lista de observables y obtener los valores de cada sensor
+	    for (SensorTemp temp : temperaturaObsList) {
+	        temperaturaList.add(temp);
 	    }
 
+	    for (SensorHumedad hum : humedadObsList) {
+	        humedadList.add(hum);
+	    }
+
+	    for (SensorPresion pres : presionObsList) {
+	        presionList.add(pres);
+	    }
+
+	    for (SensorAmaAtar ama : amaAtarObsList) {
+	        amaAtarList.add(ama);
+	    }
+
+	    for (SensorAmaAtar ama2 : amaAtarObsList2) {
+	        amaAtarList2.add(ama2);
+	    }
+
+	    for (SensorHora hora : horaObsList) {
+	        horaList.add(hora);
+	    }
+
+	    // Crear el objeto TiempoObj con la ultma informacion
+	    TiempoObj tiempo = new TiempoObj(ubicacion, 
+	    		 temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
+	             presionList.get(presionList.size() - 1).getPresion(),
+	             humedadList.get(humedadList.size() - 1).getHumedad(),
+	             amaAtarList.get(amaAtarList.size() - 2).getAmanacer(),
+	             amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
+	                                      horaList.get(horaList.size() - 1).getHora());
 	    return tiempo;
 	}
+	
+
 
 	  
 }
+
 
 
 
