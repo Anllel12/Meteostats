@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 
 public class TiempoObj {
 	private String ubicacion;
-	private int temperatura;
-	private int presion;
-	private int humedad;
+	private Integer temperatura;
+	private Integer presion;
+	private Integer humedad;
 	private String amanecer;
 	private String atardecer;
 	private Timestamp hora;

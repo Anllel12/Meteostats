@@ -203,7 +203,6 @@ public class ClienteController {
 	    tcPresion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPresion() + " hPa"));
 	    tcAmanecer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAmanacer() + " AM"));
 	    tcAtardecer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAtardecer() + " PM"));
-	    loadWeatherTabla();
 	}
 	
 	
@@ -247,44 +246,49 @@ public class ClienteController {
 
 	
 	private void estadoTab() {
+		
+		GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
+		TiempoObj tiempoActual = gestionTiempo.obtenerInformacionTiempoUltimo();
 
-		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
-	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
-	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
-	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
-	    
-	    TiempoObj tiempoActual = items.get(items.size() - 1);
+		Platform.runLater(() -> {
+		    if (tiempoActual != null) {
+		        ubicacion.setText(tiempoActual.getUbicacion());
+		        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
+		        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
+		        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
+		        amanecer.setText(String.valueOf(tiempoActual.getAmanecer()));
+		        atardecer.setText(String.valueOf(tiempoActual.getAtardecer()));
 
-	    Platform.runLater(() -> {
-	        ubicacion.setText(tiempoActual.getUbicacion());
-	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
-	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
-	        humedad.setText(String.format("%d %s", tiempoActual.getHumedad(), UNIDADES_TIEMPO.get(2)));
-	        amanecer.setText(String.valueOf(tiempoActual.getAmanecer()));
-	        atardecer.setText(String.valueOf(tiempoActual.getAtardecer()));
-	        
-	        
-	        double presion = tiempoActual.getPresion();
-	        double humedad = tiempoActual.getHumedad();
-	        
-	        double umbralPresion = 1013.25; // Valor de presión de referencia
-	        double umbralHumedad = 70; // Porcentaje de humedad de referencia
-	        
-	        boolean estaNublado = presion < umbralPresion && humedad > umbralHumedad;
+		        double presionValue = tiempoActual.getPresion();
+		        double humedadValue = tiempoActual.getHumedad();
 
-	        String tiempo = estaNublado ? "Tiempo Nublado" : "Tiempo Despejado";
-  
-	        estadoT.setText(tiempo);
-	        
-	        Image imagenEstado;
-	        if (estaNublado) {
-	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/nublado.png"));
-	        } else {
-	            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/despejado.jpg"));
-	        }
-	        estadoImageView.setImage(imagenEstado);
-	        
-	    });
+		        double umbralPresion = 1013.25; // Valor de presión de referencia
+		        double umbralHumedad = 70; // Porcentaje de humedad de referencia
+
+		        boolean estaNublado = presionValue < umbralPresion && humedadValue > umbralHumedad;
+
+		        String tiempo = estaNublado ? "Tiempo Nublado" : "Tiempo Despejado";
+		        estadoT.setText(tiempo);
+
+		        Image imagenEstado;
+		        if (estaNublado) {
+		            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/nublado.png"));
+		        } else {
+		            imagenEstado = new Image(getClass().getResourceAsStream("/data/resources/despejado.jpg"));
+		        }
+		        estadoImageView.setImage(imagenEstado);
+		    } else {
+		        // Handle the case when no data is available
+		        ubicacion.setText("Ubicación desconocida");
+		        temperatura.setText("vacio");
+		        presion.setText("vacio");
+		        humedad.setText("vacio");
+		        amanecer.setText("vacio");
+		        atardecer.setText("vacio");
+		        estadoT.setText("No hay datos disponibles");
+		        estadoImageView.setImage(null);
+		    }
+		});
 
 	}
 

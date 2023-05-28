@@ -350,10 +350,7 @@ public class AdministradorController {
 		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
 	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 	    
-	    ObservableList<TiempoObj> items = FXCollections.observableArrayList();
-	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
-	    
-	    TiempoObj tiempoActual = items.get(items.size() - 1);
+		TiempoObj tiempoActual = gestionTiempo.obtenerInformacionTiempoUltimo();
 
 	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); // Especifica la fecha y hora deseada
 
@@ -368,6 +365,7 @@ public class AdministradorController {
 	    long minutos = duracion.toMinutes() % 60; // Obtiene la cantidad de minutos, excluyendo las horas y los días completos
 	    
 	    Platform.runLater(() -> {
+		    if (tiempoActual != null) {
 	        ubicacion.setText(tiempoActual.getUbicacion());
 	        temperatura.setText(String.format("%d %s", tiempoActual.getTemperatura(), UNIDADES_TIEMPO.get(0)));
 	        presion.setText(String.format("%d %s", tiempoActual.getPresion(), UNIDADES_TIEMPO.get(1)));
@@ -398,7 +396,18 @@ public class AdministradorController {
 	        }
 	        estadoImageView.setImage(imagenEstado);
 
-	    });
+	    }else {
+	        ubicacion.setText("Ubicación desconocida");
+	        temperatura.setText("vacio");
+	        presion.setText("vacio");
+	        humedad.setText("vacio");
+	        amanecer.setText("vacio");
+	        atardecer.setText("vacio");
+	        estadoImageView.setImage(null);
+	    	
+	    }
+    });
+
 	}
 
 	@FXML

@@ -61,7 +61,7 @@ public class GestionTiempoBBDD {
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
-				int temperatura = rs.getInt("lectura1");
+				Integer temperatura = rs.getInt("lectura1");
 				
 				SensorTemp t = new SensorTemp(temperatura);
 				
@@ -100,7 +100,7 @@ public class GestionTiempoBBDD {
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
-				int humedad = rs.getInt("lectura1");
+				Integer humedad = rs.getInt("lectura1");
 
 
 				SensorHumedad t = new SensorHumedad(humedad);
@@ -140,7 +140,7 @@ public class GestionTiempoBBDD {
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
-				int presion = rs.getInt("lectura1");
+				Integer presion = rs.getInt("lectura1");
 
 				SensorPresion t = new SensorPresion(presion);
 				
@@ -248,18 +248,22 @@ public class GestionTiempoBBDD {
 	
 	
 	public List<TiempoObj> obtenerInformacionTiempo() {
+		GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+
+	    String ubicacion = gestionUsuarios.getUsuarioById(usuarioId);
 	    List<SensorTemp> temperaturaList = getTemperatura1();
 	    List<SensorHumedad> humedadList = getHumedad();
 	    List<SensorPresion> presionList = getPresion();
 	    List<SensorAmaAtar> amaAtarList = getAmaAtar();
 	    List<SensorAmaAtar> amaAtarList2 = getAmaAtar();
 	    List<SensorHora> horaList = getHora();
-	   
+
 	    
 	    List<TiempoObj> tiempos = new ArrayList<>();
 
 	    for (int i = 0; i < temperaturaList.size(); i++) {
-	        TiempoObj tiempo = new TiempoObj("Ubicación", temperaturaList.get(i).getTemperatura(),
+	        TiempoObj tiempo = new TiempoObj(ubicacion, temperaturaList.get(i).getTemperatura(),
 	                presionList.get(i).getPresion(), humedadList.get(i).getHumedad(), amaAtarList.get(i).getAmanacer(),
 	                amaAtarList2.get(i).getAtardecer(), horaList.get(i).getHora());
 	        tiempos.add(tiempo);
@@ -271,11 +275,10 @@ public class GestionTiempoBBDD {
 	
 	
 	public TiempoObj obtenerInformacionTiempoUltimo() {
-	    GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
 	    GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
 	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
 
-	    String ubicacion = gUsuario.getUsuarioById(usuarioId);
+	    String ubicacion = gestionUsuarios.getUsuarioById(usuarioId);
 	    // Obtener las observables listas con la información de los sensores
 	    ObservableList<SensorTemp> temperaturaObsList = getTemperatura1();
 	    ObservableList<SensorHumedad> humedadObsList = getHumedad();
@@ -296,26 +299,29 @@ public class GestionTiempoBBDD {
 	    List<SensorAmaAtar> amaAtarList2 = new ArrayList<>();
 	    List<SensorHora> horaList = new ArrayList<>();
 
-	    temperaturaList.addAll(temperaturaObsList);
-	    humedadList.addAll(humedadObsList);
-	    presionList.addAll(presionObsList);
-	    amaAtarList.addAll(amaAtarObsList);
-	    amaAtarList2.addAll(amaAtarObsList2);
-	    horaList.addAll(horaObsList);
+	    TiempoObj tiempo = null;
 
-	    // Obtener los últimos valores de las listas o establecerlos como null si las listas están vacías
-	    Integer temperatura = temperaturaList.isEmpty() ? null : temperaturaList.get(temperaturaList.size() - 1).getTemperatura();
-	    Integer presion = presionList.isEmpty() ? null : presionList.get(presionList.size() - 1).getPresion();
-	    Integer humedad = humedadList.isEmpty() ? null : humedadList.get(humedadList.size() - 1).getHumedad();
-	    String amanecer = amaAtarList.size() >= 2 ? amaAtarList.get(amaAtarList.size() - 2).getAmanacer() : null;
-	    String atardecer = amaAtarList2.isEmpty() ? null : amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer();
-	    Timestamp hora = horaList.isEmpty() ? null : horaList.get(horaList.size() - 1).getHora();
+	    if (!temperaturaList.isEmpty() && !presionList.isEmpty() && !humedadList.isEmpty() &&
+	        !amaAtarList.isEmpty() && !amaAtarList2.isEmpty() && !horaList.isEmpty()) {
 
-	    // Crear el objeto TiempoObj con la última información
-	    TiempoObj tiempo = new TiempoObj(ubicacion, temperatura, presion, humedad, amanecer, atardecer, hora);
+	        temperaturaList.get(temperaturaList.size() - 1).getTemperatura();
+	        presionList.get(presionList.size() - 1).getPresion();
+	        humedadList.get(humedadList.size() - 1).getHumedad();
+	        amaAtarList.get(Math.max(0, amaAtarList.size() - 2)).getAmanacer();
+	        amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer();
+	        horaList.get(horaList.size() - 1).getHora();
+
+	        tiempo = new TiempoObj(ubicacion, 
+	                               temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
+	                               presionList.get(presionList.size() - 1).getPresion(),
+	                               humedadList.get(humedadList.size() - 1).getHumedad(),
+	                               amaAtarList.get(Math.max(0, amaAtarList.size() - 2)).getAmanacer(),
+	                               amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
+	                               horaList.get(horaList.size() - 1).getHora());
+	    }
+
 	    return tiempo;
 	}
-
 
 	  
 }
