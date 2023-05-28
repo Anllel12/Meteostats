@@ -338,9 +338,10 @@ public class GestionTiempoBBDD {
 	}
 	
 
-	public TiempoObj obtenerInformacionTiempoUltimoUsuario(String usuario) {
+public TiempoObj obtenerInformacionTiempoUltimoAux(String usuario) {
+		
 	    GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
-	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+	    int usuarioId = gestionUsuarios.getIdUsuarioByUsuario(usuario);
 	    
 	    String ubicacion = gestionUsuarios.getUsuarioById(usuarioId);
 

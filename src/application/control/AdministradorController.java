@@ -160,7 +160,7 @@ public class AdministradorController {
 		cbCliente.setPromptText("Selecciona un cliente");
 		rellenarComboBoxYClientes();
 		cbCliente.valueProperty().addListener((ov, p1, p2) -> {
-			estadoTab();
+			estadoTab(p2);
 		});
 
 		cbTecnicos.setPromptText("Selecciona un tecnico");
@@ -240,7 +240,7 @@ public class AdministradorController {
 			break;
 
 		case "Estado del Servicio":
-			estadoTab();
+			//estadoTab("");
 
 			break;
 		case "Comunicar a Técnico":
@@ -345,11 +345,11 @@ public class AdministradorController {
 		}
 	}
 
-	private void estadoTab() {
+	private void estadoTab(String cliente) {
 		
 		GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 		ObservableList<TiempoObj> items = FXCollections.observableArrayList();
-	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimo());
+	    items.addAll(gestionTiempo.obtenerInformacionTiempoUltimoAux(cliente));
 	    
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
