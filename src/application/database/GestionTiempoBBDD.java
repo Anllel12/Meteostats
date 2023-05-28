@@ -338,6 +338,67 @@ public class GestionTiempoBBDD {
 	}
 	
 
+	public TiempoObj obtenerInformacionTiempoUltimoUsuario(String usuario) {
+	    GestionUsuariosBBDD gestionUsuarios = new GestionUsuariosBBDD();
+	    int usuarioId = gestionUsuarios.getIdUsuarioLoggeado(); // Obtener el ID del usuario logueado
+	    
+	    String ubicacion = gestionUsuarios.getUsuarioById(usuarioId);
+
+	    // Obtener las observables listas con la información de los sensores
+	    ObservableList<SensorTemp> temperaturaObsList = getTemperatura1();
+	    ObservableList<SensorHumedad> humedadObsList = getHumedad();
+	    ObservableList<SensorPresion> presionObsList = getPresion();
+	    ObservableList<SensorAmaAtar> amaAtarObsList = getAmaAtar();
+	    ObservableList<SensorAmaAtar> amaAtarObsList2 = getAmaAtar();
+	    ObservableList<SensorHora> horaObsList = getHora();
+
+	    if (ubicacion.isEmpty()) {
+	        ubicacion = "Ubicacion desconocida";
+	    }
+	    
+	    // Crear listas de sensores para almacenar los valores de los sensores
+	    List<SensorTemp> temperaturaList = new ArrayList<>();
+	    List<SensorHumedad> humedadList = new ArrayList<>();
+	    List<SensorPresion> presionList = new ArrayList<>();
+	    List<SensorAmaAtar> amaAtarList = new ArrayList<>();
+	    List<SensorAmaAtar> amaAtarList2 = new ArrayList<>();
+	    List<SensorHora> horaList = new ArrayList<>();
+
+	    // Recorrer cada lista de observables y obtener los valores de cada sensor
+	    for (SensorTemp temp : temperaturaObsList) {
+	        temperaturaList.add(temp);
+	    }
+
+	    for (SensorHumedad hum : humedadObsList) {
+	        humedadList.add(hum);
+	    }
+
+	    for (SensorPresion pres : presionObsList) {
+	        presionList.add(pres);
+	    }
+
+	    for (SensorAmaAtar ama : amaAtarObsList) {
+	        amaAtarList.add(ama);
+	    }
+
+	    for (SensorAmaAtar ama2 : amaAtarObsList2) {
+	        amaAtarList2.add(ama2);
+	    }
+
+	    for (SensorHora hora : horaObsList) {
+	        horaList.add(hora);
+	    }
+
+	    // Crear el objeto TiempoObj con la ultma informacion
+	    TiempoObj tiempo = new TiempoObj(ubicacion, 
+	    		 temperaturaList.get(temperaturaList.size() - 1).getTemperatura(),
+	             presionList.get(presionList.size() - 1).getPresion(),
+	             humedadList.get(humedadList.size() - 1).getHumedad(),
+	             amaAtarList.get(amaAtarList.size() - 2).getAmanacer(),
+	             amaAtarList2.get(amaAtarList2.size() - 1).getAtardecer(),
+	                                      horaList.get(horaList.size() - 1).getHora());
+	    return tiempo;
+	}
 
 	  
 }

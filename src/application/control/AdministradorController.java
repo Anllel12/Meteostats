@@ -160,7 +160,7 @@ public class AdministradorController {
 		cbCliente.setPromptText("Selecciona un cliente");
 		rellenarComboBoxYClientes();
 		cbCliente.valueProperty().addListener((ov, p1, p2) -> {
-			estadoTab(p2);
+			estadoTab();
 		});
 
 		cbTecnicos.setPromptText("Selecciona un tecnico");
@@ -240,7 +240,7 @@ public class AdministradorController {
 			break;
 
 		case "Estado del Servicio":
-			estadoTab(null);
+			estadoTab();
 
 			break;
 		case "Comunicar a Técnico":
@@ -345,7 +345,7 @@ public class AdministradorController {
 		}
 	}
 
-	private void estadoTab(String usuario_cliente) {
+	private void estadoTab() {
 		
 		GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 		ObservableList<TiempoObj> items = FXCollections.observableArrayList();
@@ -353,7 +353,7 @@ public class AdministradorController {
 	    
 	    TiempoObj tiempoActual = items.get(items.size() - 1);
 
-	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); // Especifica la fecha y hora deseada
+	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); 
 
 	    
 	    LocalDateTime  horaActual = LocalDateTime.now();
@@ -361,9 +361,9 @@ public class AdministradorController {
 	    
 	    Duration duracion = Duration.between(fechaEspecifica, horaActual); // Calcula la diferencia de tiempo entre los dos timestamps
 
-	    long dias = duracion.toDays(); // Obtiene la cantidad de días de diferencia
-	    long horas = duracion.toHours() % 24; // Obtiene la cantidad de horas, excluyendo los días completos
-	    long minutos = duracion.toMinutes() % 60; // Obtiene la cantidad de minutos, excluyendo las horas y los días completos
+	    long dias = duracion.toDays(); 
+	    long horas = duracion.toHours() % 24; 
+	    long minutos = duracion.toMinutes() % 60; 
 	    
 	    Platform.runLater(() -> {
 		 
