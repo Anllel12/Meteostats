@@ -350,7 +350,9 @@ public class AdministradorController {
 		GestionUsuariosBBDD gUsuario = new GestionUsuariosBBDD();
 	    GestionTiempoBBDD gestionTiempo = new GestionTiempoBBDD();
 	    
-		TiempoObj tiempoActual = gestionTiempo.obtenerInformacionTiempoUltimo();
+		TiempoObj tiempoActual = gestionTiempo.obtenerInformacionTiempoUltimoUsuario(usuario_cliente);
+		System.out.println(usuario_cliente);
+		System.out.println(gUsuario.getIdUsuarioByUsuario(usuario_cliente));
 
 	    LocalDateTime fechaEspecifica = LocalDateTime.of(2023, 4, 22, 20, 50); // Especifica la fecha y hora deseada
 
